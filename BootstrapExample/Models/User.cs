@@ -39,5 +39,5 @@ public class User
 	[Display(Name = "Biographical info")]
 	[DataType(DataType.MultilineText)]
 	[MaxLength(500, ErrorMessage = "Your biography must be shorter than 500 characters")]
-	public string Biography { get; set; }
+	public string Biography { get; set; } = string.Empty;
 }

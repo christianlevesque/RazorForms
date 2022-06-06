@@ -11,7 +11,7 @@ public class TextInputTagHelper : TagHelperBase
 	public InputType? Type { get; set; }
 
 	/// <inheritdoc />
-	public TextInputTagHelper(IHtmlHelper html) : base(html)
+	public TextInputTagHelper(IHtmlHelper html, RazorFormsOptions options) : base(html, options)
 	{
 	}
 

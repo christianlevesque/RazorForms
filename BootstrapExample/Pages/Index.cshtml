@@ -11,41 +11,33 @@
 		<div class="row">
 			<div class="col-12 col-md-6">
 				<text-input asp-for="UserData.FirstName"
-				            input-first
+				            placeholder="First name"
 				            disabled/>
 			</div>
 			<div class="col-12 col-md-6">
 				<text-input asp-for="UserData.LastName"
+				            placeholder="Last name"
 				            class="fake-class"
 				            data-val="true"/>
 			</div>
 			<div class="col-12 col-md-6">
 				<text-input asp-for="UserData.Password"
-				            remove-wrappers/>
+				            placeholder="Password"/>
 			</div>
 			<div class="col-12 col-md-6">
 				<text-input asp-for="UserData.PasswordMatch"
-				            remove-wrappers/>
+				            placeholder="Confirm password"/>
 			</div>
 			<div class="col-12 col-md-6">
 				<text-input asp-for="UserData.PageUrl"
-				            input-first
-				            remove-wrappers
-				            additional-input-block-wrapper-classes="form-floating"
 				            placeholder="Page URL"/>
 			</div>
 			<div class="col-12 col-md-6">
 				<text-input asp-for="UserData.Age"
-				            input-first
-				            remove-wrappers
-				            additional-input-block-wrapper-classes="form-floating"
 				            placeholder="User age"/>
 			</div>
 			<div class="col-12">
 				<text-input asp-for="UserData.Biography"
-				            input-first
-				            remove-wrappers
-				            additional-input-block-wrapper-classes="form-floating"
 				            placeholder="User bio"/>
 			</div>
 		</div>

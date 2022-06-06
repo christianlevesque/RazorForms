@@ -1,63 +1,59 @@
 ﻿using System.Linq;
 using System.Text;
 using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.AspNetCore.Mvc.Razor.Internal;
-using Microsoft.Extensions.Options;
 
 namespace RazorForms.Templates;
 
-public abstract class TemplateBase<TModel> : RazorPage<TModel> where TModel : FormInput
+public abstract class TemplateBase<TModel> : RazorPage<TModel>
+	where TModel : FormInput
 {
-	[RazorInject]
-	public RazorFormsOptions Options { get; set; } = default!;
+	protected string GenerateComponentWrapperClasses()
+		=> GenerateClasses(Model.Options.ComponentWrapperClasses,
+		                   Model.Options.ComponentWrapperValidClasses,
+		                   Model.Options.ComponentWrapperErrorClasses);
 
-	protected string GenerateComponentWrapperClasses() => GenerateClasses(Options.ComponentWrapperClasses,
-	                                                                      Options.ComponentWrapperValidClasses,
-	                                                                      Options.ComponentWrapperErrorClasses,
-	                                                                      startingValue: Model.AdditionalComponentWrapperClasses);
+	protected string GenerateInputBlockWrapperClasses()
+		=> GenerateClasses(Model.Options.InputBlockWrapperClasses,
+		                   Model.Options.InputBlockWrapperValidClasses,
+		                   Model.Options.InputBlockWrapperErrorClasses);
 
-	protected string GenerateInputBlockWrapperClasses() => GenerateClasses(Options.InputBlockWrapperClasses,
-	                                                                       Options.InputBlockWrapperValidClasses,
-	                                                                       Options.InputBlockWrapperErrorClasses,
-	                                                                       startingValue: Model.AdditionalInputBlockWrapperClasses);
+	protected string GenerateLabelWrapperClasses()
+		=> GenerateClasses(Model.Options.LabelWrapperClasses,
+		                   Model.Options.LabelWrapperValidClasses,
+		                   Model.Options.LabelWrapperErrorClasses);
 
-	protected string GenerateLabelWrapperClasses() => GenerateClasses(Options.LabelWrapperClasses,
-	                                                                  Options.LabelWrapperValidClasses,
-	                                                                  Options.LabelWrapperErrorClasses,
-	                                                                  startingValue: Model.AdditionalLabelWrapperClasses);
+	protected string GenerateLabelClasses()
+		=> GenerateClasses(Model.Options.LabelClasses,
+		                   Model.Options.LabelValidClasses,
+		                   Model.Options.LabelErrorClasses);
 
-	protected string GenerateLabelClasses() => GenerateClasses(Options.LabelClasses,
-	                                                           Options.LabelValidClasses,
-	                                                           Options.LabelErrorClasses,
-	                                                           startingValue: Model.AdditionalLabelClasses);
-
-	protected string GenerateInputWrapperClasses() => GenerateClasses(Options.InputWrapperClasses,
-	                                                                  Options.InputWrapperValidClasses,
-	                                                                  Options.InputWrapperErrorClasses,
-	                                                                  startingValue: Model.AdditionalInputWrapperClasses);
+	protected string GenerateInputWrapperClasses()
+		=> GenerateClasses(Model.Options.InputWrapperClasses,
+		                   Model.Options.InputWrapperValidClasses,
+		                   Model.Options.InputWrapperErrorClasses);
 
 	protected string GenerateInputClasses()
 	{
 		var classAttribute = Model.Attributes.FirstOrDefault(a => a.Name == "class");
 		var classValue = classAttribute?.Value.ToString() ?? string.Empty;
 
-		return GenerateClasses(Options.InputClasses,
-		                       Options.InputValidClasses,
-		                       Options.InputErrorClasses,
+		return GenerateClasses(Model.Options.InputClasses,
+		                       Model.Options.InputValidClasses,
+		                       Model.Options.InputErrorClasses,
 		                       startingValue: classValue);
 	}
 
-	protected string GenerateErrorWrapperClasses() => GenerateClasses(Options.ErrorWrapperClasses,
-	                                                                  string.Empty,
-	                                                                  string.Empty,
-	                                                                  false,
-	                                                                  Model.AdditionalErrorWrapperClasses);
+	protected string GenerateErrorWrapperClasses()
+		=> GenerateClasses(Model.Options.ErrorWrapperClasses,
+		                   string.Empty,
+		                   string.Empty,
+		                   false);
 
-	protected string GenerateErrorClasses() => GenerateClasses(Options.ErrorClasses,
-	                                                           string.Empty,
-	                                                           string.Empty,
-	                                                           false,
-	                                                           Model.AdditionalErrorClasses);
+	protected string GenerateErrorClasses()
+		=> GenerateClasses(Model.Options.ErrorClasses,
+		                   string.Empty,
+		                   string.Empty,
+		                   false);
 
 	protected string GenerateAttributes()
 	{
@@ -96,9 +92,9 @@ public abstract class TemplateBase<TModel> : RazorPage<TModel> where TModel : Fo
 		return sb.ToString();
 	}
 
-	protected static string GenerateErrorId(string input) => $"{input}Errors"; 
+	protected static string GenerateErrorId(string input) => $"{input}Errors";
 
-	private string GenerateClasses(string defaultClass, string validStateClass, string invalidStateClass, bool checkValidationState = true, string startingValue = "")
+	private string GenerateClasses(string? defaultClass = null, string? validStateClass = null, string? invalidStateClass = null, bool checkValidationState = true, string? startingValue = null)
 	{
 		var classes = new StringBuilder(startingValue);
 		classes.Append(' ');
