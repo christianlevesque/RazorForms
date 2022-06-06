@@ -1,0 +1,12 @@
+﻿@inherits RazorForms.Templates.TemplateBase<RazorForms.FormInput>
+
+@if (Model.Errors.Any())
+{
+	<ul class="@GenerateErrorWrapperClasses()"
+	    id="@GenerateErrorId(Model.MvcName)">
+		@foreach (var e in Model.Errors)
+		{
+			<li class="@GenerateErrorClasses()">@e</li>
+		}
+	</ul>	
+}

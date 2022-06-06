@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace RazorForms;
 
-public class FormInputBase
+public class FormInput
 {
 	public IHtmlContent? ChildContent { get; set; }
 	public IList<string> Errors { get; set; } = new List<string>();
@@ -12,5 +12,8 @@ public class FormInputBase
 	public string MvcName { get; set; } = default!;
 	public object? Value { get; set; }
 	public bool IsValid { get; set; }
+	public bool RemoveWrappers { get; set; }
+	public bool InputFirst { get; set; }
 	public TagHelperAttributeList Attributes { get; set; } = default!;
+	public InputType Type { get; set; }
 }

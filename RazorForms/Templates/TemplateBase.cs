@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 
 namespace RazorForms.Templates;
 
-public abstract class TemplateBase<TModel> : RazorPage<TModel> where TModel : FormInputBase
+public abstract class TemplateBase<TModel> : RazorPage<TModel> where TModel : FormInput
 {
 	[RazorInject]
 	public RazorFormsOptions Options { get; set; } = default!;

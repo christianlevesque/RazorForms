@@ -1,44 +1,19 @@
 ﻿@using RazorForms
-@using InputType = RazorForms.InputType
-@inherits RazorForms.Templates.TemplateBase<TextInputModel>
+@inherits RazorForms.Templates.TemplateBase<FormInput>
 
 <div class="@GenerateComponentWrapperClasses()">
 	<div class="@GenerateInputBlockWrapperClasses()">
-		<div class="@GenerateLabelWrapperClasses()">
-			<label for="@Model.MvcName"
-			       class="@GenerateLabelClasses()">
-				@Model.DisplayName
-			</label>
-		</div>
-
-		<div class="@GenerateInputWrapperClasses()">
-			@if (Model.Type == InputType.TextArea)
-			{
-				<textarea id="@Model.MvcName"
-						  name="@Model.MvcName"
-						  class="@GenerateInputClasses()"
-						  @Html.Raw(GenerateAttributes())>@Model.Value</textarea>
-			}
-			else
-			{
-				<input id="@Model.MvcName"
-				       name="@Model.MvcName"
-				       type="@Model.Type.GetDescription()"
-				       class="@GenerateInputClasses()"
-				       value="@Model.Value"
-				       @Html.Raw(GenerateAttributes())/>
-			}
-		</div>
+		@if (Model.InputFirst)
+		{
+			@await Html.PartialAsync("./Inputs/Input.cshtml", Model)
+			@await Html.PartialAsync("./Elements/Label.cshtml", Model)
+		}
+		else
+		{
+			@await Html.PartialAsync("./Elements/Label.cshtml", Model)
+			@await Html.PartialAsync("./Inputs/Input.cshtml", Model)
+		}
 	</div>
 
-	@if (Model.Errors.Any())
-	{
-		<ul class="@GenerateErrorWrapperClasses()"
-		    id="@GenerateErrorId(Model.MvcName)">
-			@foreach (var e in Model.Errors)
-			{
-				<li class="@GenerateErrorClasses()">@e</li>
-			}
-		</ul>	
-	}
+	@await Html.PartialAsync("./Elements/ErrorList.cshtml", Model)
 </div>

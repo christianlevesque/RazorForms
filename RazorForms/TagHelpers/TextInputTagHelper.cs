@@ -17,7 +17,7 @@ public class TextInputTagHelper : TagHelperBase
 
 	public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
 	{
-		var model = await ProcessBase<TextInputModel>(output);
+		var model = await ProcessBase<FormInput>(output);
 		model.Type = Type ?? GetInputType();
 
 		var content = await Html.PartialAsync("~/Templates/TextInput.cshtml", model);

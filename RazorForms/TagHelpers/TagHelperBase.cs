@@ -25,7 +25,10 @@ public class TagHelperBase : TagHelper
 	[HtmlAttributeName("asp-for")]
 	public ModelExpression For { get; set; } = default!;
 
-	protected async Task<TModel> ProcessBase<TModel>(TagHelperOutput output) where TModel : FormInputBase, new()
+	public bool RemoveWrappers { get; set; }
+	public bool InputFirst { get; set; }
+
+	protected async Task<TModel> ProcessBase<TModel>(TagHelperOutput output) where TModel : FormInput, new()
 	{
 		(Html as IViewContextAware)!.Contextualize(ViewContext);
 		output.TagName = string.Empty;
@@ -37,6 +40,8 @@ public class TagHelperBase : TagHelper
 			Value = ViewContext.ViewData.Eval(For.Name),
 			Errors = GetErrors(),
 			IsValid = ViewContext.ModelState.GetFieldValidationState(For.Name) == ModelValidationState.Valid,
+			RemoveWrappers = RemoveWrappers,
+			InputFirst = InputFirst,
 			Attributes = output.Attributes
 		};
 		return model;

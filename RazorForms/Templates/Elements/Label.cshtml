@@ -1,0 +1,12 @@
+﻿@inherits RazorForms.Templates.TemplateBase<RazorForms.FormInput>
+
+@if (Model.RemoveWrappers)
+{
+	@await Html.PartialAsync("./LabelRaw.cshtml", Model)
+}
+else
+{
+	<div class="@GenerateLabelWrapperClasses()">
+		@await Html.PartialAsync("./LabelRaw.cshtml", Model)
+	</div>
+}
