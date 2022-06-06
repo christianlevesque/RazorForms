@@ -1,0 +1,39 @@
+﻿@page
+@model IndexModel
+@{
+	ViewData["Title"] = "Home page";
+}
+
+<div>
+	<h1 class="display-4 text-center">Welcome</h1>
+	<form asp-page="/"
+	      method="post">
+		<div class="row">
+			<div class="col-12 col-md-6">
+				<text-input asp-for="UserData.FirstName" disabled/>
+			</div>
+			<div class="col-12 col-md-6">
+				<text-input asp-for="UserData.LastName"
+				            class="fake-class"
+				            data-val="true"/>
+			</div>
+			<div class="col-12 col-md-6">
+				<text-input asp-for="UserData.Password"/>
+			</div>
+			<div class="col-12 col-md-6">
+				<text-input asp-for="UserData.PasswordMatch"/>
+			</div>
+			<div class="col-12 col-md-6">
+				<text-input asp-for="UserData.PageUrl"/>
+			</div>
+			<div class="col-12 col-md-6">
+				<text-input asp-for="UserData.Age"/>
+			</div>
+		</div>
+
+		<button class="btn btn-outline-primary d-block mt-3"
+		        type="submit">
+			Submit
+		</button>
+	</form>
+</div>

@@ -1,0 +1,8 @@
+﻿.idea/
+.vs/
+.vscode/
+
+[Bb]in/
+[Oo]bj/
+*.exe
+*.pdb

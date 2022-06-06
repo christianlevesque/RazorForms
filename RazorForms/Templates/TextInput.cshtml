@@ -1,0 +1,33 @@
+﻿@using RazorForms
+@inherits RazorForms.Templates.TemplateBase<TextInputModel>
+
+<div class="@GenerateComponentWrapperClasses()">
+	<div class="@GenerateInputBlockWrapperClasses()">
+		<div class="@GenerateLabelWrapperClasses()">
+			<label for="@Model.MvcName"
+			       class="@GenerateLabelClasses()">
+				@Model.DisplayName
+			</label>
+		</div>
+
+		<div class="@GenerateInputWrapperClasses()">
+			<input id="@Model.MvcName"
+			       name="@Model.MvcName"
+			       type="@Model.Type.GetDescription()"
+			       class="@GenerateInputClasses()"
+			       value="@Model.Value"
+			       @Html.Raw(GenerateAttributes())/>
+		</div>
+	</div>
+
+	@if (Model.Errors.Any())
+	{
+		<ul class="@GenerateErrorWrapperClasses()"
+		    id="@GenerateErrorId(Model.MvcName)">
+			@foreach (var e in Model.Errors)
+			{
+				<li class="@GenerateErrorClasses()">@e</li>
+			}
+		</ul>	
+	}
+</div>
