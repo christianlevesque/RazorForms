@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace RazorForms.TagHelpers;
 
-public class TagHelperBase : TagHelper
+public class TagHelperBase : TagHelper, IAdditionalFormClasses
 {
 	protected readonly IHtmlHelper Html;
 
@@ -27,6 +27,13 @@ public class TagHelperBase : TagHelper
 
 	public bool RemoveWrappers { get; set; }
 	public bool InputFirst { get; set; }
+	public string? AdditionalComponentWrapperClasses { get; set; }
+	public string? AdditionalInputBlockWrapperClasses { get; set; }
+	public string? AdditionalLabelWrapperClasses { get; set; }
+	public string? AdditionalLabelClasses { get; set; }
+	public string? AdditionalInputWrapperClasses { get; set; }
+	public string? AdditionalErrorWrapperClasses { get; set; }
+	public string? AdditionalErrorClasses { get; set; }
 
 	protected async Task<TModel> ProcessBase<TModel>(TagHelperOutput output) where TModel : FormInput, new()
 	{
@@ -42,7 +49,14 @@ public class TagHelperBase : TagHelper
 			IsValid = ViewContext.ModelState.GetFieldValidationState(For.Name) == ModelValidationState.Valid,
 			RemoveWrappers = RemoveWrappers,
 			InputFirst = InputFirst,
-			Attributes = output.Attributes
+			Attributes = output.Attributes,
+			AdditionalComponentWrapperClasses = AdditionalComponentWrapperClasses,
+			AdditionalInputBlockWrapperClasses = AdditionalInputBlockWrapperClasses,
+			AdditionalLabelWrapperClasses = AdditionalLabelWrapperClasses,
+			AdditionalLabelClasses = AdditionalLabelClasses,
+			AdditionalInputWrapperClasses = AdditionalInputWrapperClasses,
+			AdditionalErrorWrapperClasses = AdditionalErrorWrapperClasses,
+			AdditionalErrorClasses = AdditionalErrorClasses
 		};
 		return model;
 	}

@@ -13,23 +13,28 @@ public abstract class TemplateBase<TModel> : RazorPage<TModel> where TModel : Fo
 
 	protected string GenerateComponentWrapperClasses() => GenerateClasses(Options.ComponentWrapperClasses,
 	                                                                      Options.ComponentWrapperValidClasses,
-	                                                                      Options.ComponentWrapperErrorClasses);
+	                                                                      Options.ComponentWrapperErrorClasses,
+	                                                                      startingValue: Model.AdditionalComponentWrapperClasses);
 
 	protected string GenerateInputBlockWrapperClasses() => GenerateClasses(Options.InputBlockWrapperClasses,
 	                                                                       Options.InputBlockWrapperValidClasses,
-	                                                                       Options.InputBlockWrapperErrorClasses);
+	                                                                       Options.InputBlockWrapperErrorClasses,
+	                                                                       startingValue: Model.AdditionalInputBlockWrapperClasses);
 
 	protected string GenerateLabelWrapperClasses() => GenerateClasses(Options.LabelWrapperClasses,
 	                                                                  Options.LabelWrapperValidClasses,
-	                                                                  Options.LabelWrapperErrorClasses);
+	                                                                  Options.LabelWrapperErrorClasses,
+	                                                                  startingValue: Model.AdditionalLabelWrapperClasses);
 
 	protected string GenerateLabelClasses() => GenerateClasses(Options.LabelClasses,
 	                                                           Options.LabelValidClasses,
-	                                                           Options.LabelErrorClasses);
+	                                                           Options.LabelErrorClasses,
+	                                                           startingValue: Model.AdditionalLabelClasses);
 
 	protected string GenerateInputWrapperClasses() => GenerateClasses(Options.InputWrapperClasses,
 	                                                                  Options.InputWrapperValidClasses,
-	                                                                  Options.InputWrapperErrorClasses);
+	                                                                  Options.InputWrapperErrorClasses,
+	                                                                  startingValue: Model.AdditionalInputWrapperClasses);
 
 	protected string GenerateInputClasses()
 	{
@@ -42,9 +47,17 @@ public abstract class TemplateBase<TModel> : RazorPage<TModel> where TModel : Fo
 		                       startingValue: classValue);
 	}
 
-	protected string GenerateErrorWrapperClasses() => GenerateClasses(Options.ErrorWrapperClasses, string.Empty, string.Empty, false);
+	protected string GenerateErrorWrapperClasses() => GenerateClasses(Options.ErrorWrapperClasses,
+	                                                                  string.Empty,
+	                                                                  string.Empty,
+	                                                                  false,
+	                                                                  Model.AdditionalErrorWrapperClasses);
 
-	protected string GenerateErrorClasses() => GenerateClasses(Options.ErrorClasses, string.Empty, string.Empty, false);
+	protected string GenerateErrorClasses() => GenerateClasses(Options.ErrorClasses,
+	                                                           string.Empty,
+	                                                           string.Empty,
+	                                                           false,
+	                                                           Model.AdditionalErrorClasses);
 
 	protected string GenerateAttributes()
 	{

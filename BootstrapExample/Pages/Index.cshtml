@@ -10,7 +10,9 @@
 	      method="post">
 		<div class="row">
 			<div class="col-12 col-md-6">
-				<text-input asp-for="UserData.FirstName" disabled/>
+				<text-input asp-for="UserData.FirstName"
+				            input-first
+				            disabled/>
 			</div>
 			<div class="col-12 col-md-6">
 				<text-input asp-for="UserData.LastName"
@@ -18,19 +20,33 @@
 				            data-val="true"/>
 			</div>
 			<div class="col-12 col-md-6">
-				<text-input asp-for="UserData.Password"/>
+				<text-input asp-for="UserData.Password"
+				            remove-wrappers/>
 			</div>
 			<div class="col-12 col-md-6">
-				<text-input asp-for="UserData.PasswordMatch"/>
+				<text-input asp-for="UserData.PasswordMatch"
+				            remove-wrappers/>
 			</div>
 			<div class="col-12 col-md-6">
-				<text-input asp-for="UserData.PageUrl"/>
+				<text-input asp-for="UserData.PageUrl"
+				            input-first
+				            remove-wrappers
+				            additional-input-block-wrapper-classes="form-floating"
+				            placeholder="Page URL"/>
 			</div>
 			<div class="col-12 col-md-6">
-				<text-input asp-for="UserData.Age"/>
+				<text-input asp-for="UserData.Age"
+				            input-first
+				            remove-wrappers
+				            additional-input-block-wrapper-classes="form-floating"
+				            placeholder="User age"/>
 			</div>
 			<div class="col-12">
-				<text-input asp-for="UserData.Biography"/>
+				<text-input asp-for="UserData.Biography"
+				            input-first
+				            remove-wrappers
+				            additional-input-block-wrapper-classes="form-floating"
+				            placeholder="User bio"/>
 			</div>
 		</div>
 
