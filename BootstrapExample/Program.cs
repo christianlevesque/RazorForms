@@ -9,8 +9,11 @@ builder.Services.AddRazorPages();
 builder.Services.UseRazorFormsWithBootstrap(o =>
 {
 	o.ComponentWrapperClasses = "mb-3";
+	o.InputBlockWrapperClasses = "form-floating";
 	o.ErrorWrapperClasses = $"{o.ErrorWrapperClasses} mt-1";
 	o.ErrorClasses = "small";
+	o.InputFirst = true;
+	o.RemoveWrappers = true;
 });
 
 var app = builder.Build();

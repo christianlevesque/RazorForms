@@ -8,14 +8,16 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace RazorForms.TagHelpers;
 
-public class TagHelperBase : TagHelper, IAdditionalFormClasses
+public class TagHelperBase : TagHelper, IFormClasses, IFormMarkupSettings
 {
 	protected readonly IHtmlHelper Html;
+	protected readonly RazorFormsOptions Options;
 
 	/// <inheritdoc />
-	public TagHelperBase(IHtmlHelper html)
+	public TagHelperBase(IHtmlHelper html, RazorFormsOptions options)
 	{
 		Html = html;
+		Options = options;
 	}
 
 	[HtmlAttributeNotBound]
@@ -25,15 +27,71 @@ public class TagHelperBase : TagHelper, IAdditionalFormClasses
 	[HtmlAttributeName("asp-for")]
 	public ModelExpression For { get; set; } = default!;
 
-	public bool RemoveWrappers { get; set; }
-	public bool InputFirst { get; set; }
-	public string? AdditionalComponentWrapperClasses { get; set; }
-	public string? AdditionalInputBlockWrapperClasses { get; set; }
-	public string? AdditionalLabelWrapperClasses { get; set; }
-	public string? AdditionalLabelClasses { get; set; }
-	public string? AdditionalInputWrapperClasses { get; set; }
-	public string? AdditionalErrorWrapperClasses { get; set; }
-	public string? AdditionalErrorClasses { get; set; }
+	/// <inheritdoc/>
+	public bool? RemoveWrappers { get; set; }
+
+	/// <inheritdoc/>
+	public bool? InputFirst { get; set; }
+
+	/// <inheritdoc/>
+	public string? ComponentWrapperClasses { get; set; }
+
+	/// <inheritdoc/>
+	public string? ComponentWrapperValidClasses { get; set; }
+
+	/// <inheritdoc/>
+	public string? ComponentWrapperErrorClasses { get; set; }
+
+	/// <inheritdoc/>
+	public string? InputBlockWrapperClasses { get; set; }
+
+	/// <inheritdoc/>
+	public string? InputBlockWrapperValidClasses { get; set; }
+
+	/// <inheritdoc/>
+	public string? InputBlockWrapperErrorClasses { get; set; }
+
+	/// <inheritdoc/>
+	public string? LabelWrapperClasses { get; set; }
+
+	/// <inheritdoc/>
+	public string? LabelWrapperValidClasses { get; set; }
+
+	/// <inheritdoc/>
+	public string? LabelWrapperErrorClasses { get; set; }
+
+	/// <inheritdoc/>
+	public string? LabelClasses { get; set; }
+
+	/// <inheritdoc/>
+	public string? LabelValidClasses { get; set; }
+
+	/// <inheritdoc/>
+	public string? LabelErrorClasses { get; set; }
+
+	/// <inheritdoc/>
+	public string? InputWrapperClasses { get; set; }
+
+	/// <inheritdoc/>
+	public string? InputWrapperValidClasses { get; set; }
+
+	/// <inheritdoc/>
+	public string? InputWrapperErrorClasses { get; set; }
+
+	/// <inheritdoc/>
+	public string? InputClasses { get; set; }
+
+	/// <inheritdoc/>
+	public string? InputValidClasses { get; set; }
+
+	/// <inheritdoc/>
+	public string? InputErrorClasses { get; set; }
+
+	/// <inheritdoc/>
+	public string? ErrorWrapperClasses { get; set; }
+
+	/// <inheritdoc/>
+	public string? ErrorClasses { get; set; }
 
 	protected async Task<TModel> ProcessBase<TModel>(TagHelperOutput output) where TModel : FormInput, new()
 	{
@@ -47,16 +105,8 @@ public class TagHelperBase : TagHelper, IAdditionalFormClasses
 			Value = ViewContext.ViewData.Eval(For.Name),
 			Errors = GetErrors(),
 			IsValid = ViewContext.ModelState.GetFieldValidationState(For.Name) == ModelValidationState.Valid,
-			RemoveWrappers = RemoveWrappers,
-			InputFirst = InputFirst,
 			Attributes = output.Attributes,
-			AdditionalComponentWrapperClasses = AdditionalComponentWrapperClasses,
-			AdditionalInputBlockWrapperClasses = AdditionalInputBlockWrapperClasses,
-			AdditionalLabelWrapperClasses = AdditionalLabelWrapperClasses,
-			AdditionalLabelClasses = AdditionalLabelClasses,
-			AdditionalInputWrapperClasses = AdditionalInputWrapperClasses,
-			AdditionalErrorWrapperClasses = AdditionalErrorWrapperClasses,
-			AdditionalErrorClasses = AdditionalErrorClasses
+			Options = Options.Merge(this, this)
 		};
 		return model;
 	}

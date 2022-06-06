@@ -3,7 +3,7 @@
 
 <div class="@GenerateComponentWrapperClasses()">
 	<div class="@GenerateInputBlockWrapperClasses()">
-		@if (Model.InputFirst)
+		@if (Model.Options.InputFirst ?? false)
 		{
 			@await Html.PartialAsync("./Inputs/Input.cshtml", Model)
 			@await Html.PartialAsync("./Elements/Label.cshtml", Model)
