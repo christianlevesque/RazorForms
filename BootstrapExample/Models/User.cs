@@ -34,4 +34,10 @@ public class User
 	[Range(21, 119, ErrorMessage = "You must be between 21 and 119 to join!")]
 	[Display(Name = "Age")]
 	public int Age { get; set; }
+
+	[Required]
+	[Display(Name = "Biographical info")]
+	[DataType(DataType.MultilineText)]
+	[MaxLength(500, ErrorMessage = "Your biography must be shorter than 500 characters")]
+	public string Biography { get; set; }
 }

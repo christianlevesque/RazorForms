@@ -47,9 +47,10 @@ public class TextInputTagHelper : TagHelperBase
 				return InputType.PhoneNumber;
 			case nameof(DataType.Currency):
 				return InputType.Number;
+			case nameof(DataType.MultilineText):
+				return InputType.TextArea;
 			case nameof(DataType.PostalCode):
 			case nameof(DataType.Text):
-			case nameof(DataType.MultilineText):
 				return InputType.Text;
 			default:
 				throw new NotSupportedException($"Data type {type} is not supported for text inputs");

@@ -1,4 +1,5 @@
 ﻿@using RazorForms
+@using InputType = RazorForms.InputType
 @inherits RazorForms.Templates.TemplateBase<TextInputModel>
 
 <div class="@GenerateComponentWrapperClasses()">
@@ -11,12 +12,22 @@
 		</div>
 
 		<div class="@GenerateInputWrapperClasses()">
-			<input id="@Model.MvcName"
-			       name="@Model.MvcName"
-			       type="@Model.Type.GetDescription()"
-			       class="@GenerateInputClasses()"
-			       value="@Model.Value"
-			       @Html.Raw(GenerateAttributes())/>
+			@if (Model.Type == InputType.TextArea)
+			{
+				<textarea id="@Model.MvcName"
+						  name="@Model.MvcName"
+						  class="@GenerateInputClasses()"
+						  @Html.Raw(GenerateAttributes())>@Model.Value</textarea>
+			}
+			else
+			{
+				<input id="@Model.MvcName"
+				       name="@Model.MvcName"
+				       type="@Model.Type.GetDescription()"
+				       class="@GenerateInputClasses()"
+				       value="@Model.Value"
+				       @Html.Raw(GenerateAttributes())/>
+			}
 		</div>
 	</div>
 
