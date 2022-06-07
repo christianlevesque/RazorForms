@@ -1,22 +1,7 @@
-﻿namespace RazorForms;
+﻿namespace RazorForms.Options;
 
-public interface IFormClasses
+public interface IFormComponentOptions : IComponentWithValidationOptions
 {
-	/// <summary>
-	/// CSS classes applied to the &lt;div&gt; surrounding the entire component
-	/// </summary>
-	string? ComponentWrapperClasses { get; set; }
-
-	/// <summary>
-	/// CSS classes applied to the &lt;div&gt; surrounding the entire component when model validation succeeds
-	/// </summary>
-	string? ComponentWrapperValidClasses { get; set; }
-
-	/// <summary>
-	/// CSS classes applied to the &lt;div&gt; surrounding the entire component when model validation fails
-	/// </summary>
-	string? ComponentWrapperErrorClasses { get; set; }
-
 	/// <summary>
 	/// CSS classes applied to the &lt;div&gt; surrounding the entire input block
 	/// </summary>
@@ -101,4 +86,9 @@ public interface IFormClasses
 	/// CSS classes applied to the &lt;li&gt; containing each input validation error
 	/// </summary>
 	string? ErrorClasses { get; set; }
+
+	/// <summary>
+	/// Determines whether the &lt;input&gt; should come first in the markup or not
+	/// </summary>
+	bool? InputFirst { get; set; }
 }

@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using RazorForms.Options;
 
 namespace RazorForms;
 
-public class FormInput
+public class FormInput<TOptions> : IFormInput<TOptions> where TOptions : IFormComponentOptions
 {
 	public IHtmlContent? ChildContent { get; set; }
 	public IList<string> Errors { get; set; } = new List<string>();
@@ -14,5 +15,5 @@ public class FormInput
 	public bool IsValid { get; set; }
 	public TagHelperAttributeList Attributes { get; set; } = default!;
 	public InputType Type { get; set; }
-	public RazorFormsOptions Options { get; set; } = default!;
+	public TOptions Options { get; set; } = default!;
 }

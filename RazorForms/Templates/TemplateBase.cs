@@ -1,12 +1,14 @@
 ﻿using System.Linq;
 using System.Text;
 using Microsoft.AspNetCore.Mvc.Razor;
+using RazorForms.Options;
 
 namespace RazorForms.Templates;
 
 public abstract class TemplateBase<TModel> : RazorPage<TModel>
-	where TModel : FormInput
+	where TModel : FormInput<IFormComponentOptions>
 {
+	protected IFormComponentOptions InputOptions => Model.Options;
 	protected string GenerateAttributes()
 	{
 		var sb = new StringBuilder();

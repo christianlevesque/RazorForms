@@ -1,6 +1,6 @@
-﻿@inherits RazorForms.Templates.Inputs.InputBase<RazorForms.FormInput>
+﻿@inherits RazorForms.Templates.Inputs.InputBase<RazorForms.FormInput<RazorForms.Options.IFormComponentOptions>>
 
-@if (Model.Options.RemoveWrappers ?? false)
+@if (InputOptions.RemoveWrappers ?? false)
 {
 	@await Html.PartialAsync("./InputRaw.cshtml", Model)
 }

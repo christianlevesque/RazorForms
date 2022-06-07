@@ -1,15 +1,17 @@
-﻿namespace RazorForms.Templates;
+﻿using RazorForms.Options;
+
+namespace RazorForms.Templates;
 
 public abstract class TextInputBase<TModel> : TemplateBase<TModel>
-	where TModel : FormInput
+	where TModel : FormInput<IFormComponentOptions>
 {
 	protected string GenerateComponentWrapperClasses()
-		=> GenerateClasses(Model.Options.ComponentWrapperClasses,
-		                   Model.Options.ComponentWrapperValidClasses,
-		                   Model.Options.ComponentWrapperErrorClasses);
+		=> GenerateClasses(InputOptions.ComponentWrapperClasses,
+		                   InputOptions.ComponentWrapperValidClasses,
+		                   InputOptions.ComponentWrapperErrorClasses);
 
 	protected string GenerateInputBlockWrapperClasses()
-		=> GenerateClasses(Model.Options.InputBlockWrapperClasses,
-		                   Model.Options.InputBlockWrapperValidClasses,
-		                   Model.Options.InputBlockWrapperErrorClasses);
+		=> GenerateClasses(InputOptions.InputBlockWrapperClasses,
+		                   InputOptions.InputBlockWrapperValidClasses,
+		                   InputOptions.InputBlockWrapperErrorClasses);
 }

@@ -3,21 +3,23 @@ using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using RazorForms.Options;
 
 namespace RazorForms.TagHelpers;
 
-public class TextInputTagHelper : TagHelperBase
+public class TextInputTagHelper : InputHelperBase
 {
 	public InputType? Type { get; set; }
 
 	/// <inheritdoc />
-	public TextInputTagHelper(IHtmlHelper html, RazorFormsOptions options) : base(html, options)
+	public TextInputTagHelper(IHtmlHelper html, IInputOptions options) : base(html, options)
 	{
 	}
 
 	public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
 	{
-		var model = await ProcessBase<FormInput>(output);
+		await base.ProcessAsync(context, output);
+		var model = await GetComponentModel<FormInput<IFormComponentOptions>>(output);
 		model.Type = Type ?? GetInputType();
 
 		var content = await Html.PartialAsync("~/Templates/TextInput.cshtml", model);

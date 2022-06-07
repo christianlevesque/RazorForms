@@ -1,10 +1,12 @@
-﻿namespace RazorForms.Templates.Elements;
+﻿using RazorForms.Options;
+
+namespace RazorForms.Templates.Elements;
 
 public abstract class LabelBase<TModel> : TemplateBase<TModel>
-	where TModel : FormInput
+	where TModel : FormInput<IFormComponentOptions>
 {
 	protected string GenerateLabelWrapperClasses()
-		=> GenerateClasses(Model.Options.LabelWrapperClasses,
-		                   Model.Options.LabelWrapperValidClasses,
-		                   Model.Options.LabelWrapperErrorClasses);
+		=> GenerateClasses(InputOptions.LabelWrapperClasses,
+		                   InputOptions.LabelWrapperValidClasses,
+		                   InputOptions.LabelWrapperErrorClasses);
 }
