@@ -50,6 +50,14 @@ public class FormInput
 	public InputType Type { get; set; }
 
 	/// <summary>
+	/// Determines whether or not the &lt;label&gt; should receive the <see cref="ChildContent"/> value 
+	/// </summary>
+	/// <remarks>
+	/// If <c>true</c>, the <see cref="ChildContent"/> should be used as the inner HTML for the &lt;label&gt; element. Otherwise, it should be reserved for use elsewhere in the component.
+	/// </remarks>
+	public bool LabelAcceptsChildContent { get; set; }
+
+	/// <summary>
 	/// The <see cref="RazorFormsOptions"/> to pass to the component for use during rendering
 	/// </summary>
 	public RazorFormsOptions Options { get; set; } = default!;
