@@ -21,7 +21,7 @@ public static class Utilities
 	/// </summary>
 	/// <param name="self">the <see cref="StringBuilder"/> instance</param>
 	/// <param name="input">the value to append</param>
-	public static void AppendClass(this StringBuilder self, string? input)
+	public static void AppendWithLeadingSpace(this StringBuilder self, string? input)
 	{
 		if (string.IsNullOrEmpty(input))
 		{
