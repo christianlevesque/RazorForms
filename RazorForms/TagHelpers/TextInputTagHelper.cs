@@ -23,6 +23,7 @@ public class TextInputTagHelper : TagHelperBase
 	{
 		var model = await ProcessBase<FormInput>(output);
 		model.Type = Type ?? GetInputType();
+		model.LabelAcceptsChildContent = true;
 
 		var content = await Html.PartialAsync("~/Templates/TextInput.cshtml", model);
 		output.Content.SetHtmlContent(content);

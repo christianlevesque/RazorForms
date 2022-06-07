@@ -2,5 +2,12 @@
 
 <label for="@Model.MvcName"
        class="@GenerateLabelClasses()">
-	@Model.DisplayName
+	@if (Model.LabelAcceptsChildContent && Model.ChildContent != null)
+	{
+		@Model.ChildContent
+	}
+	else
+	{
+		@Model.DisplayName
+	}
 </label>
