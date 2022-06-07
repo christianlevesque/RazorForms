@@ -7,7 +7,7 @@ namespace RazorForms;
 
 public interface IFormInput<TOptions> where TOptions : IFormComponentOptions
 {
-	IHtmlContent? ChildContent { get; set; }
+	TagHelperContent ChildContent { get; set; }
 	IList<string> Errors { get; set; }
 	string DisplayName { get; set; }
 	string MvcName { get; set; }

@@ -17,6 +17,9 @@ public class TagHelperBase : TagHelper
 		Html = html;
 	}
 
+	/// <summary>
+	/// The currently executing view context
+	/// </summary>
 	[HtmlAttributeNotBound]
 	[ViewContext]
 	public ViewContext ViewContext { get; set; } = default!;
