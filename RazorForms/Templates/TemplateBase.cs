@@ -53,18 +53,17 @@ public abstract class TemplateBase<TModel> : RazorPage<TModel>
 	                                 string? startingValue = null)
 	{
 		var classes = new StringBuilder(startingValue);
-		classes.Append(' ');
-		classes.Append(defaultClass);
+		classes.AppendClass(defaultClass);
 
 		if (checkValidationState)
 		{
 			if (Model.Errors.Any())
 			{
-				classes.Append($" {invalidStateClass}");
+				classes.AppendClass(invalidStateClass);
 			}
 			else if (Model.IsValid)
 			{
-				classes.Append($" {validStateClass}");
+				classes.AppendClass(validStateClass);
 			}
 		}
 
