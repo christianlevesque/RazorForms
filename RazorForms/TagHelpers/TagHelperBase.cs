@@ -20,10 +20,16 @@ public class TagHelperBase : TagHelper, IFormClasses, IFormMarkupSettings
 		Options = options;
 	}
 
+	/// <summary>
+	/// The currently executing view context
+	/// </summary>
 	[HtmlAttributeNotBound]
 	[ViewContext]
 	public ViewContext ViewContext { get; set; } = default!;
 
+	/// <summary>
+	/// The model property the current input is for
+	/// </summary>
 	[HtmlAttributeName("asp-for")]
 	public ModelExpression For { get; set; } = default!;
 
@@ -93,6 +99,12 @@ public class TagHelperBase : TagHelper, IFormClasses, IFormMarkupSettings
 	/// <inheritdoc/>
 	public string? ErrorClasses { get; set; }
 
+	/// <summary>
+	/// Runs the basic level of processing that all tag helpers need to function
+	/// </summary>
+	/// <param name="output">The <see cref="TagHelperOutput"/> instance</param>
+	/// <typeparam name="TModel">The type of the data model to instantiate</typeparam>
+	/// <returns></returns>
 	protected async Task<TModel> ProcessBase<TModel>(TagHelperOutput output) where TModel : FormInput, new()
 	{
 		(Html as IViewContextAware)!.Contextualize(ViewContext);
@@ -111,6 +123,10 @@ public class TagHelperBase : TagHelper, IFormClasses, IFormMarkupSettings
 		return model;
 	}
 
+	/// <summary>
+	/// Processes the <see cref="ModelStateDictionary"/> and returns any active error messages as a list of strings
+	/// </summary>
+	/// <returns></returns>
 	protected IList<string> GetErrors()
 	{
 		var empty = new List<string>();

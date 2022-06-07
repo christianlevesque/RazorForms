@@ -7,6 +7,11 @@ namespace RazorForms;
 
 public static class Utilities
 {
+	/// <summary>
+	/// Gets the <see cref="DescriptionAttribute"/> value associated with an enum member. If it does not exist, it returns the enum member stringified.
+	/// </summary>
+	/// <param name="e"></param>
+	/// <returns></returns>
 	public static string GetDescription(this Enum e)
 	{
 		var attr = e.GetType()
