@@ -3,27 +3,38 @@ using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using RazorForms.Options;
 
 namespace RazorForms.TagHelpers;
 
-public class TextInputTagHelper : TagHelperBase
+public class TextInputTagHelper : InputHelperBase
 {
+	/// <summary>
+	/// The type of the input. If supplied, this type will take precedent. If not supplied, an appropriate value will be generated
+	/// </summary>
 	public InputType? Type { get; set; }
 
 	/// <inheritdoc />
-	public TextInputTagHelper(IHtmlHelper html, RazorFormsOptions options) : base(html, options)
+	public TextInputTagHelper(IHtmlHelper html, IInputOptions options) : base(html, options)
 	{
 	}
 
+	/// <inheritdoc />
 	public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
 	{
-		var model = await ProcessBase<FormInput>(output);
+		await base.ProcessAsync(context, output);
+		var model = await GetComponentModel<FormInput<IFormComponentOptions>>(output);
 		model.Type = Type ?? GetInputType();
+		model.LabelAcceptsChildContent = true;
 
 		var content = await Html.PartialAsync("~/Templates/TextInput.cshtml", model);
 		output.Content.SetHtmlContent(content);
 	}
 
+	/// <summary>
+	/// Determines the appropriate <see cref="InputType"/> for the current &lt;input&gt;
+	/// </summary>
+	/// <returns></returns>
 	private InputType GetInputType()
 	{
 		var dataTypeName = For.ModelExplorer.Metadata.DataTypeName;
@@ -32,6 +43,12 @@ public class TextInputTagHelper : TagHelperBase
 			       : ConvertDataTypeToInputType(dataTypeName);
 	}
 
+	/// <summary>
+	/// Determines an appropriate <see cref="InputType"/> for the current &lt;input&gt; based on the <see cref="DataType"/> supplied on the model property
+	/// </summary>
+	/// <param name="type">The string representation of the <see cref="DataType"/> enum</param>
+	/// <returns>the corresponding <see cref="InputType"/></returns>
+	/// <exception cref="NotSupportedException">if a <see cref="DataType"/> is supplied that is not supported by a regular &lt;input&gt; element</exception>
 	private static InputType ConvertDataTypeToInputType(string type)
 	{
 		switch (type)
@@ -57,6 +74,12 @@ public class TextInputTagHelper : TagHelperBase
 		}
 	}
 
+	/// <summary>
+	/// Determines an appropriate <see cref="InputType"/> for the current &lt;input&gt; based on the <see cref="Type"/> of the model property
+	/// </summary>
+	/// <param name="t">the <see cref="Type"/> of the model property</param>
+	/// <returns>the corresponding <see cref="InputType"/></returns>
+	/// <exception cref="NotSupportedException">if a <see cref="Type"/> is supplied that is not supported by a regular &lt;input&gt; element</exception>
 	private static InputType ConvertNativeTypeToInputType(Type t)
 	{
 		if (t == typeof(string))

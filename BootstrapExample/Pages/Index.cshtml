@@ -22,7 +22,9 @@
 			</div>
 			<div class="col-12 col-md-6">
 				<text-input asp-for="UserData.Password"
-				            placeholder="Password"/>
+				            placeholder="Password">
+					Tell me your password! <strong>Please??</strong>
+				</text-input>
 			</div>
 			<div class="col-12 col-md-6">
 				<text-input asp-for="UserData.PasswordMatch"
@@ -42,9 +44,12 @@
 			</div>
 		</div>
 
-		<button class="btn btn-outline-primary d-block mt-3"
-		        type="submit">
-			Submit
-		</button>
+		<submit-button>Submit</submit-button>
+		<reset-button>Reset</reset-button>
+		<default-button>Just a button</default-button>
+		@* <button class="btn btn-outline-primary d-block mt-3" *@
+		@*         type="submit"> *@
+		@* 	Submit *@
+		@* </button> *@
 	</form>
 </div>

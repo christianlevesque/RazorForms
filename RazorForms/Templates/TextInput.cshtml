@@ -1,9 +1,9 @@
 ﻿@using RazorForms
-@inherits RazorForms.Templates.TextInputBase<FormInput>
+@inherits RazorForms.Templates.TextInputBase<FormInput<RazorForms.Options.IFormComponentOptions>>
 
 <div class="@GenerateComponentWrapperClasses()">
 	<div class="@GenerateInputBlockWrapperClasses()">
-		@if (Model.Options.InputFirst ?? false)
+		@if (InputOptions.InputFirst ?? false)
 		{
 			@await Html.PartialAsync("./Inputs/Input.cshtml", Model)
 			@await Html.PartialAsync("./Elements/Label.cshtml", Model)

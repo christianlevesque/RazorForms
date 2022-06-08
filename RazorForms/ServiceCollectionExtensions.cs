@@ -1,5 +1,6 @@
 ﻿using System;
 using RazorForms;
+using RazorForms.Options;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -14,7 +15,36 @@ public static class ServiceCollectionExtensions
 	/// <param name="self">The <see cref="IServiceCollection"/> instance</param>
 	/// <param name="options">The options to use when creating markup</param>
 	/// <returns></returns>
-	public static IServiceCollection UseRazorForms(this IServiceCollection self, RazorFormsOptions options) => self.AddSingleton(options);
+	public static IServiceCollection UseRazorForms(this IServiceCollection self, RazorFormsOptions options)
+	{
+		return self.ConfigureRazorFormsInputOptions(options.InputOptions)
+		           .ConfigureRazorFormsButtonOptions(options.ButtonOptions);
+	}
+
+	public static IServiceCollection UseRazorForms(this IServiceCollection self, Action<RazorFormsOptions> action)
+	{
+		var options = new RazorFormsOptions();
+		action(options);
+		return self.UseRazorForms(options);
+	}
+
+	public static IServiceCollection ConfigureRazorFormsInputOptions(this IServiceCollection self, IInputOptions options) => self.AddSingleton(options);
+
+	public static IServiceCollection ConfigureRazorFormsInputOptions(this IServiceCollection self, Action<IInputOptions> action)
+	{
+		var options = new InputOptions();
+		action(options);
+		return self.ConfigureRazorFormsInputOptions(options);
+	}
+
+	public static IServiceCollection ConfigureRazorFormsButtonOptions(this IServiceCollection self, IButtonOptions options) => self.AddSingleton(options);
+
+	public static IServiceCollection ConfigureRazorFormsButtonOptions(this IServiceCollection self, Action<IButtonOptions> action)
+	{
+		var options = new ButtonOptions();
+		action(options);
+		return self.ConfigureRazorFormsButtonOptions(options);
+	}
 
 	/// <summary>
 	/// Adds RazorForms support, configured to use basic Bootstrap 5 settings
@@ -43,12 +73,22 @@ public static class ServiceCollectionExtensions
 
 	private static RazorFormsOptions _bootstrapDefaults = new()
 	{
-		LabelClasses = "form-label",
-		LabelErrorClasses = "text-danger",
-		LabelValidClasses = "text-success",
-		InputClasses = "form-control",
-		InputValidClasses = "is-valid",
-		InputErrorClasses = "is-invalid",
-		ErrorWrapperClasses = "text-danger list-unstyled"
+		InputOptions = new InputOptions
+		{
+			LabelClasses = "form-label",
+            LabelErrorClasses = "text-danger",
+            LabelValidClasses = "text-success",
+            InputClasses = "form-control",
+            InputValidClasses = "is-valid",
+            InputErrorClasses = "is-invalid",
+            ErrorWrapperClasses = "text-danger list-unstyled"
+		},
+		ButtonOptions = new ButtonOptions
+		{
+			SubmitButtonClasses = "btn btn-primary",
+			ResetButtonClasses = "btn btn-outline-secondary",
+			DefaultButtonClasses = "btn btn-secondary",
+			RemoveWrappers = true
+		}
 	};
 }

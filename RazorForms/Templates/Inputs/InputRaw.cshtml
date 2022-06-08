@@ -1,13 +1,13 @@
 ﻿@using RazorForms
 @using InputType = RazorForms.InputType
-@inherits RazorForms.Templates.Inputs.InputRawBase<RazorForms.FormInput>
+@inherits RazorForms.Templates.Inputs.InputRawBase<RazorForms.FormInput<RazorForms.Options.IFormComponentOptions>>
 
 @if (Model.Type == InputType.TextArea)
 {
 	<textarea id="@Model.MvcName"
 			  name="@Model.MvcName"
 			  class="@GenerateInputClasses()"
-			  @Html.Raw(GenerateAttributes())>@Model.Value</textarea>
+			  @Html.Raw(GenerateAttributes(Model.Attributes, GenerateAdditionalAttributes))>@Model.Value</textarea>
 }
 else
 {
@@ -16,5 +16,5 @@ else
 	       type="@Model.Type.GetDescription()"
 	       class="@GenerateInputClasses()"
 	       value="@Model.Value"
-	       @Html.Raw(GenerateAttributes())/>
+	       @Html.Raw(GenerateAttributes(Model.Attributes, GenerateAdditionalAttributes))/>
 }

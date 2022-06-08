@@ -1,6 +1,13 @@
-﻿@inherits RazorForms.Templates.Elements.LabelRawBase<RazorForms.FormInput>
+﻿@inherits RazorForms.Templates.Elements.LabelRawBase<RazorForms.FormInput<RazorForms.Options.IFormComponentOptions>>
 
 <label for="@Model.MvcName"
        class="@GenerateLabelClasses()">
-	@Model.DisplayName
+	@if (Model.LabelAcceptsChildContent && !Model.ChildContent.IsEmptyOrWhiteSpace)
+	{
+		@Model.ChildContent
+	}
+	else
+	{
+		@Model.DisplayName
+	}
 </label>

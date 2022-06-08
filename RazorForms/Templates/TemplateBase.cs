@@ -1,16 +1,24 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Text;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Razor.TagHelpers;
+using RazorForms.Options;
 
 namespace RazorForms.Templates;
 
 public abstract class TemplateBase<TModel> : RazorPage<TModel>
-	where TModel : FormInput
 {
-	protected string GenerateAttributes()
+	/// <summary>
+	/// Generates HTML attributes
+	/// </summary>
+	/// <param name="attributes">The attributes provided from the tag helper</param>
+	/// <param name="action">An optional function to provide additional attribute generation</param>
+	/// <returns>the HTML attributes to include in the markup. This should be rendered using <c>@Html.Raw()</c></returns>
+	protected string GenerateAttributes(TagHelperAttributeList attributes, Action<StringBuilder>? action = null)
 	{
 		var sb = new StringBuilder();
-		foreach (var a in Model.Attributes)
+		foreach (var a in attributes)
 		{
 			if (a == null)
 			{
@@ -19,55 +27,16 @@ public abstract class TemplateBase<TModel> : RazorPage<TModel>
 
 			if (a.Value == null)
 			{
-				sb.Append($" {a.Name}");
+				sb.AppendWithLeadingSpace(a.Name);
 			}
 			else
 			{
-				sb.Append($" {a.Name}=\"{a.Value}\"");
+				sb.AppendWithLeadingSpace($"{a.Name}=\"{a.Value}\"");
 			}
 		}
 
-		// aria-describedby
-		var describedBy = string.Empty;
-		if (Model.Errors.Any())
-		{
-			describedBy = GenerateErrorId(Model.MvcName);
-		}
-
-		// TODO: add input hint and additional aria-describedby ID to point to hint
-
-		if (!string.IsNullOrEmpty(describedBy))
-		{
-			sb.Append($" aria-describedby=\"{describedBy}\"");
-		}
+		action?.Invoke(sb);
 
 		return sb.ToString();
-	}
-
-	protected static string GenerateErrorId(string input) => $"{input}Errors";
-
-	protected string GenerateClasses(string? defaultClass = null,
-	                                 string? validStateClass = null,
-	                                 string? invalidStateClass = null,
-	                                 bool checkValidationState = true,
-	                                 string? startingValue = null)
-	{
-		var classes = new StringBuilder(startingValue);
-		classes.Append(' ');
-		classes.Append(defaultClass);
-
-		if (checkValidationState)
-		{
-			if (Model.Errors.Any())
-			{
-				classes.Append($" {invalidStateClass}");
-			}
-			else if (Model.IsValid)
-			{
-				classes.Append($" {validStateClass}");
-			}
-		}
-
-		return classes.ToString();
 	}
 }
