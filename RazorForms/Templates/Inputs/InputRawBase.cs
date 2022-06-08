@@ -1,9 +1,10 @@
 ﻿using System.Linq;
+using RazorForms.Options;
 
 namespace RazorForms.Templates.Inputs;
 
-public abstract class InputRawBase<TModel> : TemplateBase<TModel>
-	where TModel : FormInput
+public abstract class InputRawBase<TModel> : GeneralInputBase<TModel>
+	where TModel : FormInput<IFormComponentOptions>
 {
 	/// <summary>
 	/// Generates the appropriate CSS classes for the &lt;input&gt;
@@ -14,9 +15,9 @@ public abstract class InputRawBase<TModel> : TemplateBase<TModel>
 		var classAttribute = Model.Attributes.FirstOrDefault(a => a.Name == "class");
 		var classValue = classAttribute?.Value.ToString() ?? string.Empty;
 
-		return GenerateClasses(Model.Options.InputClasses,
-		                       Model.Options.InputValidClasses,
-		                       Model.Options.InputErrorClasses,
+		return GenerateClasses(InputOptions.InputClasses,
+		                       InputOptions.InputValidClasses,
+		                       InputOptions.InputErrorClasses,
 		                       startingValue: classValue);
 	}
 }

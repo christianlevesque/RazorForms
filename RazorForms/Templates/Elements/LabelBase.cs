@@ -1,14 +1,16 @@
-﻿namespace RazorForms.Templates.Elements;
+﻿using RazorForms.Options;
 
-public abstract class LabelBase<TModel> : TemplateBase<TModel>
-	where TModel : FormInput
+namespace RazorForms.Templates.Elements;
+
+public abstract class LabelBase<TModel> : GeneralInputBase<TModel>
+	where TModel : FormInput<IFormComponentOptions>
 {
 	/// <summary>
 	/// Generates the appropriate CSS classes for the &lt;div&gt; surrounding the &lt;label&gt;
 	/// </summary>
 	/// <returns>a string representing the CSS classes</returns>
 	protected string GenerateLabelWrapperClasses()
-		=> GenerateClasses(Model.Options.LabelWrapperClasses,
-		                   Model.Options.LabelWrapperValidClasses,
-		                   Model.Options.LabelWrapperErrorClasses);
+		=> GenerateClasses(InputOptions.LabelWrapperClasses,
+		                   InputOptions.LabelWrapperValidClasses,
+		                   InputOptions.LabelWrapperErrorClasses);
 }

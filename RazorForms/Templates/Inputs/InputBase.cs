@@ -1,16 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc.Razor;
+﻿using RazorForms.Options;
 
 namespace RazorForms.Templates.Inputs;
 
-public abstract class InputBase<TModel> : TemplateBase<TModel>
-	where TModel : FormInput
+public abstract class InputBase<TModel> : GeneralInputBase<TModel>
+	where TModel : FormInput<IFormComponentOptions>
 {
 	/// <summary>
 	/// Generates the appropriate CSS classes for the &lt;div&gt; surrounding the &lt;input&gt;
 	/// </summary>
 	/// <returns>a string representing the CSS classes</returns>
 	protected string GenerateInputWrapperClasses()
-		=> GenerateClasses(Model.Options.InputWrapperClasses,
-		                   Model.Options.InputWrapperValidClasses,
-		                   Model.Options.InputWrapperErrorClasses);
+		=> GenerateClasses(InputOptions.InputWrapperClasses,
+		                   InputOptions.InputWrapperValidClasses,
+		                   InputOptions.InputWrapperErrorClasses);
 }

@@ -1,19 +1,12 @@
 ﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using RazorForms.Options;
 
 namespace RazorForms;
 
-public class FormInput
+public class FormInput<TOptions> : FormElementBase<TOptions>
+	where TOptions : IFormComponentOptions
 {
-	/// <summary>
-	/// The child content of a form input
-	/// </summary>
-	/// <remarks>
-	/// Not all inputs use child content. 
-	/// </remarks>
-	public IHtmlContent? ChildContent { get; set; }
-
 	/// <summary>
 	/// A list of error messages from the <see cref="Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary"/>
 	/// </summary>
@@ -40,25 +33,15 @@ public class FormInput
 	public bool IsValid { get; set; }
 
 	/// <summary>
-	/// The list of HTML attributes passed to the form element component
-	/// </summary>
-	public TagHelperAttributeList Attributes { get; set; } = default!;
-
-	/// <summary>
 	/// The type of the form element
 	/// </summary>
 	public InputType Type { get; set; }
 
 	/// <summary>
-	/// Determines whether or not the &lt;label&gt; should receive the <see cref="ChildContent"/> value 
+	/// Determines whether or not the &lt;label&gt; should receive the ChildContent value 
 	/// </summary>
 	/// <remarks>
-	/// If <c>true</c>, the <see cref="ChildContent"/> should be used as the inner HTML for the &lt;label&gt; element. Otherwise, it should be reserved for use elsewhere in the component.
+	/// If <c>true</c>, the ChildContent should be used as the inner HTML for the &lt;label&gt; element. Otherwise, it should be reserved for use elsewhere in the component.
 	/// </remarks>
 	public bool LabelAcceptsChildContent { get; set; }
-
-	/// <summary>
-	/// The <see cref="RazorFormsOptions"/> to pass to the component for use during rendering
-	/// </summary>
-	public RazorFormsOptions Options { get; set; } = default!;
 }

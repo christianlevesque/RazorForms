@@ -3,10 +3,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using RazorForms.Options;
 
 namespace RazorForms.TagHelpers;
 
-public class TextInputTagHelper : TagHelperBase
+public class TextInputTagHelper : InputHelperBase
 {
 	/// <summary>
 	/// The type of the input. If supplied, this type will take precedent. If not supplied, an appropriate value will be generated
@@ -14,14 +15,15 @@ public class TextInputTagHelper : TagHelperBase
 	public InputType? Type { get; set; }
 
 	/// <inheritdoc />
-	public TextInputTagHelper(IHtmlHelper html, RazorFormsOptions options) : base(html, options)
+	public TextInputTagHelper(IHtmlHelper html, IInputOptions options) : base(html, options)
 	{
 	}
 
 	/// <inheritdoc />
 	public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
 	{
-		var model = await ProcessBase<FormInput>(output);
+		await base.ProcessAsync(context, output);
+		var model = await GetComponentModel<FormInput<IFormComponentOptions>>(output);
 		model.Type = Type ?? GetInputType();
 		model.LabelAcceptsChildContent = true;
 
