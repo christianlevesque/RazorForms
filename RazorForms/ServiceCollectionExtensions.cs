@@ -17,7 +17,8 @@ public static class ServiceCollectionExtensions
 	/// <returns></returns>
 	public static IServiceCollection UseRazorForms(this IServiceCollection self, RazorFormsOptions options)
 	{
-		return self.ConfigureRazorFormsInputOptions(options.InputOptions);
+		return self.ConfigureRazorFormsInputOptions(options.InputOptions)
+		           .ConfigureRazorFormsButtonOptions(options.ButtonOptions);
 	}
 
 	public static IServiceCollection UseRazorForms(this IServiceCollection self, Action<RazorFormsOptions> action)
@@ -34,6 +35,15 @@ public static class ServiceCollectionExtensions
 		var options = new InputOptions();
 		action(options);
 		return self.ConfigureRazorFormsInputOptions(options);
+	}
+
+	public static IServiceCollection ConfigureRazorFormsButtonOptions(this IServiceCollection self, IButtonOptions options) => self.AddSingleton(options);
+
+	public static IServiceCollection ConfigureRazorFormsButtonOptions(this IServiceCollection self, Action<IButtonOptions> action)
+	{
+		var options = new ButtonOptions();
+		action(options);
+		return self.ConfigureRazorFormsButtonOptions(options);
 	}
 
 	/// <summary>
@@ -72,6 +82,13 @@ public static class ServiceCollectionExtensions
             InputValidClasses = "is-valid",
             InputErrorClasses = "is-invalid",
             ErrorWrapperClasses = "text-danger list-unstyled"
+		},
+		ButtonOptions = new ButtonOptions
+		{
+			SubmitButtonClasses = "btn btn-primary",
+			ResetButtonClasses = "btn btn-outline-secondary",
+			DefaultButtonClasses = "btn btn-secondary",
+			RemoveWrappers = true
 		}
 	};
 }

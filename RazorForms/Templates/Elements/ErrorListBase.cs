@@ -2,7 +2,7 @@
 
 namespace RazorForms.Templates.Elements;
 
-public abstract class ErrorListBase<TModel> : TemplateBase<TModel>
+public abstract class ErrorListBase<TModel> : GeneralInputBase<TModel>
 	where TModel : FormInput<IFormComponentOptions>
 {
 	/// <summary>

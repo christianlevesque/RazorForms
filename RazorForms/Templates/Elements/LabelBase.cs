@@ -2,7 +2,7 @@
 
 namespace RazorForms.Templates.Elements;
 
-public abstract class LabelBase<TModel> : TemplateBase<TModel>
+public abstract class LabelBase<TModel> : GeneralInputBase<TModel>
 	where TModel : FormInput<IFormComponentOptions>
 {
 	/// <summary>

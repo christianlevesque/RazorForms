@@ -3,7 +3,7 @@ using RazorForms.Options;
 
 namespace RazorForms.Templates.Inputs;
 
-public abstract class InputRawBase<TModel> : TemplateBase<TModel>
+public abstract class InputRawBase<TModel> : GeneralInputBase<TModel>
 	where TModel : FormInput<IFormComponentOptions>
 {
 	/// <summary>
