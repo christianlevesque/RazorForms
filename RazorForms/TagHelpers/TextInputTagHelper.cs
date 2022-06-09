@@ -1,106 +1,126 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
+using System.Linq;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using Microsoft.Extensions.Logging;
+using RazorForms.Generators;
 using RazorForms.Options;
 
 namespace RazorForms.TagHelpers;
 
-public class TextInputTagHelper : InputHelperBase<IInputOptions>
+public class TextInputTagHelper : TagHelper
 {
-	/// <summary>
-	/// The type of the input. If supplied, this type will take precedent. If not supplied, an appropriate value will be generated
-	/// </summary>
-	public InputType? Type { get; set; }
+	private ILogger<TextInputTagHelper> _logger;
+	protected const string ForAttributeName = "asp-for";
+	protected const string FormatAttributeName = "asp-format";
+
+	public IHtmlGenerator Generator;
+	public IInputOptions Options;
+
+	protected bool IsValid
+	{
+		get
+		{
+			if (ViewContext == null)
+			{
+				return false;
+			}
+
+			if (For == null)
+			{
+				return false;
+			}
+
+			return ViewContext.ModelState.GetFieldValidationState(For.Name) == ModelValidationState.Valid;
+		}
+	}
+
+	protected bool IsInvalid
+	{
+		get
+		{
+			if (ViewContext == null)
+			{
+				return false;
+			}
+
+			if (For == null)
+			{
+				return false;
+			}
+
+			return ViewContext.ModelState.GetFieldValidationState(For.Name) == ModelValidationState.Invalid;
+		}
+	}
+
+    [HtmlAttributeNotBound]
+    [ViewContext]
+	public ViewContext? ViewContext { get; set; }
+
+	[HtmlAttributeName(ForAttributeName)]
+	public ModelExpression? For { get; set; }
+
+	[HtmlAttributeName(FormatAttributeName)]
+	public string? Format { get; set; }
 
 	/// <inheritdoc />
-	public TextInputTagHelper(IHtmlHelper html, IInputOptions options) : base(html, options)
+	public TextInputTagHelper(IHtmlGenerator generator, IInputOptions options, ILogger<TextInputTagHelper> logger)
 	{
+		Generator = generator;
+		Options = options;
+		_logger = logger;
 	}
 
 	/// <inheritdoc />
 	public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
 	{
-		await base.ProcessAsync(context, output);
-		var model = await GetComponentModel<FormInput<IFormComponentOptions>>(output);
-		model.Type = Type ?? GetInputType();
-		model.LabelAcceptsChildContent = true;
+		output.TagName = "div";
+		output.TagMode = TagMode.StartTagAndEndTag;
 
-		var content = await Html.PartialAsync("~/Templates/TextInput.cshtml", model);
-		output.Content.SetHtmlContent(content);
-	}
+		// Set up attributes and prepare them to be passed to the child <input>
+		var attributes = output.Attributes.Where(a => a.Name != "class");
+		var attributesList = new TagHelperAttributeList(attributes);
+		output.Attributes.Clear();
 
-	/// <summary>
-	/// Determines the appropriate <see cref="InputType"/> for the current &lt;input&gt;
-	/// </summary>
-	/// <returns></returns>
-	private InputType GetInputType()
-	{
-		var dataTypeName = For.ModelExplorer.Metadata.DataTypeName;
-		return string.IsNullOrEmpty(dataTypeName)
-			       ? ConvertNativeTypeToInputType(For.ModelExplorer.ModelType)
-			       : ConvertDataTypeToInputType(dataTypeName);
-	}
-
-	/// <summary>
-	/// Determines an appropriate <see cref="InputType"/> for the current &lt;input&gt; based on the <see cref="DataType"/> supplied on the model property
-	/// </summary>
-	/// <param name="type">The string representation of the <see cref="DataType"/> enum</param>
-	/// <returns>the corresponding <see cref="InputType"/></returns>
-	/// <exception cref="NotSupportedException">if a <see cref="DataType"/> is supplied that is not supported by a regular &lt;input&gt; element</exception>
-	private static InputType ConvertDataTypeToInputType(string type)
-	{
-		switch (type)
+		if (!string.IsNullOrEmpty(Options.ComponentWrapperClasses))
 		{
-			case nameof(DataType.Password):
-				return InputType.Password;
-			case nameof(DataType.Url):
-			case nameof(DataType.ImageUrl):
-				return InputType.Url;
-			case nameof(DataType.EmailAddress):
-				return InputType.EmailAddress;
-			case nameof(DataType.PhoneNumber):
-				return InputType.PhoneNumber;
-			case nameof(DataType.Currency):
-				return InputType.Number;
-			case nameof(DataType.MultilineText):
-				return InputType.TextArea;
-			case nameof(DataType.PostalCode):
-			case nameof(DataType.Text):
-				return InputType.Text;
-			default:
-				throw new NotSupportedException($"Data type {type} is not supported for text inputs");
-		}
-	}
-
-	/// <summary>
-	/// Determines an appropriate <see cref="InputType"/> for the current &lt;input&gt; based on the <see cref="Type"/> of the model property
-	/// </summary>
-	/// <param name="t">the <see cref="Type"/> of the model property</param>
-	/// <returns>the corresponding <see cref="InputType"/></returns>
-	/// <exception cref="NotSupportedException">if a <see cref="Type"/> is supplied that is not supported by a regular &lt;input&gt; element</exception>
-	private static InputType ConvertNativeTypeToInputType(Type t)
-	{
-		if (t == typeof(string))
-		{
-			return InputType.Text;
+			output.AddClass(Options.ComponentWrapperClasses, HtmlEncoder.Default);
 		}
 
-		if (t == typeof(byte)
-		 || t == typeof(sbyte)
-		 || t == typeof(short)
-		 || t == typeof(ushort)
-		 || t == typeof(int)
-		 || t == typeof(uint)
-		 || t == typeof(long)
-		 || t == typeof(ulong)
-		 || t == typeof(float)
-		 || t == typeof(double))
+		// Generate wrapper
+		var wrapperGenerator = new InputBlockWrapperGenerator(Options, IsValid, IsInvalid);
+		var wrapper = await wrapperGenerator.GenerateOutput(context, this);
+
+		// Generate label
+		var labelGenerator = new LabelGenerator(Options, IsValid, IsInvalid);
+		var label = await labelGenerator.GenerateOutput(context, this);
+
+		// Generate input
+		var inputGenerator = new InputGenerator(Options, IsValid, IsInvalid);
+		var input = await inputGenerator.GenerateOutput(context, this, attributesList);
+
+		// TODO: Generate errors
+		output.PostContent.AppendHtml("<p>No errors here</p>");
+
+		if (Options.InputFirst ?? false)
 		{
-			return InputType.Number;
+			wrapper.PreContent.SetHtmlContent(inputGenerator.Render(input));
+			wrapper.PostContent.SetHtmlContent(labelGenerator.Render(label));
+		}
+		else
+		{
+			wrapper.PreContent.SetHtmlContent(labelGenerator.Render(label));
+			wrapper.PostContent.SetHtmlContent(inputGenerator.Render(input));
 		}
 
-		throw new NotSupportedException($"Data type {t} is not supported on the {nameof(TextInputTagHelper)}.");
+		output.Content.SetHtmlContent(wrapperGenerator.Render(wrapper));
 	}
 }
