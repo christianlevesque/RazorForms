@@ -9,6 +9,15 @@
 			  class="@GenerateInputClasses()"
 			  @Html.Raw(GenerateAttributes(Model.Attributes, GenerateAdditionalAttributes))>@Model.Value</textarea>
 }
+else if (Model.Type == InputType.Select)
+{
+	<select id="@Model.MvcName"
+	        name="@Model.MvcName"
+	        class="@GenerateInputClasses()"
+	        @Html.Raw(GenerateAttributes(Model.Attributes, GenerateAdditionalAttributes))>
+		@Model.ChildContent
+	</select>
+}
 else
 {
 	<input id="@Model.MvcName"

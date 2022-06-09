@@ -28,7 +28,7 @@ public class User
 
 	[Required]
 	[DataType(DataType.Url)]
-	[Display(Name = "Website URL")]
+	[Display(Name = "Preferred social media platform")]
 	public string PageUrl { get; set; } = string.Empty;
 
 	[Range(21, 119, ErrorMessage = "You must be between 21 and 119 to join!")]

@@ -9,12 +9,13 @@ using RazorForms.Options;
 
 namespace RazorForms.TagHelpers;
 
-public abstract class InputHelperBase : TagHelperBase, IFormComponentOptions
+public abstract class InputHelperBase<TOptions> : TagHelperBase, IFormComponentOptions
+	where TOptions : IFormComponentOptions, IMergeableOptions<IFormComponentOptions>
 {
-	protected IInputOptions Options;
+	protected TOptions Options;
 
 	/// <inheritdoc />
-	protected InputHelperBase(IHtmlHelper html, IInputOptions options) : base(html)
+	protected InputHelperBase(IHtmlHelper html, TOptions options) : base(html)
 	{
 		Options = options;
 	}

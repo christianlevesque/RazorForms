@@ -14,6 +14,12 @@ builder.Services.UseRazorFormsWithBootstrap(o =>
 	o.InputOptions.ErrorClasses = "small";
 	o.InputOptions.InputFirst = true;
 	o.InputOptions.RemoveWrappers = true;
+	o.SelectOptions.ComponentWrapperClasses = "mb-3";
+	o.SelectOptions.InputBlockWrapperClasses = "form-floating";
+	o.SelectOptions.ErrorWrapperClasses = $"{o.SelectOptions.ErrorWrapperClasses} mt-1";
+	o.SelectOptions.ErrorClasses = "small";
+	o.SelectOptions.InputFirst = true;
+	o.SelectOptions.RemoveWrappers = true;
 });
 
 var app = builder.Build();

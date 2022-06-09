@@ -7,7 +7,7 @@ using RazorForms.Options;
 
 namespace RazorForms.TagHelpers;
 
-public class TextInputTagHelper : InputHelperBase
+public class TextInputTagHelper : InputHelperBase<IInputOptions>
 {
 	/// <summary>
 	/// The type of the input. If supplied, this type will take precedent. If not supplied, an appropriate value will be generated

@@ -31,8 +31,21 @@
 				            placeholder="Confirm password"/>
 			</div>
 			<div class="col-12 col-md-6">
-				<text-input asp-for="UserData.PageUrl"
-				            placeholder="Page URL"/>
+				<select-input asp-for="UserData.PageUrl">
+					<option value="">Please select a social media platform</option>
+					@foreach (var option in new[]
+					{
+						"www.facebook.com",
+						"www.twitter.com",
+						"www.linkedin.com"
+					})
+					{
+						<option value="@option"
+						        selected="@(Model.UserData.PageUrl == option)">
+							@option
+						</option>
+					}
+				</select-input>
 			</div>
 			<div class="col-12 col-md-6">
 				<text-input asp-for="UserData.Age"
@@ -47,9 +60,5 @@
 		<submit-button>Submit</submit-button>
 		<reset-button>Reset</reset-button>
 		<default-button>Just a button</default-button>
-		@* <button class="btn btn-outline-primary d-block mt-3" *@
-		@*         type="submit"> *@
-		@* 	Submit *@
-		@* </button> *@
 	</form>
 </div>
