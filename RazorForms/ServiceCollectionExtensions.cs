@@ -18,6 +18,7 @@ public static class ServiceCollectionExtensions
 	public static IServiceCollection UseRazorForms(this IServiceCollection self, RazorFormsOptions options)
 	{
 		return self.ConfigureRazorFormsInputOptions(options.InputOptions)
+		           .ConfigureRazorFormsSelectOptions(options.SelectOptions)
 		           .ConfigureRazorFormsButtonOptions(options.ButtonOptions);
 	}
 
@@ -35,6 +36,15 @@ public static class ServiceCollectionExtensions
 		var options = new InputOptions();
 		action(options);
 		return self.ConfigureRazorFormsInputOptions(options);
+	}
+
+	public static IServiceCollection ConfigureRazorFormsSelectOptions(this IServiceCollection self, ISelectOptions options) => self.AddSingleton(options);
+
+	public static IServiceCollection ConfigureRazorFormsSelectOptions(this IServiceCollection self, Action<ISelectOptions> action)
+	{
+		var options = new SelectOptions();
+		action(options);
+		return self.ConfigureRazorFormsSelectOptions(options);
 	}
 
 	public static IServiceCollection ConfigureRazorFormsButtonOptions(this IServiceCollection self, IButtonOptions options) => self.AddSingleton(options);
@@ -82,6 +92,16 @@ public static class ServiceCollectionExtensions
             InputValidClasses = "is-valid",
             InputErrorClasses = "is-invalid",
             ErrorWrapperClasses = "text-danger list-unstyled"
+		},
+		SelectOptions = new SelectOptions
+		{
+			LabelClasses = "form-label",
+			LabelErrorClasses = "text-danger",
+			LabelValidClasses = "text-success",
+			InputClasses = "form-select",
+			InputValidClasses = "is-valid",
+			InputErrorClasses = "is-invalid",
+			ErrorWrapperClasses = "text-danger list-unstyled"
 		},
 		ButtonOptions = new ButtonOptions
 		{

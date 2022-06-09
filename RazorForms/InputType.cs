@@ -10,5 +10,6 @@ public enum InputType
 	[Description("url")] Url,
 	[Description("email")] EmailAddress,
 	[Description("tel")] PhoneNumber,
-	[Description("number")] Number
+	[Description("number")] Number,
+	[Description("select")] Select
 }
