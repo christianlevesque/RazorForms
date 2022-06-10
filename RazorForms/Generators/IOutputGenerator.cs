@@ -7,6 +7,9 @@ namespace RazorForms.Generators;
 public interface IOutputGenerator<in TOptions>
 {
 	void Init(TOptions options, bool isValid, bool isInvalid);
-	Task<TagHelperOutput> GenerateOutput(TagHelperContext context, RazorFormsTagHelperBase helper, TagHelperAttributeList? attributes = null);
+	Task<TagHelperOutput> GenerateOutput(TagHelperContext context,
+	                                     RazorFormsTagHelperBase helper,
+	                                     TagHelperAttributeList? attributes = null,
+	                                     TagHelperContent? childContent = null);
 	string Render(TagHelperOutput output);
 }

@@ -1,25 +1,30 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using RazorForms.Generators;
 using RazorForms.Options;
 
 namespace RazorForms.TagHelpers;
 
-public class SelectInputTagHelper : InputHelperBase<ISelectOptions>
+public class SelectInputTagHelper : RazorFormsTagHelperBase
 {
-	/// <inheritdoc />
-	public SelectInputTagHelper(IHtmlHelper html, ISelectOptions options) : base(html, options)
-	{
-	}
+	protected const string ItemsAttributeName = "asp-items";
+
+	[HtmlAttributeName(ItemsAttributeName)]
+	public IEnumerable<SelectListItem>? Items { get; set; }
 
 	/// <inheritdoc />
-	public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
+	public SelectInputTagHelper(IHtmlGenerator generator,
+	                            ISelectOptions options,
+	                            IInputBlockWrapperGenerator inputBlockWrapperGenerator,
+	                            ILabelGenerator labelGenerator,
+	                            ISelectGenerator selectGenerator) : base(generator,
+	                                                                     options,
+	                                                                     inputBlockWrapperGenerator,
+	                                                                     labelGenerator,
+	                                                                     selectGenerator)
 	{
-		await base.ProcessAsync(context, output);
-		var model = await GetComponentModel<FormInput<IFormComponentOptions>>(output);
-		model.Type = InputType.Select;
-
-		var content = await Html.PartialAsync("~/Templates/TextInput.cshtml", model);
-		output.Content.SetHtmlContent(content);
 	}
 }

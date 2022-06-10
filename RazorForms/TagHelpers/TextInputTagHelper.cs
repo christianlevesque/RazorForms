@@ -18,6 +18,11 @@ namespace RazorForms.TagHelpers;
 
 public class TextInputTagHelper : RazorFormsTagHelperBase
 {
+	protected const string FormatAttributeName = "asp-format";
+
+	[HtmlAttributeName(FormatAttributeName)]
+	public string? Format { get; set; }
+
 	/// <inheritdoc />
 	public TextInputTagHelper(IHtmlGenerator generator,
 	                          IInputOptions options,

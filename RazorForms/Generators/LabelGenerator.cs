@@ -11,7 +11,8 @@ public class LabelGenerator : OutputGeneratorBase<IFormComponentOptions>, ILabel
 	/// <inheritdoc />
 	public override async Task<TagHelperOutput> GenerateOutput(TagHelperContext context,
 	                                                           RazorFormsTagHelperBase helper,
-	                                                           TagHelperAttributeList? attributes = null)
+	                                                           TagHelperAttributeList? attributes = null,
+	                                                           TagHelperContent? childContent = null)
 	{
 		ThrowIfNotInitialized();
 

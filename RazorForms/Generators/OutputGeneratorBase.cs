@@ -32,7 +32,10 @@ public abstract class OutputGeneratorBase<TOptions> : IOutputGenerator<TOptions>
 	}
 
 	/// <inheritdoc />
-	public abstract Task<TagHelperOutput> GenerateOutput(TagHelperContext context, RazorFormsTagHelperBase helper, TagHelperAttributeList? attributes = null);
+	public abstract Task<TagHelperOutput> GenerateOutput(TagHelperContext context,
+	                                                     RazorFormsTagHelperBase helper,
+	                                                     TagHelperAttributeList? attributes = null,
+	                                                     TagHelperContent? childContent = null);
 
 	protected abstract void ApplyWrapperClasses(TagHelperOutput output);
 

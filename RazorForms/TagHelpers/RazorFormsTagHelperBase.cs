@@ -14,7 +14,6 @@ namespace RazorForms.TagHelpers;
 public class RazorFormsTagHelperBase : TagHelper
 {
 	protected const string ForAttributeName = "asp-for";
-	protected const string FormatAttributeName = "asp-format";
 
 	protected readonly IOutputGenerator<IFormComponentOptions> InputGenerator;
 	protected readonly ILabelGenerator LabelGenerator;
@@ -66,9 +65,6 @@ public class RazorFormsTagHelperBase : TagHelper
 	[HtmlAttributeName(ForAttributeName)]
 	public ModelExpression? For { get; set; }
 
-	[HtmlAttributeName(FormatAttributeName)]
-	public string? Format { get; set; }
-
 	/// <inheritdoc />
 	protected RazorFormsTagHelperBase(IHtmlGenerator generator,
 	                                  IInputOptions options,
@@ -109,7 +105,7 @@ public class RazorFormsTagHelperBase : TagHelper
 
 		// Generate input
 		InputGenerator.Init(Options, IsValid, IsInvalid);
-		var input = await InputGenerator.GenerateOutput(context, this, attributesList);
+		var input = await InputGenerator.GenerateOutput(context, this, attributesList, await output.GetChildContentAsync());
 
 		// TODO: Generate errors
 		output.PostContent.AppendHtml("<p>No errors here</p>");

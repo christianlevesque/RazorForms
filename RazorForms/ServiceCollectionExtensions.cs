@@ -35,7 +35,8 @@ public static class ServiceCollectionExtensions
 	{
 		return self.AddScoped<ILabelGenerator, LabelGenerator>()
 		           .AddScoped<IInputGenerator, InputGenerator>()
-		           .AddScoped<IInputBlockWrapperGenerator, InputBlockWrapperGenerator>();
+		           .AddScoped<IInputBlockWrapperGenerator, InputBlockWrapperGenerator>()
+		           .AddScoped<ISelectGenerator, SelectGenerator>();
 	}
 
 	public static IServiceCollection ConfigureRazorFormsInputOptions(this IServiceCollection self, IInputOptions options) => self.AddSingleton(options);

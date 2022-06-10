@@ -10,7 +10,8 @@ public class InputBlockWrapperGenerator : OutputGeneratorBase<IFormComponentOpti
 	/// <inheritdoc />
 	public override Task<TagHelperOutput> GenerateOutput(TagHelperContext context,
 	                                                     RazorFormsTagHelperBase helper,
-	                                                     TagHelperAttributeList? attributes = null)
+	                                                     TagHelperAttributeList? attributes = null,
+	                                                     TagHelperContent? childContent = null)
 	{
 		ThrowIfNotInitialized();
 

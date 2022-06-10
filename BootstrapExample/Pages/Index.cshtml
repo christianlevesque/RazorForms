@@ -31,7 +31,9 @@
 				            placeholder="Confirm password"/>
 			</div>
 			<div class="col-12 col-md-6">
-				<select-input asp-for="UserData.PageUrl">
+				<select-input asp-for="UserData.PageUrl"
+				              asp-items="Model.Items">
+					@*
 					<option value="">Please select a social media platform</option>
 					@foreach (var option in new[]
 					{
@@ -44,7 +46,7 @@
 						        selected="@(Model.UserData.PageUrl == option)">
 							@option
 						</option>
-					}
+					}*@
 				</select-input>
 			</div>
 			<div class="col-12 col-md-6">

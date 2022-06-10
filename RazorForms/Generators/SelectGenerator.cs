@@ -7,9 +7,9 @@ using RazorForms.TagHelpers;
 
 namespace RazorForms.Generators;
 
-public class InputGenerator : OutputGeneratorBase<IFormComponentOptions>, IInputGenerator
+public class SelectGenerator : OutputGeneratorBase<IFormComponentOptions>, ISelectGenerator
 {
-
+	/// <inheritdoc />
 	public override Task<TagHelperOutput> GenerateOutput(TagHelperContext context,
 	                                                     RazorFormsTagHelperBase helper,
 	                                                     TagHelperAttributeList? attributes = null,
@@ -17,35 +17,38 @@ public class InputGenerator : OutputGeneratorBase<IFormComponentOptions>, IInput
 	{
 		ThrowIfNotInitialized();
 
-		if (helper is not TextInputTagHelper localHelper)
+		if (helper is not SelectInputTagHelper localHelper)
 		{
-			throw new ArgumentException($"{nameof(helper)} must be an instance of {typeof(TextInputTagHelper)}");
+			throw new ArgumentException($"{nameof(helper)} must be an instance of {typeof(SelectInputTagHelper)}");
 		}
 
 		attributes ??= new TagHelperAttributeList();
 
-		var inputHelper = new InputTagHelper(localHelper.Generator)
+		var selectHelper = new SelectTagHelper(localHelper.Generator)
 		{
 			ViewContext = localHelper.ViewContext,
 			For = localHelper.For,
-			Format = localHelper.Format
+			Items = localHelper.Items
 		};
 
-		var output = new TagHelperOutput(tagName: "input",
-		                                 attributes: new TagHelperAttributeList(attributes),
+		var output = new TagHelperOutput(tagName: "select",
+		                                 attributes: attributes,
 		                                 getChildContentAsync: DefaultTagHelperContent)
 		{
-			TagMode = TagMode.SelfClosing
+			TagMode = TagMode.StartTagAndEndTag
 		};
+		if (childContent != null)
+		{
+			output.Content.SetHtmlContent(childContent.GetContent());
+		}
 
 		ApplyBaseClasses(output);
-
-		inputHelper.Process(context, output);
+		selectHelper.Init(context);
+		selectHelper.Process(context, output);
 
 		var result = Options.RemoveWrappers ?? false
 			             ? output
 			             : GenerateWrapper(output.Content);
-
 		return Task.FromResult(result);
 	}
 
