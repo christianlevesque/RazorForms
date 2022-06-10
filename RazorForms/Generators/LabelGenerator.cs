@@ -6,21 +6,15 @@ using RazorForms.TagHelpers;
 
 namespace RazorForms.Generators;
 
-public class LabelGenerator : OutputGeneratorBase
+public class LabelGenerator : OutputGeneratorBase<IFormComponentOptions>, ILabelGenerator
 {
-	protected IFormComponentOptions Options;
-
-	/// <inheritdoc />
-	public LabelGenerator(IFormComponentOptions options, bool isValid, bool isInvalid) : base(isValid, isInvalid)
-	{
-		Options = options;
-	}
-
 	/// <inheritdoc />
 	public override async Task<TagHelperOutput> GenerateOutput(TagHelperContext context,
-	                                                     TextInputTagHelper helper,
-	                                                     TagHelperAttributeList? attributes = null)
+	                                                           RazorFormsTagHelperBase helper,
+	                                                           TagHelperAttributeList? attributes = null)
 	{
+		ThrowIfNotInitialized();
+
 		var labelHelper = new LabelTagHelper(helper.Generator)
 		{
 			ViewContext = helper.ViewContext,
@@ -40,9 +34,10 @@ public class LabelGenerator : OutputGeneratorBase
 			       : GenerateWrapper(labelOutput.Content);
 	}
 
-	/// <inheritdoc />
 	protected virtual void ApplyBaseClasses(TagHelperOutput output)
 	{
+		ThrowIfNotInitialized();
+
 		ApplyClasses(output,
 		             Options.LabelClasses,
 		             Options.LabelValidClasses,
@@ -52,6 +47,8 @@ public class LabelGenerator : OutputGeneratorBase
 	/// <inheritdoc />
 	protected override void ApplyWrapperClasses(TagHelperOutput output)
 	{
+		ThrowIfNotInitialized();
+
 		ApplyClasses(output,
 		             Options.LabelWrapperClasses,
 		             Options.LabelWrapperValidClasses,

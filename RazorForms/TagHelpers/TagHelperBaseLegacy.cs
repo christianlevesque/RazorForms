@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace RazorForms.TagHelpers;
 
-public class TagHelperBase : TagHelper
+public class TagHelperBaseLegacy : TagHelper
 {
 	protected readonly IHtmlHelper Html;
 
 	/// <inheritdoc />
-	public TagHelperBase(IHtmlHelper html)
+	public TagHelperBaseLegacy(IHtmlHelper html)
 	{
 		Html = html;
 	}

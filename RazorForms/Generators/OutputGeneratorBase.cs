@@ -4,24 +4,35 @@ using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using RazorForms.Options;
 using RazorForms.TagHelpers;
 
 namespace RazorForms.Generators;
 
-public abstract class OutputGeneratorBase : IOutputGenerator
+public abstract class OutputGeneratorBase<TOptions> : IOutputGenerator<TOptions>
 {
-	protected bool IsValid { get; }
-	protected bool IsInvalid { get; }
+	protected bool IsInitialized { get; private set; }
+	protected bool IsValid { get; private set; }
+	protected bool IsInvalid { get; private set; }
+	protected TOptions Options { get; private set; }
+
 	protected Func<bool, HtmlEncoder, Task<TagHelperContent>> DefaultTagHelperContent { get; set; } = (a,b) => Task.Factory.StartNew<TagHelperContent>(() => new DefaultTagHelperContent());
 
-	protected OutputGeneratorBase(bool isValid, bool isInvalid)
+	public void Init(TOptions options, bool isValid, bool isInvalid)
 	{
+		if (IsInitialized)
+		{
+			return;
+		}
+
+		Options = options;
 		IsValid = isValid;
 		IsInvalid = isInvalid;
+		IsInitialized = true;
 	}
 
 	/// <inheritdoc />
-	public abstract Task<TagHelperOutput> GenerateOutput(TagHelperContext context, TextInputTagHelper helper, TagHelperAttributeList? attributes = null);
+	public abstract Task<TagHelperOutput> GenerateOutput(TagHelperContext context, RazorFormsTagHelperBase helper, TagHelperAttributeList? attributes = null);
 
 	protected abstract void ApplyWrapperClasses(TagHelperOutput output);
 
@@ -61,6 +72,14 @@ public abstract class OutputGeneratorBase : IOutputGenerator
 		if (IsInvalid)
 		{
 			o.AddClass(invalidClassName, HtmlEncoder.Default);
+		}
+	}
+
+	protected virtual void ThrowIfNotInitialized()
+	{
+		if (!IsInitialized)
+		{
+			throw new InvalidOperationException("The output generator has not yet been initialized");
 		}
 	}
 }

@@ -9,7 +9,7 @@ using RazorForms.Options;
 
 namespace RazorForms.TagHelpers;
 
-public abstract class InputHelperBase<TOptions> : TagHelperBase, IFormComponentOptions
+public abstract class InputHelperBase<TOptions> : TagHelperBaseLegacy, IFormComponentOptions
 	where TOptions : IFormComponentOptions, IMergeableOptions<IFormComponentOptions>
 {
 	protected TOptions Options;

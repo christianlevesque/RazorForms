@@ -5,21 +5,15 @@ using RazorForms.TagHelpers;
 
 namespace RazorForms.Generators;
 
-public class InputBlockWrapperGenerator : OutputGeneratorBase
+public class InputBlockWrapperGenerator : OutputGeneratorBase<IFormComponentOptions>, IInputBlockWrapperGenerator
 {
-	protected IFormComponentOptions Options;
-
-	/// <inheritdoc />
-	public InputBlockWrapperGenerator(IFormComponentOptions options, bool isValid, bool isInvalid) : base(isValid, isInvalid)
-	{
-		Options = options;
-	}
-
 	/// <inheritdoc />
 	public override Task<TagHelperOutput> GenerateOutput(TagHelperContext context,
-	                                                     TextInputTagHelper helper,
+	                                                     RazorFormsTagHelperBase helper,
 	                                                     TagHelperAttributeList? attributes = null)
 	{
+		ThrowIfNotInitialized();
+
 		attributes ??= new TagHelperAttributeList();
 		var output = new TagHelperOutput("div",
 		                                 attributes,
@@ -32,6 +26,8 @@ public class InputBlockWrapperGenerator : OutputGeneratorBase
 	/// <inheritdoc />
 	protected override void ApplyWrapperClasses(TagHelperOutput output)
 	{
+		ThrowIfNotInitialized();
+
 		ApplyClasses(output,
 		             Options.InputBlockWrapperClasses,
 		             Options.InputBlockWrapperValidClasses,

@@ -1,5 +1,6 @@
 ﻿using System;
 using RazorForms;
+using RazorForms.Generators;
 using RazorForms.Options;
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -17,7 +18,8 @@ public static class ServiceCollectionExtensions
 	/// <returns></returns>
 	public static IServiceCollection UseRazorForms(this IServiceCollection self, RazorFormsOptions options)
 	{
-		return self.ConfigureRazorFormsInputOptions(options.InputOptions)
+		return self.ConfigureRazorFormsCore()
+		           .ConfigureRazorFormsInputOptions(options.InputOptions)
 		           .ConfigureRazorFormsSelectOptions(options.SelectOptions)
 		           .ConfigureRazorFormsButtonOptions(options.ButtonOptions);
 	}
@@ -27,6 +29,13 @@ public static class ServiceCollectionExtensions
 		var options = new RazorFormsOptions();
 		action(options);
 		return self.UseRazorForms(options);
+	}
+
+	public static IServiceCollection ConfigureRazorFormsCore(this IServiceCollection self)
+	{
+		return self.AddScoped<ILabelGenerator, LabelGenerator>()
+		           .AddScoped<IInputGenerator, InputGenerator>()
+		           .AddScoped<IInputBlockWrapperGenerator, InputBlockWrapperGenerator>();
 	}
 
 	public static IServiceCollection ConfigureRazorFormsInputOptions(this IServiceCollection self, IInputOptions options) => self.AddSingleton(options);

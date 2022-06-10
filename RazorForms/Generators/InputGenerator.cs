@@ -6,19 +6,15 @@ using RazorForms.TagHelpers;
 
 namespace RazorForms.Generators;
 
-public class InputGenerator : OutputGeneratorBase
+public class InputGenerator : OutputGeneratorBase<IFormComponentOptions>, IInputGenerator
 {
-	protected IFormComponentOptions Options;
-	/// <inheritdoc />
-	public InputGenerator(IFormComponentOptions options, bool isValid, bool isInvalid) : base(isValid, isInvalid)
-	{
-		Options = options;
-	}
 
 	public override Task<TagHelperOutput> GenerateOutput(TagHelperContext context,
-	                                                     TextInputTagHelper helper,
+	                                                     RazorFormsTagHelperBase helper,
 	                                                     TagHelperAttributeList? attributes = null)
 	{
+		ThrowIfNotInitialized();
+
 		attributes ??= new TagHelperAttributeList();
 
 		var inputHelper = new InputTagHelper(helper.Generator)
@@ -48,6 +44,8 @@ public class InputGenerator : OutputGeneratorBase
 
 	protected virtual void ApplyBaseClasses(TagHelperOutput output)
 	{
+		ThrowIfNotInitialized();
+
 		ApplyClasses(output,
 		             Options.InputClasses,
 		             Options.InputValidClasses,
@@ -57,6 +55,8 @@ public class InputGenerator : OutputGeneratorBase
 	/// <inheritdoc />
 	protected override void ApplyWrapperClasses(TagHelperOutput output)
 	{
+		ThrowIfNotInitialized();
+
 		ApplyClasses(output,
 		             Options.InputWrapperClasses,
 		             Options.InputWrapperValidClasses,

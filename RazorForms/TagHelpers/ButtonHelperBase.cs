@@ -6,7 +6,7 @@ using RazorForms.Options;
 
 namespace RazorForms.TagHelpers;
 
-public abstract class ButtonHelperBase : TagHelperBase
+public abstract class ButtonHelperBase : TagHelperBaseLegacy
 {
 	protected ButtonType Type;
 	protected IButtonOptions Options;
