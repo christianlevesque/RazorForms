@@ -104,8 +104,13 @@ public class RazorFormsTagHelperBase : TagHelper
 
 		// Set up attributes and prepare them to be passed to the child <input>
 		var attributes = output.Attributes.Where(a => a.Name != "class");
-		var attributesList = new TagHelperAttributeList(attributes);
+		var attributesForGenerator = new TagHelperAttributeList(attributes);
+		var classAttribute = output.Attributes.FirstOrDefault(a => a.Name == "class");
 		output.Attributes.Clear();
+		if (classAttribute != null)
+		{
+			output.Attributes.Add(classAttribute);
+		}
 
 		if (!string.IsNullOrEmpty(Options.ComponentWrapperClasses))
 		{
@@ -122,7 +127,7 @@ public class RazorFormsTagHelperBase : TagHelper
 
 		// Generate input
 		InputGenerator.Init(Options, IsValid, IsInvalid);
-		var input = await InputGenerator.GenerateOutput(context, this, attributesList, await output.GetChildContentAsync());
+		var input = await InputGenerator.GenerateOutput(context, this, attributesForGenerator, await output.GetChildContentAsync());
 
 		// TODO: Generate errors
 		output.PostContent.AppendHtml("<p>No errors here</p>");
