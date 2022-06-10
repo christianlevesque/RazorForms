@@ -13,6 +13,9 @@ namespace RazorForms.TagHelpers;
 
 public class RazorFormsTagHelperBase : TagHelper
 {
+	private bool? _isValid;
+	private bool? _isInvalid;
+
 	protected const string ForAttributeName = "asp-for";
 
 	protected readonly IOutputGenerator<IFormComponentOptions> InputGenerator;
@@ -26,6 +29,11 @@ public class RazorFormsTagHelperBase : TagHelper
 	{
 		get
 		{
+			if (_isValid.HasValue)
+			{
+				return _isValid.Value;
+			}
+
 			if (ViewContext == null)
 			{
 				return false;
@@ -36,7 +44,9 @@ public class RazorFormsTagHelperBase : TagHelper
 				return false;
 			}
 
-			return ViewContext.ModelState.GetFieldValidationState(For.Name) == ModelValidationState.Valid;
+			_isValid = ViewContext.ModelState.GetFieldValidationState(For.Name) == ModelValidationState.Valid;
+
+			return _isValid.Value;
 		}
 	}
 
@@ -44,6 +54,11 @@ public class RazorFormsTagHelperBase : TagHelper
 	{
 		get
 		{
+			if (_isInvalid.HasValue)
+			{
+				return _isInvalid.Value;
+			}
+
 			if (ViewContext == null)
 			{
 				return false;
@@ -54,7 +69,9 @@ public class RazorFormsTagHelperBase : TagHelper
 				return false;
 			}
 
-			return ViewContext.ModelState.GetFieldValidationState(For.Name) == ModelValidationState.Invalid;
+			_isInvalid = ViewContext.ModelState.GetFieldValidationState(For.Name) == ModelValidationState.Invalid;
+
+			return _isInvalid.Value;
 		}
 	}
 
