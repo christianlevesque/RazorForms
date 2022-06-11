@@ -85,4 +85,24 @@ public abstract class OutputGeneratorBase<TOptions> : IOutputGenerator<TOptions>
 			throw new InvalidOperationException("The output generator has not yet been initialized");
 		}
 	}
+
+	protected virtual void AddClass(TagHelperOutput o, string? className)
+	{
+		if (string.IsNullOrWhiteSpace(className))
+		{
+			return;
+		}
+
+		var classes = className.Split(' ');
+
+		foreach (var c in classes)
+		{
+			if (string.IsNullOrEmpty(c))
+			{
+				continue;
+			}
+
+			o.AddClass(c, HtmlEncoder.Default);
+		}
+	}
 }

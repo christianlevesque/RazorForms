@@ -21,6 +21,7 @@ public class RazorFormsTagHelperBase : TagHelper
 	protected readonly IOutputGenerator<IFormComponentOptions> InputGenerator;
 	protected readonly ILabelGenerator LabelGenerator;
 	protected readonly IInputBlockWrapperGenerator InputBlockWrapperGenerator;
+	protected readonly IErrorGenerator ErrorGenerator;
 
 	public readonly IHtmlGenerator Generator;
 	public readonly IInputOptions Options;
@@ -87,13 +88,15 @@ public class RazorFormsTagHelperBase : TagHelper
 	                                  IInputOptions options,
 	                                  IInputBlockWrapperGenerator inputBlockWrapperGenerator,
 	                                  ILabelGenerator labelGenerator,
-	                                  IOutputGenerator<IFormComponentOptions> inputGenerator)
+	                                  IOutputGenerator<IFormComponentOptions> inputGenerator,
+	                                  IErrorGenerator errorGenerator)
 	{
 		Generator = generator;
 		Options = options;
 		InputBlockWrapperGenerator = inputBlockWrapperGenerator;
 		LabelGenerator = labelGenerator;
 		InputGenerator = inputGenerator;
+		ErrorGenerator = errorGenerator;
 	}
 
 	/// <inheritdoc />
@@ -130,7 +133,8 @@ public class RazorFormsTagHelperBase : TagHelper
 		var input = await InputGenerator.GenerateOutput(context, this, attributesForGenerator, await output.GetChildContentAsync());
 
 		// TODO: Generate errors
-		output.PostContent.AppendHtml("<p>No errors here</p>");
+		ErrorGenerator.Init(Options, IsValid, IsInvalid, For!, ViewContext!);
+		var errors = await ErrorGenerator.GenerateOutput(context, this);
 
 		if (Options.InputFirst ?? false)
 		{
@@ -142,6 +146,8 @@ public class RazorFormsTagHelperBase : TagHelper
 			wrapper.PreContent.SetHtmlContent(LabelGenerator.Render(label));
 			wrapper.PostContent.SetHtmlContent(InputGenerator.Render(input));
 		}
+
+		wrapper.PostElement.SetHtmlContent(ErrorGenerator.Render(errors));
 
 		output.Content.SetHtmlContent(InputBlockWrapperGenerator.Render(wrapper));
 	}

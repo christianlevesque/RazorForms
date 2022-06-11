@@ -28,11 +28,13 @@ public class TextInputTagHelper : RazorFormsTagHelperBase
 	                          IInputOptions options,
 	                          IInputBlockWrapperGenerator inputBlockWrapperGenerator,
 	                          ILabelGenerator labelGenerator,
-	                          IInputGenerator inputGenerator) : base(generator,
+	                          IInputGenerator inputGenerator,
+	                          IErrorGenerator errorGenerator) : base(generator,
 	                                                                 options,
 	                                                                 inputBlockWrapperGenerator, 
 	                                                                 labelGenerator, 
-	                                                                 inputGenerator)
+	                                                                 inputGenerator,
+	                                                                 errorGenerator)
 	{
 	}
 }

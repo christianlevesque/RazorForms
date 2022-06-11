@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using Microsoft.Extensions.Logging;
 using RazorForms.Generators;
 using RazorForms.Options;
 
@@ -20,11 +21,13 @@ public class SelectInputTagHelper : RazorFormsTagHelperBase
 	                            ISelectOptions options,
 	                            IInputBlockWrapperGenerator inputBlockWrapperGenerator,
 	                            ILabelGenerator labelGenerator,
-	                            ISelectGenerator selectGenerator) : base(generator,
-	                                                                     options,
-	                                                                     inputBlockWrapperGenerator,
-	                                                                     labelGenerator,
-	                                                                     selectGenerator)
+	                            ISelectGenerator selectGenerator,
+	                            IErrorGenerator errorGenerator) : base(generator,
+	                                                                   options,
+	                                                                   inputBlockWrapperGenerator,
+	                                                                   labelGenerator,
+	                                                                   selectGenerator,
+	                                                                   errorGenerator)
 	{
 	}
 }
