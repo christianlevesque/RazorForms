@@ -66,15 +66,16 @@ public abstract class OutputGeneratorBase<TOptions> : IOutputGenerator<TOptions>
 	                                    string? validClassName,
 	                                    string? invalidClassName)
 	{
-		o.AddClass(className, HtmlEncoder.Default);
+		AddClass(o, className);
+
 		if (IsValid)
 		{
-			o.AddClass(validClassName, HtmlEncoder.Default);
+			AddClass(o, validClassName);
 		}
 
 		if (IsInvalid)
 		{
-			o.AddClass(invalidClassName, HtmlEncoder.Default);
+			AddClass(o, invalidClassName);
 		}
 	}
 
