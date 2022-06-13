@@ -20,6 +20,7 @@ public static class ServiceCollectionExtensions
 	{
 		return self.ConfigureRazorFormsCore()
 		           .ConfigureRazorFormsInputOptions(options.InputOptions)
+		           .ConfigureRazorFormsTextAreaOptions(options.TextAreaOptions)
 		           .ConfigureRazorFormsSelectOptions(options.SelectOptions)
 		           .ConfigureRazorFormsButtonOptions(options.ButtonOptions);
 	}
@@ -35,6 +36,7 @@ public static class ServiceCollectionExtensions
 	{
 		return self.AddTransient<ILabelGenerator, LabelGenerator>()
 		           .AddTransient<IInputGenerator, InputGenerator>()
+		           .AddTransient<ITextAreaGenerator, TextAreaGenerator>()
 		           .AddTransient<IInputBlockWrapperGenerator, InputBlockWrapperGenerator>()
 		           .AddTransient<ISelectGenerator, SelectGenerator>()
 		           .AddTransient<IErrorGenerator, ErrorGenerator>();
@@ -47,6 +49,15 @@ public static class ServiceCollectionExtensions
 		var options = new InputOptions();
 		action(options);
 		return self.ConfigureRazorFormsInputOptions(options);
+	}
+
+	public static IServiceCollection ConfigureRazorFormsTextAreaOptions(this IServiceCollection self, ITextAreaOptions options) => self.AddSingleton(options);
+
+	public static IServiceCollection ConfigureRazorFormsTextAreaOptions(this IServiceCollection self, Action<ITextAreaOptions> action)
+	{
+		var options = new TextAreaOptions();
+		action(options);
+		return self.ConfigureRazorFormsTextAreaOptions(options);
 	}
 
 	public static IServiceCollection ConfigureRazorFormsSelectOptions(this IServiceCollection self, ISelectOptions options) => self.AddSingleton(options);
@@ -103,6 +114,16 @@ public static class ServiceCollectionExtensions
             InputValidClasses = "is-valid",
             InputErrorClasses = "is-invalid",
             ErrorWrapperClasses = "text-danger list-unstyled"
+		},
+		TextAreaOptions = new TextAreaOptions
+		{
+			LabelClasses = "form-label",
+			LabelErrorClasses = "text-danger",
+			LabelValidClasses = "text-success",
+			InputClasses = "form-control",
+			InputValidClasses = "is-valid",
+			InputErrorClasses = "is-invalid",
+			ErrorWrapperClasses = "text-danger list-unstyled"
 		},
 		SelectOptions = new SelectOptions
 		{

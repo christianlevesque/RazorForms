@@ -44,7 +44,7 @@ public class InputGenerator : OutputGeneratorBase<IFormComponentOptions>, IInput
 
 		var result = Options.RemoveWrappers ?? false
 			             ? output
-			             : GenerateWrapper(output.Content);
+			             : GenerateWrapper(output);
 
 		return Task.FromResult(result);
 	}

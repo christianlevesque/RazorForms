@@ -24,7 +24,7 @@ public class RazorFormsTagHelperBase : TagHelper
 	protected readonly IErrorGenerator ErrorGenerator;
 
 	public readonly IHtmlGenerator Generator;
-	public readonly IInputOptions Options;
+	public readonly IFormComponentOptions Options;
 
 	protected bool IsValid
 	{
@@ -75,7 +75,7 @@ public class RazorFormsTagHelperBase : TagHelper
 
 	/// <inheritdoc />
 	protected RazorFormsTagHelperBase(IHtmlGenerator generator,
-	                                  IInputOptions options,
+	                                  IFormComponentOptions options,
 	                                  IInputBlockWrapperGenerator inputBlockWrapperGenerator,
 	                                  ILabelGenerator labelGenerator,
 	                                  IOutputGenerator<IFormComponentOptions> inputGenerator,

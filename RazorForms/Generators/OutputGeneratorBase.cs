@@ -4,7 +4,6 @@ using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using RazorForms.Options;
 using RazorForms.TagHelpers;
 
 namespace RazorForms.Generators;
@@ -39,12 +38,16 @@ public abstract class OutputGeneratorBase<TOptions> : IOutputGenerator<TOptions>
 
 	protected abstract void ApplyWrapperClasses(TagHelperOutput output);
 
-	protected virtual TagHelperOutput GenerateWrapper(TagHelperContent content)
+	protected virtual TagHelperOutput GenerateWrapper(TagHelperOutput content)
 	{
 		var output = new TagHelperOutput("div", 
 		                                 new TagHelperAttributeList(), 
-		                                 (a, b) => Task.FromResult(content));
+		                                 DefaultTagHelperContent)
+		{
+			TagMode = TagMode.StartTagAndEndTag
+		};
 		ApplyWrapperClasses(output);
+		output.Content.AppendHtml(content);
 		return output;
 	}
 

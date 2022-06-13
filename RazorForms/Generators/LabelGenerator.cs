@@ -32,7 +32,7 @@ public class LabelGenerator : OutputGeneratorBase<IFormComponentOptions>, ILabel
 
 		return Options.RemoveWrappers ?? false
 			       ? labelOutput
-			       : GenerateWrapper(labelOutput.Content);
+			       : GenerateWrapper(labelOutput);
 	}
 
 	protected virtual void ApplyBaseClasses(TagHelperOutput output)

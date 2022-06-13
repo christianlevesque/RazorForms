@@ -7,49 +7,47 @@ using RazorForms.TagHelpers;
 
 namespace RazorForms.Generators;
 
-public class SelectGenerator : OutputGeneratorBase<IFormComponentOptions>, ISelectGenerator
+public class TextAreaGenerator : OutputGeneratorBase<IFormComponentOptions>, ITextAreaGenerator
 {
 	/// <inheritdoc />
-	public override Task<TagHelperOutput> GenerateOutput(TagHelperContext context,
+	public override async Task<TagHelperOutput> GenerateOutput(TagHelperContext context,
 	                                                     RazorFormsTagHelperBase helper,
 	                                                     TagHelperAttributeList? attributes = null,
 	                                                     TagHelperContent? childContent = null)
 	{
 		ThrowIfNotInitialized();
 
-		if (helper is not SelectInputTagHelper localHelper)
+		if (helper is not TextAreaInputTagHelper localHelper)
 		{
-			throw new ArgumentException($"{nameof(helper)} must be an instance of {typeof(SelectInputTagHelper)}");
+			throw new ArgumentException($"{nameof(helper)} must be an instance of {typeof(TextAreaInputTagHelper)}");
 		}
 
 		attributes ??= new TagHelperAttributeList();
 
-		var selectHelper = new SelectTagHelper(localHelper.Generator)
+		var textAreaHelper = new TextAreaTagHelper(localHelper.Generator)
 		{
 			ViewContext = localHelper.ViewContext,
-			For = localHelper.For,
-			Items = localHelper.Items
+			For = localHelper.For
 		};
 
-		var output = new TagHelperOutput(tagName: "select",
-		                                 attributes: attributes,
-		                                 getChildContentAsync: DefaultTagHelperContent)
-		{
-			TagMode = TagMode.StartTagAndEndTag
-		};
-		if (childContent != null)
-		{
-			output.Content.SetHtmlContent(childContent.GetContent());
-		}
+		var output = new TagHelperOutput(tagName: "textarea",
+		                                 attributes: new TagHelperAttributeList(attributes),
+		                                 getChildContentAsync: DefaultTagHelperContent);
+
+		// if (childContent != null)
+		// {
+		// 	output.Content.SetContent(childContent.GetContent());
+		// }
 
 		ApplyBaseClasses(output);
-		selectHelper.Init(context);
-		selectHelper.Process(context, output);
+
+		textAreaHelper.Process(context, output);
 
 		var result = Options.RemoveWrappers ?? false
 			             ? output
 			             : GenerateWrapper(output);
-		return Task.FromResult(result);
+
+		return result;
 	}
 
 	protected virtual void ApplyBaseClasses(TagHelperOutput output)
