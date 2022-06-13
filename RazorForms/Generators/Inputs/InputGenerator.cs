@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 using RazorForms.Options;
 using RazorForms.TagHelpers;
 
-namespace RazorForms.Generators;
+namespace RazorForms.Generators.Inputs;
 
 public class InputGenerator : OutputGeneratorBase<IFormComponentOptions>, IInputGenerator
 {

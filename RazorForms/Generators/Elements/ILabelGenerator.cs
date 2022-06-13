@@ -1,6 +1,6 @@
 ﻿using RazorForms.Options;
 
-namespace RazorForms.Generators;
+namespace RazorForms.Generators.Elements;
 
 public interface ILabelGenerator : IOutputGenerator<IFormComponentOptions>
 {

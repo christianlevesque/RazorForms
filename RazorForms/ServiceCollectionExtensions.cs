@@ -1,6 +1,8 @@
 ﻿using System;
 using RazorForms;
 using RazorForms.Generators;
+using RazorForms.Generators.Elements;
+using RazorForms.Generators.Inputs;
 using RazorForms.Options;
 
 namespace Microsoft.Extensions.DependencyInjection;

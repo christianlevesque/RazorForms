@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 using RazorForms.Options;
 using RazorForms.TagHelpers;
 
-namespace RazorForms.Generators;
+namespace RazorForms.Generators.Elements;
 
 public class ErrorGenerator : OutputGeneratorBase<IFormComponentOptions>, IErrorGenerator
 {

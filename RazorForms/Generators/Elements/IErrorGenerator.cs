@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using RazorForms.Options;
 
-namespace RazorForms.Generators;
+namespace RazorForms.Generators.Elements;
 
 public interface IErrorGenerator : IOutputGenerator<IFormComponentOptions>
 {
