@@ -132,7 +132,6 @@ public class RazorFormsTagHelperBase : TagHelper
 		InputGenerator.Init(Options, IsValid, IsInvalid);
 		var input = await InputGenerator.GenerateOutput(context, this, attributesForGenerator, await output.GetChildContentAsync());
 
-		// TODO: Generate errors
 		ErrorGenerator.Init(Options, IsValid, IsInvalid, For!, ViewContext!);
 		var errors = await ErrorGenerator.GenerateOutput(context, this);
 
