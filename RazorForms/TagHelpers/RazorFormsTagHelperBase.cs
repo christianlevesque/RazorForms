@@ -35,14 +35,9 @@ public class RazorFormsTagHelperBase : TagHelper
 				return _isValid.Value;
 			}
 
-			if (ViewContext == null)
+			if (ViewContext == null || For == null)
 			{
-				return false;
-			}
-
-			if (For == null)
-			{
-				return false;
+				return (_isValid = false).Value;
 			}
 
 			_isValid = ViewContext.ModelState.GetFieldValidationState(For.Name) == ModelValidationState.Valid;
@@ -60,14 +55,9 @@ public class RazorFormsTagHelperBase : TagHelper
 				return _isInvalid.Value;
 			}
 
-			if (ViewContext == null)
+			if (ViewContext == null || For == null)
 			{
-				return false;
-			}
-
-			if (For == null)
-			{
-				return false;
+				return (_isInvalid = false).Value;
 			}
 
 			_isInvalid = ViewContext.ModelState.GetFieldValidationState(For.Name) == ModelValidationState.Invalid;
