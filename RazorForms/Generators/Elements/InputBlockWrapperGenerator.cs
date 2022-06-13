@@ -5,7 +5,7 @@ using RazorForms.TagHelpers;
 
 namespace RazorForms.Generators.Elements;
 
-public class InputBlockWrapperGenerator : OutputGeneratorBase<IFormComponentOptions>, IInputBlockWrapperGenerator
+public class InputBlockWrapperGenerator : OutputGeneratorWithValidity<IFormComponentOptions>, IInputBlockWrapperGenerator
 {
 	/// <inheritdoc />
 	public override Task<TagHelperOutput> GenerateOutput(TagHelperContext context,

@@ -19,7 +19,7 @@ public class RazorFormsTagHelperBase : TagHelper
 
 	protected const string ForAttributeName = "asp-for";
 
-	protected readonly IOutputGenerator<IFormComponentOptions> InputGenerator;
+	protected readonly IOutputGeneratorWithValidity<IFormComponentOptions> InputGenerator;
 	protected readonly ILabelGenerator LabelGenerator;
 	protected readonly IInputBlockWrapperGenerator InputBlockWrapperGenerator;
 	protected readonly IErrorGenerator ErrorGenerator;
@@ -79,7 +79,7 @@ public class RazorFormsTagHelperBase : TagHelper
 	                                  IFormComponentOptions options,
 	                                  IInputBlockWrapperGenerator inputBlockWrapperGenerator,
 	                                  ILabelGenerator labelGenerator,
-	                                  IOutputGenerator<IFormComponentOptions> inputGenerator,
+	                                  IOutputGeneratorWithValidity<IFormComponentOptions> inputGenerator,
 	                                  IErrorGenerator errorGenerator)
 	{
 		Generator = generator;

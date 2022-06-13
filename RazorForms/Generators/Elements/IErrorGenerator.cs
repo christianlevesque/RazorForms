@@ -4,7 +4,7 @@ using RazorForms.Options;
 
 namespace RazorForms.Generators.Elements;
 
-public interface IErrorGenerator : IOutputGenerator<IFormComponentOptions>
+public interface IErrorGenerator : IOutputGeneratorWithValidity<IFormComponentOptions>
 {
 	void Init(IFormComponentOptions options,
 	          bool isValid,

@@ -2,6 +2,6 @@
 
 namespace RazorForms.Generators.Inputs;
 
-public interface ISelectGenerator : IOutputGenerator<IFormComponentOptions>
+public interface ISelectGenerator : IOutputGeneratorWithValidity<IFormComponentOptions>
 {
 }

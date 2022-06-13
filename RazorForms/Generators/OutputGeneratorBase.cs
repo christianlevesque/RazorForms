@@ -10,14 +10,12 @@ namespace RazorForms.Generators;
 
 public abstract class OutputGeneratorBase<TOptions> : IOutputGenerator<TOptions>
 {
-	protected bool IsInitialized { get; private set; }
-	protected bool IsValid { get; private set; }
-	protected bool IsInvalid { get; private set; }
 	protected TOptions Options { get; private set; }
+	protected bool IsInitialized { get; private set; }
 
 	protected Func<bool, HtmlEncoder, Task<TagHelperContent>> DefaultTagHelperContent { get; set; } = (a,b) => Task.Factory.StartNew<TagHelperContent>(() => new DefaultTagHelperContent());
 
-	public void Init(TOptions options, bool isValid, bool isInvalid)
+	public void Init(TOptions options)
 	{
 		if (IsInitialized)
 		{
@@ -25,8 +23,6 @@ public abstract class OutputGeneratorBase<TOptions> : IOutputGenerator<TOptions>
 		}
 
 		Options = options;
-		IsValid = isValid;
-		IsInvalid = isInvalid;
 		IsInitialized = true;
 	}
 
@@ -64,22 +60,9 @@ public abstract class OutputGeneratorBase<TOptions> : IOutputGenerator<TOptions>
 		return reader.ReadToEnd();
 	}
 
-	protected virtual void ApplyClasses(TagHelperOutput o,
-	                                    string? className,
-	                                    string? validClassName,
-	                                    string? invalidClassName)
+	protected virtual void ApplyClasses(TagHelperOutput o, string? className)
 	{
 		AddClass(o, className);
-
-		if (IsValid)
-		{
-			AddClass(o, validClassName);
-		}
-
-		if (IsInvalid)
-		{
-			AddClass(o, invalidClassName);
-		}
 	}
 
 	protected virtual void ThrowIfNotInitialized()

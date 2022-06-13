@@ -2,6 +2,6 @@
 
 namespace RazorForms.Generators.Elements;
 
-public interface IInputBlockWrapperGenerator : IOutputGenerator<IFormComponentOptions>
+public interface IInputBlockWrapperGenerator : IOutputGeneratorWithValidity<IFormComponentOptions>
 {
 }

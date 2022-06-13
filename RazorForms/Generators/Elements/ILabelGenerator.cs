@@ -2,6 +2,6 @@
 
 namespace RazorForms.Generators.Elements;
 
-public interface ILabelGenerator : IOutputGenerator<IFormComponentOptions>
+public interface ILabelGenerator : IOutputGeneratorWithValidity<IFormComponentOptions>
 {
 }

@@ -7,7 +7,7 @@ using RazorForms.TagHelpers;
 
 namespace RazorForms.Generators.Inputs;
 
-public class InputGenerator : OutputGeneratorBase<IFormComponentOptions>, IInputGenerator
+public class InputGenerator : OutputGeneratorWithValidity<IFormComponentOptions>, IInputGenerator
 {
 
 	public override Task<TagHelperOutput> GenerateOutput(TagHelperContext context,

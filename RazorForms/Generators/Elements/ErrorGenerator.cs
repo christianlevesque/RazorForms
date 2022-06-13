@@ -10,7 +10,7 @@ using RazorForms.TagHelpers;
 
 namespace RazorForms.Generators.Elements;
 
-public class ErrorGenerator : OutputGeneratorBase<IFormComponentOptions>, IErrorGenerator
+public class ErrorGenerator : OutputGeneratorWithValidity<IFormComponentOptions>, IErrorGenerator
 {
 	private IList<string>? _errors;
 
