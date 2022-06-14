@@ -2,34 +2,35 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.AspNetCore.Routing.Matching;
+using RazorForms.Generators.Buttons;
 using RazorForms.Options;
 
 namespace RazorForms.TagHelpers;
 
-public abstract class ButtonHelperBase : TagHelperBaseLegacy
+public abstract class ButtonHelperBase : TagHelper
 {
-	protected ButtonType Type;
+	protected IButtonGenerator Generator;
 	protected IButtonOptions Options;
+	protected ButtonType Type;
 
-	/// <inheritdoc />
-	protected ButtonHelperBase(IHtmlHelper html, IButtonOptions options) : base(html)
+	protected ButtonHelperBase(IButtonGenerator generator,
+	                           IButtonOptions options,
+	                           ButtonType type)
 	{
+		Generator = generator;
 		Options = options;
+		Type = type;
 	}
 
 	/// <inheritdoc />
 	public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
 	{
-		await base.ProcessAsync(context, output);
-		var model = new FormButton
-		{
-			ChildContent = await output.GetChildContentAsync(),
-			Attributes = output.Attributes,
-			Type = Type,
-			Options = Options
-		};
+		output.TagName = "";
 
-		var content = await Html.PartialAsync("~/Templates/Elements/Button.cshtml", model);
-		output.Content.SetHtmlContent(content);
+		Generator.Init(Options, Type);
+		var htmlOutput = await Generator.GenerateOutput(context,
+		                                                output.Attributes,
+		                                                await output.GetChildContentAsync());
+		output.Content.SetHtmlContent(Generator.Render(htmlOutput));
 	}
 }

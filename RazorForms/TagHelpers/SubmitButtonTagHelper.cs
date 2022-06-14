@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using RazorForms.Generators.Buttons;
 using RazorForms.Options;
 
 namespace RazorForms.TagHelpers;
@@ -6,8 +7,10 @@ namespace RazorForms.TagHelpers;
 public class SubmitButtonTagHelper : ButtonHelperBase
 {
 	/// <inheritdoc />
-	public SubmitButtonTagHelper(IHtmlHelper html, IButtonOptions options) : base(html, options)
+	public SubmitButtonTagHelper(ISubmitButtonGenerator generator,
+	                             IButtonOptions options) : base(generator,
+	                                                            options,
+	                                                            ButtonType.Submit)
 	{
-		Type = ButtonType.Submit;
 	}
 }

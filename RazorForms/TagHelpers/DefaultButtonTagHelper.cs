@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using RazorForms.Generators.Buttons;
 using RazorForms.Options;
 
 namespace RazorForms.TagHelpers;
@@ -6,8 +7,10 @@ namespace RazorForms.TagHelpers;
 public class DefaultButtonTagHelper : ButtonHelperBase
 {
 	/// <inheritdoc />
-	public DefaultButtonTagHelper(IHtmlHelper html, IButtonOptions options) : base(html, options)
+	public DefaultButtonTagHelper(IDefaultButtonGenerator generator,
+	                              IButtonOptions options) : base(generator,
+	                                                             options,
+	                                                             ButtonType.Default)
 	{
-		Type = ButtonType.Default;
 	}
 }

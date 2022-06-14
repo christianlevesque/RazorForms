@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using RazorForms.Generators.Buttons;
 using RazorForms.Options;
 
 namespace RazorForms.TagHelpers;
@@ -6,8 +7,10 @@ namespace RazorForms.TagHelpers;
 public class ResetButtonTagHelper : ButtonHelperBase
 {
 	/// <inheritdoc />
-	public ResetButtonTagHelper(IHtmlHelper html, IButtonOptions options) : base(html, options)
+	public ResetButtonTagHelper(IResetButtonGenerator generator,
+	                            IButtonOptions options) : base(generator,
+	                                                           options, 
+	                                                           ButtonType.Reset)
 	{
-		Type = ButtonType.Reset;
 	}
 }
