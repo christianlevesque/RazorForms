@@ -6,7 +6,7 @@ using RazorForms.TagHelpers;
 
 namespace RazorForms.Generators.Elements;
 
-public class LabelGenerator : ValidityAwareOutputGenerator<IFormComponentOptions>, ILabelGenerator
+public class LabelGenerator : ValidityAwareOutputGenerator<IFormComponentWithValidationOptions>, ILabelGenerator
 {
 	/// <inheritdoc />
 	public override async Task<TagHelperOutput> GenerateOutput(TagHelperContext context,

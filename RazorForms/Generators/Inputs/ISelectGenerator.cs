@@ -3,6 +3,6 @@ using RazorForms.TagHelpers;
 
 namespace RazorForms.Generators.Inputs;
 
-public interface ISelectGenerator : IValidityAwareOutputGenerator<IFormComponentOptions>
+public interface ISelectGenerator : IValidityAwareOutputGenerator<IFormComponentWithValidationOptions>
 {
 }

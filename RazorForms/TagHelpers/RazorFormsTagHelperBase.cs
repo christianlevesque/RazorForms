@@ -19,13 +19,13 @@ public class RazorFormsTagHelperBase : TagHelper
 
 	protected const string ForAttributeName = "asp-for";
 
-	protected readonly IValidityAwareOutputGenerator<IFormComponentOptions> InputGenerator;
+	protected readonly IValidityAwareOutputGenerator<IFormComponentWithValidationOptions> InputGenerator;
 	protected readonly ILabelGenerator LabelGenerator;
 	protected readonly IInputBlockWrapperGenerator InputBlockWrapperGenerator;
 	protected readonly IErrorGenerator ErrorGenerator;
 
 	public readonly IHtmlGenerator Generator;
-	public readonly IFormComponentOptions Options;
+	public readonly IFormComponentWithValidationOptions Options;
 
 	protected bool IsValid
 	{
@@ -76,10 +76,10 @@ public class RazorFormsTagHelperBase : TagHelper
 
 	/// <inheritdoc />
 	protected RazorFormsTagHelperBase(IHtmlGenerator generator,
-	                                  IFormComponentOptions options,
+	                                  IFormComponentWithValidationOptions options,
 	                                  IInputBlockWrapperGenerator inputBlockWrapperGenerator,
 	                                  ILabelGenerator labelGenerator,
-	                                  IValidityAwareOutputGenerator<IFormComponentOptions> inputGenerator,
+	                                  IValidityAwareOutputGenerator<IFormComponentWithValidationOptions> inputGenerator,
 	                                  IErrorGenerator errorGenerator)
 	{
 		Generator = generator;

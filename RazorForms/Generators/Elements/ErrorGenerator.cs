@@ -9,7 +9,7 @@ using RazorForms.Options;
 
 namespace RazorForms.Generators.Elements;
 
-public class ErrorGenerator : OutputGeneratorBase<IFormComponentOptions>, IErrorGenerator
+public class ErrorGenerator : OutputGeneratorBase<IFormComponentWithValidationOptions>, IErrorGenerator
 {
 	private IList<string>? _errors;
 
@@ -18,7 +18,7 @@ public class ErrorGenerator : OutputGeneratorBase<IFormComponentOptions>, IError
 	protected bool IsValid;
 	protected bool IsInvalid;
 
-	public void Init(IFormComponentOptions options,
+	public void Init(IFormComponentWithValidationOptions options,
 	                 bool isValid,
 	                 bool isInvalid,
 	                 ModelExpression? modelExpression,

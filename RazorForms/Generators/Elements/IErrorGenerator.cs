@@ -4,9 +4,9 @@ using RazorForms.Options;
 
 namespace RazorForms.Generators.Elements;
 
-public interface IErrorGenerator : IOutputGenerator<IFormComponentOptions>
+public interface IErrorGenerator : IOutputGenerator<IFormComponentWithValidationOptions>
 {
-	void Init(IFormComponentOptions options,
+	void Init(IFormComponentWithValidationOptions options,
 	          bool isValid,
 	          bool isInvalid,
 	          ModelExpression modelExpression,
