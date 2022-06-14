@@ -1,6 +1,6 @@
 ﻿using System;
 using RazorForms;
-using RazorForms.Generators;
+using RazorForms.Generators.Buttons;
 using RazorForms.Generators.Elements;
 using RazorForms.Generators.Inputs;
 using RazorForms.Options;
@@ -41,7 +41,10 @@ public static class ServiceCollectionExtensions
 		           .AddTransient<ITextAreaGenerator, TextAreaGenerator>()
 		           .AddTransient<IInputBlockWrapperGenerator, InputBlockWrapperGenerator>()
 		           .AddTransient<ISelectGenerator, SelectGenerator>()
-		           .AddTransient<IErrorGenerator, ErrorGenerator>();
+		           .AddTransient<IErrorGenerator, ErrorGenerator>()
+		           .AddTransient<ISubmitButtonGenerator, SubmitButtonGenerator>()
+		           .AddTransient<IResetButtonGenerator, ResetButtonGenerator>()
+		           .AddTransient<IDefaultButtonGenerator, DefaultButtonGenerator>();
 	}
 
 	public static IServiceCollection ConfigureRazorFormsInputOptions(this IServiceCollection self, IInputOptions options) => self.AddSingleton(options);

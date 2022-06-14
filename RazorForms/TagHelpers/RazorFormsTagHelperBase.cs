@@ -19,7 +19,7 @@ public class RazorFormsTagHelperBase : TagHelper
 
 	protected const string ForAttributeName = "asp-for";
 
-	protected readonly IOutputGeneratorWithValidity<IFormComponentOptions> InputGenerator;
+	protected readonly IValidityAwareOutputGenerator<IFormComponentOptions> InputGenerator;
 	protected readonly ILabelGenerator LabelGenerator;
 	protected readonly IInputBlockWrapperGenerator InputBlockWrapperGenerator;
 	protected readonly IErrorGenerator ErrorGenerator;
@@ -79,7 +79,7 @@ public class RazorFormsTagHelperBase : TagHelper
 	                                  IFormComponentOptions options,
 	                                  IInputBlockWrapperGenerator inputBlockWrapperGenerator,
 	                                  ILabelGenerator labelGenerator,
-	                                  IOutputGeneratorWithValidity<IFormComponentOptions> inputGenerator,
+	                                  IValidityAwareOutputGenerator<IFormComponentOptions> inputGenerator,
 	                                  IErrorGenerator errorGenerator)
 	{
 		Generator = generator;
@@ -124,7 +124,7 @@ public class RazorFormsTagHelperBase : TagHelper
 		var input = await InputGenerator.GenerateOutput(context, this, attributesForGenerator, await output.GetChildContentAsync());
 
 		ErrorGenerator.Init(Options, IsValid, IsInvalid, For!, ViewContext!);
-		var errors = await ErrorGenerator.GenerateOutput(context, this);
+		var errors = await ErrorGenerator.GenerateOutput(context);
 
 		if (Options.InputFirst ?? false)
 		{

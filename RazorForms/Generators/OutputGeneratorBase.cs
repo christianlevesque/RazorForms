@@ -4,11 +4,10 @@ using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using RazorForms.TagHelpers;
 
 namespace RazorForms.Generators;
 
-public abstract class OutputGeneratorBase<TOptions> : IOutputGenerator<TOptions>
+public abstract class OutputGeneratorBase<TOptions> : IOutputGeneratorBase<TOptions>
 {
 	protected TOptions Options { get; private set; }
 	protected bool IsInitialized { get; private set; }
@@ -25,12 +24,6 @@ public abstract class OutputGeneratorBase<TOptions> : IOutputGenerator<TOptions>
 		Options = options;
 		IsInitialized = true;
 	}
-
-	/// <inheritdoc />
-	public abstract Task<TagHelperOutput> GenerateOutput(TagHelperContext context,
-	                                                     RazorFormsTagHelperBase helper,
-	                                                     TagHelperAttributeList? attributes = null,
-	                                                     TagHelperContent? childContent = null);
 
 	protected abstract void ApplyWrapperClasses(TagHelperOutput output);
 

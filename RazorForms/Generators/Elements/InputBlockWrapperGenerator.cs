@@ -5,13 +5,13 @@ using RazorForms.TagHelpers;
 
 namespace RazorForms.Generators.Elements;
 
-public class InputBlockWrapperGenerator : OutputGeneratorWithValidity<IFormComponentOptions>, IInputBlockWrapperGenerator
+public class InputBlockWrapperGenerator : ValidityAwareOutputGenerator<IFormComponentOptions>, IInputBlockWrapperGenerator
 {
 	/// <inheritdoc />
 	public override Task<TagHelperOutput> GenerateOutput(TagHelperContext context,
-	                                                     RazorFormsTagHelperBase helper,
-	                                                     TagHelperAttributeList? attributes = null,
-	                                                     TagHelperContent? childContent = null)
+	                                            RazorFormsTagHelperBase helper,
+	                                            TagHelperAttributeList? attributes = null,
+	                                            TagHelperContent? childContent = null)
 	{
 		ThrowIfNotInitialized();
 

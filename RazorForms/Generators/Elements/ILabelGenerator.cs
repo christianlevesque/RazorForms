@@ -1,7 +1,8 @@
 ﻿using RazorForms.Options;
+using RazorForms.TagHelpers;
 
 namespace RazorForms.Generators.Elements;
 
-public interface ILabelGenerator : IOutputGeneratorWithValidity<IFormComponentOptions>
+public interface ILabelGenerator : IValidityAwareOutputGenerator<IFormComponentOptions>
 {
 }

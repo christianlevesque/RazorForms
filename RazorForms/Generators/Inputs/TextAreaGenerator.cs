@@ -7,13 +7,13 @@ using RazorForms.TagHelpers;
 
 namespace RazorForms.Generators.Inputs;
 
-public class TextAreaGenerator : OutputGeneratorWithValidity<IFormComponentOptions>, ITextAreaGenerator
+public class TextAreaGenerator : ValidityAwareOutputGenerator<IFormComponentOptions>, ITextAreaGenerator
 {
 	/// <inheritdoc />
-	public override async Task<TagHelperOutput> GenerateOutput(TagHelperContext context,
-	                                                     RazorFormsTagHelperBase helper,
-	                                                     TagHelperAttributeList? attributes = null,
-	                                                     TagHelperContent? childContent = null)
+	public override async Task<TagHelperOutput> GenerateOutput(TagHelperContext context, 
+	                                                           RazorFormsTagHelperBase helper, 
+	                                                           TagHelperAttributeList? attributes = null, 
+	                                                           TagHelperContent? childContent = null)
 	{
 		ThrowIfNotInitialized();
 

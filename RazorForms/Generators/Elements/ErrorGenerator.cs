@@ -6,36 +6,37 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using RazorForms.Options;
-using RazorForms.TagHelpers;
 
 namespace RazorForms.Generators.Elements;
 
-public class ErrorGenerator : OutputGeneratorWithValidity<IFormComponentOptions>, IErrorGenerator
+public class ErrorGenerator : OutputGeneratorBase<IFormComponentOptions>, IErrorGenerator
 {
 	private IList<string>? _errors;
 
 	protected ModelExpression? For;
 	protected ViewContext? ViewContext;
+	protected bool IsValid;
+	protected bool IsInvalid;
 
 	public void Init(IFormComponentOptions options,
 	                 bool isValid,
 	                 bool isInvalid,
-	                 ModelExpression modelExpression,
-	                 ViewContext viewContext)
+	                 ModelExpression? modelExpression,
+	                 ViewContext? viewContext)
 	{
-		if (modelExpression == null)
+		if (IsInitialized)
 		{
-			throw new InvalidOperationException($"Cannot generate error list without a valid {typeof(ModelExpression)}");
+			return;
 		}
 
-		if (viewContext == null)
-		{
-			throw new InvalidOperationException($"Cannot generate error list without a valid {typeof(ViewContext)}");
-		}
+		For = modelExpression ?? throw new InvalidOperationException($"Cannot generate error list without a valid {typeof(ModelExpression)}");
 
-		Init(options, isValid, isInvalid);
-		For = modelExpression;
-		ViewContext = viewContext;
+		ViewContext = viewContext ?? throw new InvalidOperationException($"Cannot generate error list without a valid {typeof(ViewContext)}");
+
+		IsValid = isValid;
+		IsInvalid = isInvalid;
+
+		Init(options);
 	}
 
 	protected IList<string> Errors
@@ -62,8 +63,7 @@ public class ErrorGenerator : OutputGeneratorWithValidity<IFormComponentOptions>
 	}
 
 	/// <inheritdoc />
-	public override Task<TagHelperOutput> GenerateOutput(TagHelperContext context,
-	                                            RazorFormsTagHelperBase helper,
+	public Task<TagHelperOutput> GenerateOutput(TagHelperContext context,
 	                                            TagHelperAttributeList? attributes = null,
 	                                            TagHelperContent? childContent = null)
 	{

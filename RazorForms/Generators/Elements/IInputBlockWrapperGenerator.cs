@@ -1,7 +1,8 @@
 ﻿using RazorForms.Options;
+using RazorForms.TagHelpers;
 
 namespace RazorForms.Generators.Elements;
 
-public interface IInputBlockWrapperGenerator : IOutputGeneratorWithValidity<IFormComponentOptions>
+public interface IInputBlockWrapperGenerator : IValidityAwareOutputGenerator<IFormComponentOptions>
 {
 }

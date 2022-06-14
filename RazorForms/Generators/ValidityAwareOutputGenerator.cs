@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Razor.TagHelpers;
+using RazorForms.TagHelpers;
 
 namespace RazorForms.Generators;
 
-public abstract class OutputGeneratorWithValidity<TOptions> : OutputGeneratorBase<TOptions>, IOutputGeneratorWithValidity<TOptions>
+public abstract class ValidityAwareOutputGenerator<TOptions> : OutputGeneratorBase<TOptions>, IValidityAwareOutputGenerator<TOptions>
 {
 	protected bool IsValid { get; private set; }
 	protected bool IsInvalid { get; private set; }
@@ -19,6 +21,12 @@ public abstract class OutputGeneratorWithValidity<TOptions> : OutputGeneratorBas
 
 		Init(options);
 	}
+
+	/// <inheritdoc />
+	public abstract Task<TagHelperOutput> GenerateOutput(TagHelperContext context,
+	                                                     RazorFormsTagHelperBase helper,
+	                                                     TagHelperAttributeList? attributes = null,
+	                                                     TagHelperContent? childContent = null);
 
 	protected virtual void ApplyClasses(TagHelperOutput o,
 	                                    string? className,
