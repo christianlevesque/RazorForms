@@ -9,7 +9,7 @@ namespace RazorForms.Generators;
 
 public abstract class OutputGeneratorBase<TOptions> : IOutputGeneratorBase<TOptions>
 {
-	protected TOptions Options { get; private set; }
+	protected TOptions Options { get; private set; } = default!;
 	protected bool IsInitialized { get; private set; }
 
 	protected Func<bool, HtmlEncoder, Task<TagHelperContent>> DefaultTagHelperContent { get; set; } = (a,b) => Task.Factory.StartNew<TagHelperContent>(() => new DefaultTagHelperContent());
