@@ -11,10 +11,10 @@ namespace RazorForms.Generators.Inputs;
 public class TextAreaGenerator : ValidityAwareOutputGenerator<IFormComponentOptions>, ITextAreaGenerator
 {
 	/// <inheritdoc />
-	public override async Task<TagHelperOutput> GenerateOutput(TagHelperContext context, 
-	                                                           RazorFormsTagHelperBase helper, 
-	                                                           TagHelperAttributeList? attributes = null, 
-	                                                           TagHelperContent? childContent = null)
+	public override Task<TagHelperOutput> GenerateOutput(TagHelperContext context, 
+	                                                     RazorFormsTagHelperBase helper, 
+	                                                     TagHelperAttributeList? attributes = null, 
+	                                                     TagHelperContent? childContent = null)
 	{
 		ThrowIfNotInitialized();
 
@@ -35,11 +35,6 @@ public class TextAreaGenerator : ValidityAwareOutputGenerator<IFormComponentOpti
 		                                 attributes: new TagHelperAttributeList(attributes),
 		                                 getChildContentAsync: DefaultTagHelperContent);
 
-		// if (childContent != null)
-		// {
-		// 	output.Content.SetContent(childContent.GetContent());
-		// }
-
 		ApplyBaseClasses(output);
 
 		textAreaHelper.Process(context, output);
@@ -48,7 +43,7 @@ public class TextAreaGenerator : ValidityAwareOutputGenerator<IFormComponentOpti
 			             ? output
 			             : GenerateWrapper(output);
 
-		return result;
+		return Task.FromResult(result);
 	}
 
 	protected virtual void ApplyBaseClasses(TagHelperOutput output)
