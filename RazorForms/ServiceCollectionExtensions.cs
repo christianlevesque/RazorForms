@@ -1,9 +1,9 @@
 ﻿using System;
 using RazorForms;
-using RazorForms.Generators.Buttons;
 using RazorForms.Generators.Elements;
 using RazorForms.Generators.Inputs;
-using RazorForms.Options;
+using RazorForms.Options.Elements;
+using RazorForms.Options.Inputs;
 
 namespace Microsoft.Extensions.DependencyInjection;
 

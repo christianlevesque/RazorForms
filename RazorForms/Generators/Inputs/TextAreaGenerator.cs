@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using RazorForms.Options;
 using RazorForms.TagHelpers;
+using RazorForms.TagHelpers.Inputs;
 
 namespace RazorForms.Generators.Inputs;
 
