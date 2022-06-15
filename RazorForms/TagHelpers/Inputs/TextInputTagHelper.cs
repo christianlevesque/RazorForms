@@ -18,7 +18,7 @@ using RazorForms.Options.Inputs;
 
 namespace RazorForms.TagHelpers.Inputs;
 
-public class TextInputTagHelper : RazorFormsTagHelperBase
+public class TextInputTagHelper : ValidityAwareTagHelperBase
 {
 	protected const string FormatAttributeName = "asp-format";
 
