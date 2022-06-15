@@ -3,6 +3,6 @@ using RazorForms.TagHelpers;
 
 namespace RazorForms.Generators.Elements;
 
-public interface ILabelGenerator : IValidityAwareOutputGenerator<IFormComponentWithValidationOptions>
+public interface ILabelGenerator : IValidityAwareOutputGenerator<IFormComponentOptions>
 {
 }

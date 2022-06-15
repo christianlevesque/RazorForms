@@ -6,7 +6,7 @@ using RazorForms.TagHelpers;
 
 namespace RazorForms.Generators.Elements;
 
-public class LabelGenerator : ValidityAwareOutputGenerator<IFormComponentWithValidationOptions>, ILabelGenerator
+public class LabelGenerator : ValidityAwareOutputGenerator<IFormComponentOptions>, ILabelGenerator
 {
 	/// <inheritdoc />
 	public override async Task<TagHelperOutput> GenerateOutput(TagHelperContext context,
@@ -39,10 +39,17 @@ public class LabelGenerator : ValidityAwareOutputGenerator<IFormComponentWithVal
 	{
 		ThrowIfNotInitialized();
 
-		ApplyClasses(output,
-		             Options.LabelClasses,
-		             Options.LabelValidClasses,
-		             Options.LabelErrorClasses);
+		if (Options is IFormComponentWithValidationOptions withValidationOptions)
+		{
+			ApplyClasses(output,
+		                 withValidationOptions.LabelClasses,
+		                 withValidationOptions.LabelValidClasses,
+		                 withValidationOptions.LabelErrorClasses);
+		}
+		else
+		{
+			ApplyClasses(output, Options.LabelClasses);
+		}
 	}
 
 	/// <inheritdoc />
@@ -50,9 +57,16 @@ public class LabelGenerator : ValidityAwareOutputGenerator<IFormComponentWithVal
 	{
 		ThrowIfNotInitialized();
 
-		ApplyClasses(output,
-		             Options.LabelWrapperClasses,
-		             Options.LabelWrapperValidClasses,
-		             Options.LabelWrapperErrorClasses);
+		if (Options is IFormComponentWithValidationOptions withValidationOptions)
+		{
+			ApplyClasses(output,
+			             withValidationOptions.LabelWrapperClasses,
+			             withValidationOptions.LabelWrapperValidClasses,
+			             withValidationOptions.LabelWrapperErrorClasses);
+		}
+		else
+		{
+			ApplyClasses(output, Options.LabelWrapperClasses);
+		}
 	}
 }
