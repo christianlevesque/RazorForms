@@ -42,6 +42,7 @@ public static class ServiceCollectionExtensions
 		return self.AddTransient<ILabelGenerator, LabelGenerator>()
 		           .AddTransient<IInputGenerator, InputGenerator>()
 		           .AddTransient<ICheckInputGenerator, CheckInputGenerator>()
+		           .AddTransient<IRadioInputGenerator, RadioInputGenerator>()
 		           .AddTransient<ICheckRadioInputSectionGenerator, CheckRadioInputSectionGenerator>()
 		           .AddTransient<ITextAreaGenerator, TextAreaGenerator>()
 		           .AddTransient<IInputBlockWrapperGenerator, InputBlockWrapperGenerator>()
