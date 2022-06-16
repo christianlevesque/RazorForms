@@ -16,6 +16,8 @@ public class LabelGenerator : ValidityAwareOutputGenerator<IFormComponentOptions
 	{
 		ThrowIfNotInitialized();
 
+		attributes ??= new TagHelperAttributeList();
+
 		var labelHelper = new LabelTagHelper(helper.Generator)
 		{
 			ViewContext = helper.ViewContext,
@@ -23,8 +25,13 @@ public class LabelGenerator : ValidityAwareOutputGenerator<IFormComponentOptions
 		};
 
 		var labelOutput = new TagHelperOutput(tagName: "label",
-		                                      attributes: new TagHelperAttributeList(),
+		                                      attributes: attributes,
 		                                      getChildContentAsync: DefaultTagHelperContent);
+
+		if (childContent != null && !childContent.IsEmptyOrWhiteSpace)
+		{
+			labelOutput.Content.SetHtmlContent(childContent.GetContent());
+		}
 
 		ApplyBaseClasses(labelOutput);
 

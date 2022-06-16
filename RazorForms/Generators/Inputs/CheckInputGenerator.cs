@@ -21,6 +21,7 @@ public class CheckInputGenerator : OutputGeneratorBase<IFormComponentOptions>, I
 		ThrowIfNotInitialized();
 
 		attributes ??= new TagHelperAttributeList();
+		attributes.Add("type", "checkbox");
 
 		var inputHelper = new InputTagHelper(helper.Generator)
 		{

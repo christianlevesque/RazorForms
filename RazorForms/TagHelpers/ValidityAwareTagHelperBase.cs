@@ -84,14 +84,7 @@ public abstract class ValidityAwareTagHelperBase : RazorFormsTagHelperBase
 		output.TagMode = TagMode.StartTagAndEndTag;
 
 		// Set up attributes and prepare them to be passed to the child <input>
-		var attributes = output.Attributes.Where(a => a.Name != "class");
-		var attributesForGenerator = new TagHelperAttributeList(attributes);
-		var classAttribute = output.Attributes.FirstOrDefault(a => a.Name == "class");
-		output.Attributes.Clear();
-		if (classAttribute != null)
-		{
-			output.Attributes.Add(classAttribute);
-		}
+		var attributesList = ProcessAttributes(output);
 
 		if (!string.IsNullOrEmpty(Options.ComponentWrapperClasses))
 		{
@@ -108,7 +101,7 @@ public abstract class ValidityAwareTagHelperBase : RazorFormsTagHelperBase
 
 		// Generate input
 		InputGenerator.Init(Options, IsValid, IsInvalid);
-		var input = await InputGenerator.GenerateOutput(context, this, attributesForGenerator, await output.GetChildContentAsync());
+		var input = await InputGenerator.GenerateOutput(context, this, attributesList, await output.GetChildContentAsync());
 
 		ErrorGenerator.Init(Options, IsValid, IsInvalid, For!, ViewContext!);
 		var errors = await ErrorGenerator.GenerateOutput(context);
