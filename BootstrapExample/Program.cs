@@ -14,6 +14,7 @@ builder.Services.UseRazorFormsWithBootstrap(o =>
 	o.InputOptions.ErrorClasses = "small";
 	o.InputOptions.InputFirst = true;
 	o.InputOptions.RemoveWrappers = true;
+	o.CheckInputGroupOptions.ComponentWrapperClasses = "mb-3";
 	o.TextAreaOptions.ComponentWrapperClasses = "mb-3";
 	o.TextAreaOptions.InputBlockWrapperClasses = "form-floating";
 	o.TextAreaOptions.ErrorWrapperClasses = $"{o.InputOptions.ErrorWrapperClasses} mt-1";

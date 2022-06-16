@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace BootstrapExample.Models;
 
@@ -40,4 +42,12 @@ public class User
 	[DataType(DataType.MultilineText)]
 	[MaxLength(500, ErrorMessage = "Your biography must be shorter than 500 characters")]
 	public string Biography { get; set; } = string.Empty;
+
+	public List<string> Ethnicities { get; set; } = new ();
+	public List<int> Numbers { get; set; } = new ();
+
+	[Display(Name = "Sign me up for marketing emails")]
+	public bool WantsMarketingEmails { get; set; }
+
+	public bool AcceptTos { get; set; }
 }

@@ -8,7 +8,7 @@ using RazorForms.TagHelpers.Inputs;
 
 namespace RazorForms.Generators.Inputs;
 
-public class TextAreaGenerator : ValidityAwareOutputGenerator<IFormComponentOptions>, ITextAreaGenerator
+public class TextAreaGenerator : ValidityAwareOutputGenerator<IFormComponentWithValidationOptions>, ITextAreaGenerator
 {
 	/// <inheritdoc />
 	public override Task<TagHelperOutput> GenerateOutput(TagHelperContext context, 

@@ -44,6 +44,21 @@ public static class BootstrapExtensions
             InputErrorClasses = "is-invalid",
             ErrorWrapperClasses = "text-danger list-unstyled"
 		},
+		CheckInputOptions = new CheckInputOptions
+		{
+			InputBlockWrapperClasses = "form-check",
+			LabelClasses = "form-check-label",
+			InputClasses = "form-check-input",
+			InputFirst = true,
+			RemoveWrappers = true
+		},
+		CheckInputGroupOptions = new CheckInputGroupOptions
+		{
+			LabelClasses = "form-label",
+			LabelErrorClasses = "text-danger",
+			LabelValidClasses = "text-success",
+			ErrorWrapperClasses = "text-danger list-unstyled"
+		},
 		TextAreaOptions = new TextAreaOptions
 		{
 			LabelClasses = "form-label",

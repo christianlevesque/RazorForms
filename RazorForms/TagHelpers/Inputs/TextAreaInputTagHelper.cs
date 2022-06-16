@@ -6,7 +6,7 @@ using RazorForms.Options.Inputs;
 
 namespace RazorForms.TagHelpers.Inputs;
 
-public class TextAreaInputTagHelper : RazorFormsTagHelperBase
+public class TextAreaInputTagHelper : ValidityAwareTagHelperBase
 {
 	/// <inheritdoc />
 	public TextAreaInputTagHelper(IHtmlGenerator generator,

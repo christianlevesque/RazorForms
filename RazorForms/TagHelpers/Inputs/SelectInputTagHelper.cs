@@ -11,7 +11,7 @@ using RazorForms.Options.Inputs;
 
 namespace RazorForms.TagHelpers.Inputs;
 
-public class SelectInputTagHelper : RazorFormsTagHelperBase
+public class SelectInputTagHelper : ValidityAwareTagHelperBase
 {
 	protected const string ItemsAttributeName = "asp-items";
 

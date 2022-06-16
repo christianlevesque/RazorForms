@@ -16,6 +16,8 @@ public class LabelGenerator : ValidityAwareOutputGenerator<IFormComponentOptions
 	{
 		ThrowIfNotInitialized();
 
+		attributes ??= new TagHelperAttributeList();
+
 		var labelHelper = new LabelTagHelper(helper.Generator)
 		{
 			ViewContext = helper.ViewContext,
@@ -23,8 +25,13 @@ public class LabelGenerator : ValidityAwareOutputGenerator<IFormComponentOptions
 		};
 
 		var labelOutput = new TagHelperOutput(tagName: "label",
-		                                      attributes: new TagHelperAttributeList(),
+		                                      attributes: attributes,
 		                                      getChildContentAsync: DefaultTagHelperContent);
+
+		if (childContent != null && !childContent.IsEmptyOrWhiteSpace)
+		{
+			labelOutput.Content.SetHtmlContent(childContent.GetContent());
+		}
 
 		ApplyBaseClasses(labelOutput);
 
@@ -39,10 +46,17 @@ public class LabelGenerator : ValidityAwareOutputGenerator<IFormComponentOptions
 	{
 		ThrowIfNotInitialized();
 
-		ApplyClasses(output,
-		             Options.LabelClasses,
-		             Options.LabelValidClasses,
-		             Options.LabelErrorClasses);
+		if (Options is IFormComponentWithValidationOptions withValidationOptions)
+		{
+			ApplyClasses(output,
+		                 withValidationOptions.LabelClasses,
+		                 withValidationOptions.LabelValidClasses,
+		                 withValidationOptions.LabelErrorClasses);
+		}
+		else
+		{
+			ApplyClasses(output, Options.LabelClasses);
+		}
 	}
 
 	/// <inheritdoc />
@@ -50,9 +64,16 @@ public class LabelGenerator : ValidityAwareOutputGenerator<IFormComponentOptions
 	{
 		ThrowIfNotInitialized();
 
-		ApplyClasses(output,
-		             Options.LabelWrapperClasses,
-		             Options.LabelWrapperValidClasses,
-		             Options.LabelWrapperErrorClasses);
+		if (Options is IFormComponentWithValidationOptions withValidationOptions)
+		{
+			ApplyClasses(output,
+			             withValidationOptions.LabelWrapperClasses,
+			             withValidationOptions.LabelWrapperValidClasses,
+			             withValidationOptions.LabelWrapperErrorClasses);
+		}
+		else
+		{
+			ApplyClasses(output, Options.LabelWrapperClasses);
+		}
 	}
 }

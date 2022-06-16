@@ -29,9 +29,17 @@ public class InputBlockWrapperGenerator : ValidityAwareOutputGenerator<IFormComp
 	{
 		ThrowIfNotInitialized();
 
-		ApplyClasses(output,
-		             Options.InputBlockWrapperClasses,
-		             Options.InputBlockWrapperValidClasses,
-		             Options.InputBlockWrapperErrorClasses);
+		if (Options is IFormComponentWithValidationOptions withValidationOptions)
+		{
+			ApplyClasses(output, 
+			             withValidationOptions.InputBlockWrapperClasses, 
+			             withValidationOptions.InputBlockWrapperValidClasses, 
+			             withValidationOptions.InputBlockWrapperErrorClasses);
+			
+		}
+		else
+		{
+			ApplyClasses(output, Options.InputBlockWrapperClasses);
+		}
 	}
 }

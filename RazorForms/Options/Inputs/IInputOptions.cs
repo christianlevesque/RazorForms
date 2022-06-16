@@ -1,5 +1,5 @@
 ﻿namespace RazorForms.Options.Inputs;
 
-public interface IInputOptions : IFormComponentOptions
+public interface IInputOptions : IFormComponentWithValidationOptions
 {
 }
