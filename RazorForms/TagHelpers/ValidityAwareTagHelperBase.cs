@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Text.Encodings.Web;
+﻿using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
@@ -80,6 +79,8 @@ public abstract class ValidityAwareTagHelperBase : RazorFormsTagHelperBase
 	/// <inheritdoc />
 	public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
 	{
+		ThrowIfForNull();
+
 		output.TagName = "div";
 		output.TagMode = TagMode.StartTagAndEndTag;
 
