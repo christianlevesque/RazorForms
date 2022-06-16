@@ -47,8 +47,7 @@ public class CheckInputTagHelper : ValidityUnawareTagHelperBase<ICheckInputGener
 		attributes.Add(HtmlIdAttributeName, htmlId);
 
 		// Add the checked attribute to the input if appropriate to do so
-		var setValues = ViewContext?.ViewData.Eval(For!.Name);
-		AddCheckedAttributeIfAppropriate(attributes, setValues);
+		AddCheckedAttributeIfAppropriate(attributes);
 
 		if (!string.IsNullOrEmpty(Options.ComponentWrapperClasses))
 		{

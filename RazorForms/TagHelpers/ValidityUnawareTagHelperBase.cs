@@ -28,7 +28,7 @@ public abstract class ValidityUnawareTagHelperBase<TOutputGenerator> : RazorForm
 		InputGenerator = inputGenerator;
 	}
 
-	protected void AddCheckedAttributeIfAppropriate(TagHelperAttributeList attributes, object? values)
+	protected void AddCheckedAttributeIfAppropriate(TagHelperAttributeList attributes)
 	{
 		var currentValue = attributes.FirstOrDefault(a => a.Name == "value");
 		if (currentValue == null)
