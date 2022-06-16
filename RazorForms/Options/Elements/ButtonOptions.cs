@@ -1,13 +1,7 @@
 ﻿namespace RazorForms.Options.Elements;
 
-public class ButtonOptions : IButtonOptions
+public class ButtonOptions : ComponentOptions, IButtonOptions
 {
-	/// <inheritdoc />
-	public string? ComponentWrapperClasses { get; set; }
-
-	/// <inheritdoc />
-	public bool? RemoveWrappers { get; set; }
-
 	/// <inheritdoc />
 	public string? SubmitButtonClasses { get; set; }
 
