@@ -79,6 +79,8 @@ public abstract class ValidityAwareTagHelperBase : RazorFormsTagHelperBase
 	/// <inheritdoc />
 	public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
 	{
+		ThrowIfForNull();
+
 		output.TagName = "div";
 		output.TagMode = TagMode.StartTagAndEndTag;
 

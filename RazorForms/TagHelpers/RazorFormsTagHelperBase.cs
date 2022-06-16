@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
@@ -39,5 +40,13 @@ public class RazorFormsTagHelperBase : TagHelper
 		}
 
 		return value;
+	}
+
+	protected void ThrowIfForNull()
+	{
+		if (For == null)
+		{
+			throw new InvalidOperationException("Tag is missing required 'asp-for' attribute");
+		}
 	}
 }

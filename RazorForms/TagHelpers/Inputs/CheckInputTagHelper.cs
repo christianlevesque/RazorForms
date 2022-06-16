@@ -34,6 +34,8 @@ public class CheckInputTagHelper : ValidityUnawareTagHelperBase<ICheckInputGener
 	/// <inheritdoc />
 	public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
 	{
+		ThrowIfForNull();
+
 		output.TagName = "";
 
 		// Creating list-aware input tags for checkboxes requires us to
