@@ -7,6 +7,7 @@ public class RazorFormsOptions
 {
 	public IInputOptions InputOptions { get; set; } = new InputOptions();
 	public ICheckInputOptions CheckInputOptions { get; set; } = new CheckInputOptions();
+	public IRadioInputOptions RadioInputOptions { get; set; } = new RadioInputOptions();
 	public ICheckInputGroupOptions CheckInputGroupOptions { get; set; } = new CheckInputGroupOptions();
 	public ITextAreaOptions TextAreaOptions { get; set; } = new TextAreaOptions();
 	public ISelectOptions SelectOptions { get; set; } = new SelectOptions();
