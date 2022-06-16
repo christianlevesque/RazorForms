@@ -57,7 +57,7 @@
 				<text-area-input asp-for="UserData.Biography"
 				                 placeholder="User bio"/>
 			</div>
-			<div class="col-12">
+			<div class="col-12 col-md-3">
 				<check-input-group asp-for="UserData.Ethnicities">
 					<check-input asp-for="UserData.Ethnicities"
 					             value="Asian">
@@ -85,7 +85,7 @@
 					</check-input>
 				</check-input-group>
 			</div>
-			<div class="col-12">
+			<div class="col-12 col-md-3">
 				<check-input-group asp-for="UserData.Numbers">
 					<check-input asp-for="UserData.Numbers"
 					             value="1">
@@ -112,6 +112,38 @@
 						6
 					</check-input>
 				</check-input-group>
+			</div>
+			<div class="col-12 col-md-3">
+				<radio-input-group asp-for="UserData.Series">
+					<radio-input asp-for="UserData.Series"
+                                 value="Lord of the Rings">
+                    	Lord of the Rings
+                    </radio-input>
+                    <radio-input asp-for="UserData.Series"
+                                 value="The Wheel of Time">
+                    	The Wheel of Time
+                    </radio-input>
+                    <radio-input asp-for="UserData.Series"
+                                 value="Harry Potter">
+                    	Harry Potter
+                    </radio-input>
+				</radio-input-group>
+			</div>
+			<div class="col-12 col-md-3">
+				<radio-input-group asp-for="UserData.Number">
+					<radio-input asp-for="UserData.Number"
+                                 value="3">
+                    	3
+                    </radio-input>
+                    <radio-input asp-for="UserData.Number"
+                                 value="7">
+                    	7
+                    </radio-input>
+                    <radio-input asp-for="UserData.Number"
+                                 value="13">
+                    	13
+                    </radio-input>
+				</radio-input-group>
 			</div>
 			<div class="col-12">
 				<check-input asp-for="UserData.WantsMarketingEmails"/>
