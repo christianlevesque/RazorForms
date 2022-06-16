@@ -59,6 +59,14 @@ public static class BootstrapExtensions
 			LabelValidClasses = "text-success",
 			ErrorWrapperClasses = "text-danger list-unstyled"
 		},
+		RadioInputOptions = new RadioInputOptions
+		{
+			InputBlockWrapperClasses = "form-check",
+			LabelClasses = "form-check-label",
+			InputClasses = "form-check-input",
+			InputFirst = true,
+			RemoveWrappers = true
+		},
 		TextAreaOptions = new TextAreaOptions
 		{
 			LabelClasses = "form-label",

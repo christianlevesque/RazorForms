@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace BootstrapExample.Models;
@@ -43,7 +42,18 @@ public class User
 	[MaxLength(500, ErrorMessage = "Your biography must be shorter than 500 characters")]
 	public string Biography { get; set; } = string.Empty;
 
+	[Required]
+	[Display(Name = "Favorite book series")]
+	public string? Series { get; set; }
+
+	[Required]
+	[Display(Name = "Favorite number")]
+	public int? Number { get; set; }
+
+	[Display(Name = "Your ethnicity(ies)")]
 	public List<string> Ethnicities { get; set; } = new ();
+
+	[Display(Name = "Lucky number(s)")]
 	public List<int> Numbers { get; set; } = new ();
 
 	[Display(Name = "Sign me up for marketing emails")]
