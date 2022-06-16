@@ -40,6 +40,4 @@ public class RazorFormsTagHelperBase : TagHelper
 
 		return value;
 	}
-
-	protected static string GetHtmlIdNameFromModelName(string name) => name.Replace('.', '_');
 }
