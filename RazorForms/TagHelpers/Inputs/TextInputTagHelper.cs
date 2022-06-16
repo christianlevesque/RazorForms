@@ -38,5 +38,6 @@ public class TextInputTagHelper : ValidityAwareTagHelperBase
 	                                                                 inputGenerator,
 	                                                                 errorGenerator)
 	{
+		LabelReceivesChildContent = true;
 	}
 }

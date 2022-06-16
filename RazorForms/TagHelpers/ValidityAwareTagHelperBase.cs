@@ -92,17 +92,25 @@ public abstract class ValidityAwareTagHelperBase : RazorFormsTagHelperBase
 			output.AddClass(Options.ComponentWrapperClasses, HtmlEncoder.Default);
 		}
 
+		// Set up output generation
+		var childContent = await output.GetChildContentAsync();
+
 		// Generate wrapper
 		InputBlockWrapperGenerator.Init(Options, IsValid, IsInvalid);
 		var wrapper = await InputBlockWrapperGenerator.GenerateOutput(context, this);
 
 		// Generate label
 		LabelGenerator.Init(Options, IsValid, IsInvalid);
-		var label = await LabelGenerator.GenerateOutput(context, this);
+		var label = await LabelGenerator.GenerateOutput(context,
+		                                                this,
+		                                                childContent: LabelReceivesChildContent ? childContent : null);
 
 		// Generate input
 		InputGenerator.Init(Options, IsValid, IsInvalid);
-		var input = await InputGenerator.GenerateOutput(context, this, attributesList, await output.GetChildContentAsync());
+		var input = await InputGenerator.GenerateOutput(context,
+		                                                this,
+		                                                attributesList,
+		                                                LabelReceivesChildContent ? null : childContent);
 
 		ErrorGenerator.Init(Options, IsValid, IsInvalid, For!, ViewContext!);
 		var errors = await ErrorGenerator.GenerateOutput(context);
