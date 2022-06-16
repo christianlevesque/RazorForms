@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using Microsoft.Extensions.Logging;
 using RazorForms.Generators.Elements;
 using RazorForms.Generators.Inputs;
 using RazorForms.Options.Inputs;
@@ -15,20 +14,17 @@ namespace RazorForms.TagHelpers.Inputs;
 
 public class CheckInputTagHelper : ValidityUnawareTagHelperBase<ICheckInputGenerator>
 {
-	private ILogger<CheckInputTagHelper> _logger;
-	
 	/// <inheritdoc />
 	public CheckInputTagHelper(IHtmlGenerator generator,
 	                           ICheckInputOptions options,
 	                           IInputBlockWrapperGenerator wrapperGenerator,
 	                           ILabelGenerator labelGenerator,
-	                           ICheckInputGenerator inputGenerator, ILogger<CheckInputTagHelper> logger) : base(generator,
+	                           ICheckInputGenerator inputGenerator) : base(generator,
 	                                                                       options,
 	                                                                       wrapperGenerator,
 	                                                                       labelGenerator,
 	                                                                       inputGenerator)
 	{
-		_logger = logger;
 	}
 
 	/// <inheritdoc />
