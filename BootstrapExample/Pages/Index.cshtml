@@ -58,40 +58,60 @@
 				                 placeholder="User bio"/>
 			</div>
 			<div class="col-12">
-				<p class="small">Currently selected values: @string.Join(' ', Model.UserData.Ethnicities)</p>
-				<check-input asp-for="UserData.Ethnicities"
-				             value="Asian">Asian</check-input>
-				<check-input asp-for="UserData.Ethnicities"
-				             value="Black">Black</check-input>
-				<check-input asp-for="UserData.Ethnicities"
-				             value="Hispanic">Hispanic</check-input>
-				<check-input asp-for="UserData.Ethnicities"
-				             value="Native American">Native American</check-input>
-				<check-input asp-for="UserData.Ethnicities"
-				             value="Pacific Islander or Alaskan Native">Pacific Islander or Alaskan Native</check-input>
-				<check-input asp-for="UserData.Ethnicities"
-				             value="White">White</check-input>
+				<check-input-group asp-for="UserData.Ethnicities">
+					<check-input asp-for="UserData.Ethnicities"
+					             value="Asian">
+						Asian
+					</check-input>
+					<check-input asp-for="UserData.Ethnicities"
+					             value="Black">
+						Black
+					</check-input>
+					<check-input asp-for="UserData.Ethnicities"
+					             value="Hispanic">
+						Hispanic
+					</check-input>
+					<check-input asp-for="UserData.Ethnicities"
+					             value="Native American">
+						Native American
+					</check-input>
+					<check-input asp-for="UserData.Ethnicities"
+					             value="Pacific Islander">
+						Pacific Islander
+					</check-input>
+					<check-input asp-for="UserData.Ethnicities"
+					             value="White">
+						White
+					</check-input>
+				</check-input-group>
 			</div>
 			<div class="col-12">
-				<p class="small">
-					Currently selected numbers:
-					@foreach (var i in Model.UserData.Numbers)
-					{
-						@i
-					}
-				</p>
-				<check-input asp-for="UserData.Numbers"
-				             value="1">1</check-input>
-				<check-input asp-for="UserData.Numbers"
-				             value="2">2</check-input>
-				<check-input asp-for="UserData.Numbers"
-				             value="3">3</check-input>
-				<check-input asp-for="UserData.Numbers"
-				             value="4">4</check-input>
-				<check-input asp-for="UserData.Numbers"
-				             value="5">5</check-input>
-				<check-input asp-for="UserData.Numbers"
-				             value="6">6</check-input>
+				<check-input-group asp-for="UserData.Numbers">
+					<check-input asp-for="UserData.Numbers"
+					             value="1">
+						1
+					</check-input>
+					<check-input asp-for="UserData.Numbers"
+					             value="2">
+						2
+					</check-input>
+					<check-input asp-for="UserData.Numbers"
+					             value="3">
+						3
+					</check-input>
+					<check-input asp-for="UserData.Numbers"
+					             value="4">
+						4
+					</check-input>
+					<check-input asp-for="UserData.Numbers"
+					             value="5">
+						5
+					</check-input>
+					<check-input asp-for="UserData.Numbers"
+					             value="6">
+						6
+					</check-input>
+				</check-input-group>
 			</div>
 			<div class="col-12">
 				<check-input asp-for="UserData.WantsMarketingEmails"/>
