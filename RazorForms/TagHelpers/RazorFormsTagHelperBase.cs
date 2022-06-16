@@ -13,6 +13,8 @@ public class RazorFormsTagHelperBase : TagHelper
 	protected const string HtmlCheckedAttributeName = "checked";
 	protected const string ForAttributeName = "asp-for";
 
+	protected bool LabelReceivesChildContent { get; set; }
+
 	public readonly IHtmlGenerator Generator;
 
     [HtmlAttributeNotBound]
