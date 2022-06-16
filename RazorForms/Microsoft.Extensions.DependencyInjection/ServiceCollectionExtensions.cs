@@ -23,6 +23,7 @@ public static class ServiceCollectionExtensions
 		return self.ConfigureRazorFormsCore()
 		           .ConfigureRazorFormsInputOptions(options.InputOptions)
 		           .ConfigureRazorFormsCheckInputOptions(options.CheckInputOptions)
+		           .ConfigureRazorFormsCheckInputGroupOptions(options.CheckInputGroupOptions)
 		           .ConfigureRazorFormsTextAreaOptions(options.TextAreaOptions)
 		           .ConfigureRazorFormsSelectOptions(options.SelectOptions)
 		           .ConfigureRazorFormsButtonOptions(options.ButtonOptions);
@@ -66,6 +67,15 @@ public static class ServiceCollectionExtensions
 		var options = new CheckInputOptions();
 		action(options);
 		return self.ConfigureRazorFormsCheckInputOptions(options);
+	}
+
+	public static IServiceCollection ConfigureRazorFormsCheckInputGroupOptions(this IServiceCollection self, ICheckInputGroupOptions options) => self.AddSingleton(options);
+
+	public static IServiceCollection ConfigureRazorFormsCheckInputGroupOptions(this IServiceCollection self, Action<ICheckInputGroupOptions> action)
+	{
+		var options = new CheckInputGroupOptions();
+		action(options);
+		return self.ConfigureRazorFormsCheckInputGroupOptions(options);
 	}
 
 	public static IServiceCollection ConfigureRazorFormsTextAreaOptions(this IServiceCollection self, ITextAreaOptions options) => self.AddSingleton(options);
