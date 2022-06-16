@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Encodings.Web;
@@ -12,7 +13,7 @@ using RazorForms.Options.Inputs;
 
 namespace RazorForms.TagHelpers.Inputs;
 
-public class CheckInputTagHelper : ValidityUnawareTagHelperBase<ICheckInputGenerator>
+public class CheckInputTagHelper : CheckRadioTagHelperBase<ICheckInputGenerator>
 {
 	/// <inheritdoc />
 	public CheckInputTagHelper(IHtmlGenerator generator,
@@ -84,5 +85,46 @@ public class CheckInputTagHelper : ValidityUnawareTagHelperBase<ICheckInputGener
 		}
 
 		output.Content.SetHtmlContent(WrapperGenerator.Render(wrapper));
+	}
+
+	protected override void AddCheckedAttributeIfAppropriate(TagHelperAttributeList attributes)
+	{
+		var currentValue = attributes.FirstOrDefault(a => a.Name == "value");
+		if (currentValue == null)
+		{
+			return;
+		}
+
+		var setValues = ViewContext?.ViewData.Eval(For!.Name);
+		if (setValues == null)
+		{
+			return;
+		}
+
+		if (!setValues.GetType().IsGenericType || setValues.GetType().GetGenericTypeDefinition() != typeof(List<>))
+		{
+			return;
+		}
+
+		IList usableValues;
+		try
+		{
+			usableValues = (IList) setValues;
+		}
+		catch (Exception)
+		{
+			return;
+		}
+
+		var cv = currentValue.Value.ToString();
+
+		foreach (var i in usableValues)
+		{
+			if (i?.ToString() == cv)
+			{
+				attributes.Add(HtmlCheckedAttributeName, null);
+				return;
+			}
+		}
 	}
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.AspNetCore.Razor.TagHelpers;
+﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using RazorForms.Generators.Elements;
 using RazorForms.Options;
 
@@ -26,46 +21,5 @@ public abstract class ValidityUnawareTagHelperBase<TOutputGenerator> : RazorForm
 		WrapperGenerator = wrapperGenerator;
 		LabelGenerator = labelGenerator;
 		InputGenerator = inputGenerator;
-	}
-
-	protected void AddCheckedAttributeIfAppropriate(TagHelperAttributeList attributes)
-	{
-		var currentValue = attributes.FirstOrDefault(a => a.Name == "value");
-		if (currentValue == null)
-		{
-			return;
-		}
-
-		var setValues = ViewContext?.ViewData.Eval(For!.Name);
-		if (setValues == null)
-		{
-			return;
-		}
-
-		if (!setValues.GetType().IsGenericType || setValues.GetType().GetGenericTypeDefinition() != typeof(List<>))
-		{
-			return;
-		}
-
-		IList usableValues;
-		try
-		{
-			usableValues = (IList) setValues;
-		}
-		catch (Exception)
-		{
-			return;
-		}
-
-		var cv = currentValue.Value.ToString();
-
-		foreach (var i in usableValues)
-		{
-			if (i?.ToString() == cv)
-			{
-				attributes.Add(HtmlCheckedAttributeName, null);
-				return;
-			}
-		}
 	}
 }
