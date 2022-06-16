@@ -25,6 +25,7 @@ public static class ServiceCollectionExtensions
 		           .ConfigureRazorFormsCheckInputOptions(options.CheckInputOptions)
 		           .ConfigureRazorFormsRadioInputOptions(options.RadioInputOptions)
 		           .ConfigureRazorFormsCheckInputGroupOptions(options.CheckInputGroupOptions)
+		           .ConfigureRazorFormsRadioInputGroupOptions(options.RadioInputGroupOptions)
 		           .ConfigureRazorFormsTextAreaOptions(options.TextAreaOptions)
 		           .ConfigureRazorFormsSelectOptions(options.SelectOptions)
 		           .ConfigureRazorFormsButtonOptions(options.ButtonOptions);
@@ -87,6 +88,15 @@ public static class ServiceCollectionExtensions
 		var options = new CheckInputGroupOptions();
 		action(options);
 		return self.ConfigureRazorFormsCheckInputGroupOptions(options);
+	}
+
+	public static IServiceCollection ConfigureRazorFormsRadioInputGroupOptions(this IServiceCollection self, IRadioInputGroupOptions options) => self.AddSingleton(options);
+
+	public static IServiceCollection ConfigureRazorFormsRadioInputGroupOptions(this IServiceCollection self, Action<IRadioInputGroupOptions> action)
+	{
+		var options = new RadioInputGroupOptions();
+		action(options);
+		return self.ConfigureRazorFormsRadioInputGroupOptions(options);
 	}
 
 	public static IServiceCollection ConfigureRazorFormsTextAreaOptions(this IServiceCollection self, ITextAreaOptions options) => self.AddSingleton(options);
