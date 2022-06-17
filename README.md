@@ -1,5 +1,5 @@
 ﻿# RazorForms
-## A simple ASP.NET Core library to simplify composing reusable forms in Razor Pages
+## A simple ASP.NET Core library to simplify composing forms in Razor Pages
 
 For most websites, a solution like Razor Pages works really well. It's fairly straightforward to use, and it offers power and flexibility. However, composing forms with Razor Pages is _hot garbage_.
 
