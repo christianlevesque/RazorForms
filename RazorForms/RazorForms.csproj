@@ -3,7 +3,25 @@
 		<TargetFramework>net6.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+
+		<PackageId>RazorForms</PackageId>
+		<Title>RazorForms</Title>
+		<PackageVersion>1.0.0-beta2</PackageVersion>
+		<PackageReleaseNotes>Removes the Bootstrap configuration from the package so it can be moved to a new standalone package</PackageReleaseNotes>
+		<Authors>Christian LeVesque</Authors>
+		<Description>A small, configurable library of form tag helpers for Razor Pages. The goal of RazorForms is to create a package that can support most popular front-end CSS frameworks, or be configured to support your own custom CSS.</Description>
+		<Copyright>Copyright Christian LeVesque 2022</Copyright>
+		<PackageProjectUrl>https://www.razorforms.com</PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/RazorForms/RazorForms</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>razor page form ui component</PackageTags>
+		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="../README.md" Pack="true" PackagePath="/" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
