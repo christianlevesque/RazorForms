@@ -6,9 +6,8 @@
 
 		<PackageId>RazorForms</PackageId>
 		<Title>RazorForms</Title>
-		<PackageVersion>1.0.0-beta1</PackageVersion>
-		<VersionPrefix>1.0.0</VersionPrefix>
-		<VersionSuffix>beta1</VersionSuffix>
+		<PackageVersion>1.0.0-beta2</PackageVersion>
+		<PackageReleaseNotes>Removes the Bootstrap configuration from the package so it can be moved to a new standalone package</PackageReleaseNotes>
 		<Authors>Christian LeVesque</Authors>
 		<Description>A small, configurable library of form tag helpers for Razor Pages. The goal of RazorForms is to create a package that can support most popular front-end CSS frameworks, or be configured to support your own custom CSS.</Description>
 		<Copyright>Copyright Christian LeVesque 2022</Copyright>
