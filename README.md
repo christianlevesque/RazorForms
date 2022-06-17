@@ -82,3 +82,5 @@ The form shown above can be refactored using RazorForms:
 ```
 
 That's a reduction of _almost 75%_ (47 lines vs. 13 lines with RazorForms). The correct input type is automatically detected in most cases, so all you usually need to do is pass the `asp-for` attribute with a reference to the model member the form field is for, just like with the built-in label and input tag helpers.
+
+For more information on using RazorForms in a project, see the [docs](https://www.razorforms.com).
