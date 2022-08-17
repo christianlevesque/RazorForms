@@ -7,7 +7,7 @@ using RazorForms.Options.Inputs;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
-public static class ServiceCollectionExtensions
+public static class RazorFormsExtensions
 {
 	/// <summary>
 	/// Adds RazorForms support using the supplied <see cref="RazorFormsOptions"/> instance
