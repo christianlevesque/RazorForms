@@ -23,7 +23,9 @@ public abstract class CheckRadioTagHelperBase : ValidityUnawareTagHelperBase<ICh
 	                                                                                labelGenerator,
 	                                                                                inputGenerator)
 	{
-	}/// <inheritdoc />
+	}
+
+	/// <inheritdoc />
 	public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
 	{
 		ThrowIfForNull();
