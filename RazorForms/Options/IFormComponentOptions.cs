@@ -31,4 +31,9 @@ public interface IFormComponentOptions : IComponentOptions
 	/// Determines whether the &lt;input&gt; should come first in the markup or not
 	/// </summary>
 	bool? InputFirst { get; set; }
+
+	/// <summary>
+	/// Determines whether the &lt;input&gt; should be rendered inside its associated &lt;label&gt;
+	/// </summary>
+	bool? RenderInputInsideLabel { get; set; }
 }
