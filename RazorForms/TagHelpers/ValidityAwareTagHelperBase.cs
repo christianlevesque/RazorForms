@@ -151,6 +151,10 @@ public abstract class ValidityAwareTagHelperBase : RazorFormsTagHelperBase
 				}
 			}
 		}
+		else if (LabelReceivesChildContent)
+		{
+			labelChildContent = labelChildContent.AppendHtml(childContent);
+		}
 
 		var label = await LabelGenerator.GenerateOutput(context,
 		                                                this,
