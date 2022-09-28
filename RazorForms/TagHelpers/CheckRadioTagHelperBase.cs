@@ -89,6 +89,10 @@ public abstract class CheckRadioTagHelperBase : ValidityUnawareTagHelperBase<ICh
 					.AppendHtml(InputGenerator.Render(input));
 			}
 		}
+		else
+		{
+			labelChildContent = labelChildContent.AppendHtml(childContent);
+		}
 
 		var label = await LabelGenerator.GenerateOutput(context,
 		                                                this,
