@@ -23,7 +23,9 @@ public abstract class CheckRadioTagHelperBase : ValidityUnawareTagHelperBase<ICh
 	                                                                                labelGenerator,
 	                                                                                inputGenerator)
 	{
-	}/// <inheritdoc />
+	}
+
+	/// <inheritdoc />
 	public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
 	{
 		ThrowIfForNull();
@@ -46,9 +48,23 @@ public abstract class CheckRadioTagHelperBase : ValidityUnawareTagHelperBase<ICh
 			output.AddClass(Options.ComponentWrapperClasses, HtmlEncoder.Default);
 		}
 
+		// Set up output generation
+		var childContent = await output.GetChildContentAsync();
+		if (childContent.IsEmptyOrWhiteSpace && !string.IsNullOrEmpty(For!.Metadata.DisplayName))
+		{
+			childContent.Append(For!.Metadata.DisplayName);
+		}
+
 		// Generate wrapper
 		WrapperGenerator.Init(Options);
 		var wrapper = await WrapperGenerator.GenerateOutput(context, this);
+
+		// Generate input
+		InputGenerator.Init(Options);
+		var input = await InputGenerator.GenerateOutput(context,
+		                                                this,
+		                                                attributes,
+		                                                childContent);
 
 		// Generate label
 		LabelGenerator.Init(Options);
@@ -56,27 +72,49 @@ public abstract class CheckRadioTagHelperBase : ValidityUnawareTagHelperBase<ICh
 		{
 			{ HtmlForAttributeName, htmlId }
 		};
-		var label = await LabelGenerator.GenerateOutput(context, 
-		                                                this,
-		                                                labelAttributes,
-		                                                await output.GetChildContentAsync());
 
-		// Generate input
-		InputGenerator.Init(Options);
-		var input = await InputGenerator.GenerateOutput(context,
-		                                                this,
-		                                                attributes,
-		                                                await output.GetChildContentAsync());
-
-		if (Options.InputFirst ?? false)
+		TagHelperContent labelChildContent = new DefaultTagHelperContent();
+		if (Options.RenderInputInsideLabel ?? false)
 		{
-			wrapper.PreContent.SetHtmlContent(InputGenerator.Render(input));
-			wrapper.PostContent.SetHtmlContent(LabelGenerator.Render(label));
+			if (Options.InputFirst ?? false)
+			{
+				labelChildContent = labelChildContent
+					.AppendHtml(InputGenerator.Render(input))
+					.AppendHtml(childContent);
+			}
+			else
+			{
+				labelChildContent = labelChildContent
+					.AppendHtml(childContent)
+					.AppendHtml(InputGenerator.Render(input));
+			}
 		}
 		else
 		{
+			labelChildContent = labelChildContent.AppendHtml(childContent);
+		}
+
+		var label = await LabelGenerator.GenerateOutput(context,
+		                                                this,
+		                                                labelAttributes,
+		                                                labelChildContent);
+
+		if (Options.RenderInputInsideLabel ?? false)
+		{
 			wrapper.PreContent.SetHtmlContent(LabelGenerator.Render(label));
-			wrapper.PostContent.SetHtmlContent(InputGenerator.Render(input));
+		}
+		else
+		{
+			if (Options.InputFirst ?? false)
+			{
+				wrapper.PreContent.SetHtmlContent(InputGenerator.Render(input));
+				wrapper.PostContent.SetHtmlContent(LabelGenerator.Render(label));
+			}
+			else
+			{
+				wrapper.PreContent.SetHtmlContent(LabelGenerator.Render(label));
+				wrapper.PostContent.SetHtmlContent(InputGenerator.Render(input));
+			}
 		}
 
 		output.Content.SetHtmlContent(WrapperGenerator.Render(wrapper));

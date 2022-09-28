@@ -1,4 +1,5 @@
-﻿using System.Text.Encodings.Web;
+﻿using System.Diagnostics;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
@@ -94,16 +95,14 @@ public abstract class ValidityAwareTagHelperBase : RazorFormsTagHelperBase
 
 		// Set up output generation
 		var childContent = await output.GetChildContentAsync();
+		if (childContent.IsEmptyOrWhiteSpace && !string.IsNullOrEmpty(For!.Metadata.DisplayName))
+		{
+			childContent.Append(For!.Metadata.DisplayName);
+		}
 
 		// Generate wrapper
 		InputBlockWrapperGenerator.Init(Options, IsValid, IsInvalid);
 		var wrapper = await InputBlockWrapperGenerator.GenerateOutput(context, this);
-
-		// Generate label
-		LabelGenerator.Init(Options, IsValid, IsInvalid);
-		var label = await LabelGenerator.GenerateOutput(context,
-		                                                this,
-		                                                childContent: LabelReceivesChildContent ? childContent : null);
 
 		// Generate input
 		InputGenerator.Init(Options, IsValid, IsInvalid);
@@ -112,22 +111,77 @@ public abstract class ValidityAwareTagHelperBase : RazorFormsTagHelperBase
 		                                                attributesList,
 		                                                LabelReceivesChildContent ? null : childContent);
 
+		// Generate label
+		LabelGenerator.Init(Options, IsValid, IsInvalid);
+
+		TagHelperContent labelChildContent = new DefaultTagHelperContent();
+		if (Options.RenderInputInsideLabel ?? false)
+		{
+			if (LabelReceivesChildContent)
+			{
+				// If the label receives the child content, everything will work as we expect
+				// because we manually added the display name text to the child content above
+				if (Options.InputFirst ?? false)
+				{
+					labelChildContent = labelChildContent
+						.AppendHtml(InputGenerator.Render(input))
+						.AppendHtml(childContent);
+				}
+				else
+				{
+					labelChildContent = labelChildContent
+						.AppendHtml(childContent)
+					    .AppendHtml(InputGenerator.Render(input));
+				}
+			}
+			else
+			{
+				// If the label DOESN'T receive the child content, we still need to manually add the display name text here
+				if (Options.InputFirst ?? false)
+				{
+					labelChildContent = labelChildContent
+						.AppendHtml(InputGenerator.Render(input))
+						.AppendHtml(For!.Metadata.DisplayName);
+				}
+				else
+				{
+					labelChildContent = labelChildContent
+						.AppendHtml(For!.Metadata.DisplayName)
+						.AppendHtml(InputGenerator.Render(input));
+				}
+			}
+		}
+		else if (LabelReceivesChildContent)
+		{
+			labelChildContent = labelChildContent.AppendHtml(childContent);
+		}
+
+		var label = await LabelGenerator.GenerateOutput(context,
+		                                                this,
+		                                                childContent: labelChildContent);
+
 		ErrorGenerator.Init(Options, IsValid, IsInvalid, For!, ViewContext!);
 		var errors = await ErrorGenerator.GenerateOutput(context);
 
-		if (Options.InputFirst ?? false)
+		if (Options.RenderInputInsideLabel ?? false)
 		{
-			wrapper.PreContent.SetHtmlContent(InputGenerator.Render(input));
-			wrapper.PostContent.SetHtmlContent(LabelGenerator.Render(label));
+			wrapper.PreContent.SetHtmlContent(LabelGenerator.Render(label));
 		}
 		else
 		{
-			wrapper.PreContent.SetHtmlContent(LabelGenerator.Render(label));
-			wrapper.PostContent.SetHtmlContent(InputGenerator.Render(input));
+			if (Options.InputFirst ?? false)
+            {
+            	wrapper.PreContent.SetHtmlContent(InputGenerator.Render(input));
+            	wrapper.PostContent.SetHtmlContent(LabelGenerator.Render(label));
+            }
+            else
+            {
+            	wrapper.PreContent.SetHtmlContent(LabelGenerator.Render(label));
+            	wrapper.PostContent.SetHtmlContent(InputGenerator.Render(input));
+            }
 		}
 
 		wrapper.PostElement.SetHtmlContent(ErrorGenerator.Render(errors));
-
 		output.Content.SetHtmlContent(InputBlockWrapperGenerator.Render(wrapper));
 	}
 }

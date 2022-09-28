@@ -19,4 +19,7 @@ public abstract class FormComponentOptions : ComponentOptions, IFormComponentOpt
 
 	/// <inheritdoc />
 	public bool? InputFirst { get; set; }
+
+	/// <inheritdoc />
+	public bool? RenderInputInsideLabel { get; set; }
 }

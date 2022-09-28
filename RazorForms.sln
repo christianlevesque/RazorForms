@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 #
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorForms", "RazorForms\RazorForms.csproj", "{3C9E251F-AECA-434D-98B4-A37A073C175A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleProject", "ExampleProject\ExampleProject.csproj", "{3F666FC2-FEC3-45B0-B2A7-3E0E3883C148}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,5 +15,9 @@ Global
 		{3C9E251F-AECA-434D-98B4-A37A073C175A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C9E251F-AECA-434D-98B4-A37A073C175A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C9E251F-AECA-434D-98B4-A37A073C175A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F666FC2-FEC3-45B0-B2A7-3E0E3883C148}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F666FC2-FEC3-45B0-B2A7-3E0E3883C148}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F666FC2-FEC3-45B0-B2A7-3E0E3883C148}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F666FC2-FEC3-45B0-B2A7-3E0E3883C148}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
