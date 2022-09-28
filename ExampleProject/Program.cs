@@ -6,7 +6,24 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-
+builder.Services.UseRazorForms(o =>
+{
+	o.InputOptions.RemoveWrappers = true;
+	o.InputOptions.RenderInputInsideLabel = true;
+	o.InputOptions.InputFirst = true;
+	o.TextAreaOptions.RemoveWrappers = true;
+	o.TextAreaOptions.RenderInputInsideLabel = true;
+	o.TextAreaOptions.InputFirst = true;
+	o.SelectOptions.RemoveWrappers = true;
+	o.SelectOptions.RenderInputInsideLabel = true;
+	o.SelectOptions.InputFirst = true;
+	o.CheckInputOptions.RemoveWrappers = true;
+	o.CheckInputOptions.RenderInputInsideLabel = true;
+	o.CheckInputOptions.InputFirst = true;
+	o.RadioInputOptions.RemoveWrappers = true;
+	o.RadioInputOptions.RenderInputInsideLabel = true;
+	o.RadioInputOptions.InputFirst = true;
+});
 // builder.Services.UseRazorFormsWithBootstrap(o =>
 // {
 // 	o.InputOptions.ComponentWrapperClasses = "mb-3";

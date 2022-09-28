@@ -1,6 +1,6 @@
 ﻿{
 	"profiles": {
-		"BootstrapExample": {
+		"ExampleProject": {
 			"commandName": "Project",
 			"dotnetRunMessages": true,
 			"launchBrowser": false,
