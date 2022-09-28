@@ -31,25 +31,8 @@
 				            placeholder="Confirm password"/>
 			</div>
 			<div class="col-12 col-md-6">
-				<text-input asp-for="UserData.PageUrl"
-				            placeholder="Page URL"/>
-				@* <select asp-items=""></select> *@
 				<select-input asp-for="UserData.PageUrl"
-							  asp-items="Model.Items">
-					<option value="">Please select a social media platform</option>
-						@foreach (var option in new[]
-						{
-							"www.facebook.com",
-							"www.twitter.com",
-							"www.linkedin.com"
-						})
-						{
-							<option value="@option"
-							        selected="@(Model.UserData.PageUrl == option)">
-								@option
-							</option>
-						}
-				</select-input>
+				              asp-items="Model.Items"/>
 			</div>
 			<div class="col-12 col-md-6">
 				<text-input asp-for="UserData.Age"
@@ -57,7 +40,8 @@
 			</div>
 			<div class="col-12">
 				<text-area-input asp-for="UserData.Biography"
-				                 placeholder="User bio"/>
+				                 placeholder="User bio"
+				                 style="height:200px;"/>
 			</div>
 			<div class="col-12 col-md-3">
 				<check-input-group asp-for="UserData.Ethnicities">

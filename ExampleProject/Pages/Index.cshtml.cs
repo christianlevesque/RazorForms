@@ -12,17 +12,22 @@ public class IndexModel : PageModel
 
 	public SelectListItem[] Items =
 	{
-		new SelectListItem
+		new ()
+		{
+			Text = "Please select a social media platform",
+			Value = string.Empty
+		},
+		new ()
 		{
 			Value = "www.facebook.com",
 			Text = "Facebook"
 		},
-		new SelectListItem
+		new ()
 		{
 			Value = "www.linkedin.com",
 			Text = "LinkedIn"
 		},
-		new SelectListItem
+		new ()
 		{
 			Value = "www.twitter.com",
 			Text = "Twitter"
