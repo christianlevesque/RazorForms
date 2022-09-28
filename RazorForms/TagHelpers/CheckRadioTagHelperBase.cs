@@ -50,6 +50,10 @@ public abstract class CheckRadioTagHelperBase : ValidityUnawareTagHelperBase<ICh
 
 		// Set up output generation
 		var childContent = await output.GetChildContentAsync();
+		if (childContent.IsEmptyOrWhiteSpace && !string.IsNullOrEmpty(For!.Metadata.DisplayName))
+		{
+			childContent.Append(For!.Metadata.DisplayName);
+		}
 
 		// Generate wrapper
 		WrapperGenerator.Init(Options);
@@ -60,7 +64,7 @@ public abstract class CheckRadioTagHelperBase : ValidityUnawareTagHelperBase<ICh
 		var input = await InputGenerator.GenerateOutput(context,
 		                                                this,
 		                                                attributes,
-		                                                await output.GetChildContentAsync());
+		                                                childContent);
 
 		// Generate label
 		LabelGenerator.Init(Options);
