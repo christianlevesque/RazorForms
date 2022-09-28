@@ -161,12 +161,6 @@ public abstract class ValidityAwareTagHelperBase : RazorFormsTagHelperBase
 		}
 
 		wrapper.PostElement.SetHtmlContent(ErrorGenerator.Render(errors));
-
 		output.Content.SetHtmlContent(InputBlockWrapperGenerator.Render(wrapper));
-	}
-
-	private async Task RenderWithInputInsideLabel()
-	{
-		
 	}
 }

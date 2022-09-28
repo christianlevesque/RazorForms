@@ -48,20 +48,12 @@ public abstract class CheckRadioTagHelperBase : ValidityUnawareTagHelperBase<ICh
 			output.AddClass(Options.ComponentWrapperClasses, HtmlEncoder.Default);
 		}
 
+		// Set up output generation
+		var childContent = await output.GetChildContentAsync();
+
 		// Generate wrapper
 		WrapperGenerator.Init(Options);
 		var wrapper = await WrapperGenerator.GenerateOutput(context, this);
-
-		// Generate label
-		LabelGenerator.Init(Options);
-		var labelAttributes = new TagHelperAttributeList
-		{
-			{ HtmlForAttributeName, htmlId }
-		};
-		var label = await LabelGenerator.GenerateOutput(context, 
-		                                                this,
-		                                                labelAttributes,
-		                                                await output.GetChildContentAsync());
 
 		// Generate input
 		InputGenerator.Init(Options);
@@ -70,15 +62,51 @@ public abstract class CheckRadioTagHelperBase : ValidityUnawareTagHelperBase<ICh
 		                                                attributes,
 		                                                await output.GetChildContentAsync());
 
-		if (Options.InputFirst ?? false)
+		// Generate label
+		LabelGenerator.Init(Options);
+		var labelAttributes = new TagHelperAttributeList
 		{
-			wrapper.PreContent.SetHtmlContent(InputGenerator.Render(input));
-			wrapper.PostContent.SetHtmlContent(LabelGenerator.Render(label));
+			{ HtmlForAttributeName, htmlId }
+		};
+
+		TagHelperContent labelChildContent = new DefaultTagHelperContent();
+		if (Options.RenderInputInsideLabel ?? false)
+		{
+			if (Options.InputFirst ?? false)
+			{
+				labelChildContent = labelChildContent
+					.AppendHtml(InputGenerator.Render(input))
+					.AppendHtml(childContent);
+			}
+			else
+			{
+				labelChildContent = labelChildContent
+					.AppendHtml(childContent)
+					.AppendHtml(InputGenerator.Render(input));
+			}
+		}
+
+		var label = await LabelGenerator.GenerateOutput(context,
+		                                                this,
+		                                                labelAttributes,
+		                                                labelChildContent);
+
+		if (Options.RenderInputInsideLabel ?? false)
+		{
+			wrapper.PreContent.SetHtmlContent(LabelGenerator.Render(label));
 		}
 		else
 		{
-			wrapper.PreContent.SetHtmlContent(LabelGenerator.Render(label));
-			wrapper.PostContent.SetHtmlContent(InputGenerator.Render(input));
+			if (Options.InputFirst ?? false)
+			{
+				wrapper.PreContent.SetHtmlContent(InputGenerator.Render(input));
+				wrapper.PostContent.SetHtmlContent(LabelGenerator.Render(label));
+			}
+			else
+			{
+				wrapper.PreContent.SetHtmlContent(LabelGenerator.Render(label));
+				wrapper.PostContent.SetHtmlContent(InputGenerator.Render(input));
+			}
 		}
 
 		output.Content.SetHtmlContent(WrapperGenerator.Render(wrapper));
