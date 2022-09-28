@@ -1,4 +1,5 @@
-﻿using System.Text.Encodings.Web;
+﻿using System.Diagnostics;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
@@ -118,20 +119,36 @@ public abstract class ValidityAwareTagHelperBase : RazorFormsTagHelperBase
 		{
 			if (LabelReceivesChildContent)
 			{
+				// If the label receives the child content, everything will work as we expect
+				// because we manually added the display name text to the child content above
 				if (Options.InputFirst ?? false)
 				{
-					labelChildContent = labelChildContent.AppendHtml(InputGenerator.Render(input))
-														 .AppendHtml(childContent);
+					labelChildContent = labelChildContent
+						.AppendHtml(InputGenerator.Render(input))
+						.AppendHtml(childContent);
 				}
 				else
 				{
-					labelChildContent = labelChildContent.AppendHtml(childContent)
-					                                     .AppendHtml(InputGenerator.Render(input));
+					labelChildContent = labelChildContent
+						.AppendHtml(childContent)
+					    .AppendHtml(InputGenerator.Render(input));
 				}
 			}
 			else
 			{
-				labelChildContent = labelChildContent.AppendHtml(InputGenerator.Render(input));
+				// If the label DOESN'T receive the child content, we still need to manually add the display name text here
+				if (Options.InputFirst ?? false)
+				{
+					labelChildContent = labelChildContent
+						.AppendHtml(InputGenerator.Render(input))
+						.AppendHtml(For!.Metadata.DisplayName);
+				}
+				else
+				{
+					labelChildContent = labelChildContent
+						.AppendHtml(For!.Metadata.DisplayName)
+						.AppendHtml(InputGenerator.Render(input));
+				}
 			}
 		}
 
