@@ -21,5 +21,6 @@ public class TextAreaInputTagHelper : ValidityAwareTagHelperBase
                                                                          inputGenerator,
                                                                          errorGenerator)
 	{
+		LabelReceivesChildContent = true;
 	}
 }
