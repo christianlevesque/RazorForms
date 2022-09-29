@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<meta content="width=device-width, initial-scale=1.0"
+	      name="viewport"/>
+
+	<title>@ViewData["Title"] &middot; RazorForms example project</title>
+
+	<link crossorigin="anonymous"
+	      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+	      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+	      rel="stylesheet">
+	<script crossorigin="anonymous"
+	        defer
+	        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+	        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body class="d-flex min-vh-100 flex-column">
+
+<header>
+	<nav class="navbar navbar-expand navbar-light bg-white border-bottom box-shadow mb-3">
+		<div class="container">
+			<a asp-area=""
+			   asp-page="/Index"
+			   class="navbar-brand">
+				RazorForms Examples
+			</a>
+
+			<div class="d-inline-flex justify-content-between">
+				<ul class="navbar-nav flex-grow-1">
+					@{
+						var links = new []
+						{
+							(Page: "/Bootstrap/Index", Text: "Bootstrap examples"),
+							(Page: "/Bulma/Index", Text: "Bulma examples")
+						};
+					}
+
+					@foreach (var link in links)
+					{
+						var (pageUrl, text) = link;
+
+						<li class="nav-item">
+							<a asp-area=""
+							   asp-page="@pageUrl"
+							   class="nav-link text-dark">
+								@text
+							</a>
+						</li>
+					}
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>
+
+<div class="container">
+	<main class="pb-3"
+	      role="main">
+		@RenderBody()
+	</main>
+</div>
+
+<footer class="border-top footer text-muted">
+	<div class="container">
+		&copy;2022 - RazorForms example project
+	</div>
+</footer>
+
+</body>
+</html>
