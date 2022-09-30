@@ -1,0 +1,30 @@
+@page
+@model ExampleProject.Pages.Bulma.Index
+
+@{
+    ViewData["Title"] = "Materialize setup";
+}
+
+<h1 class="is-size-1 text-center">@ViewData["Title"]</h1>
+
+<p>
+    To use styles in your RazorForms project, all you need to do is call the Materialize setup extension method on your <code>IServiceCollection</code>. Our extension methods are in the <code>Microsoft.Extensions.DependencyInjection</code> namespace, so you don't need to import anything beyond installing the NuGet package.
+</p>
+
+<pre>
+<code>
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+builder.Services.AddRazorPages();
+
+builder.Services.UseRazorFormsWithMaterialize(o =>
+{
+    // Add your customizations here
+});
+</code>
+</pre>

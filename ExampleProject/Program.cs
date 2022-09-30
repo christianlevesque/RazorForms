@@ -8,7 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-builder.Services.UseRazorFormsWithBulma(BulmaSetup);
+builder.Services.UseRazorFormsWithMaterialize(MaterializeSetup);
+
+// builder.Services.UseRazorFormsWithBulma(BulmaSetup);
 
 // builder.Services.UseRazorFormsWithBootstrap5(Bootstrap5Setup);
 // builder.Services.UseRazorFormsWithBootstrap5FloatingLabels(Bootstrap5Setup);
@@ -57,6 +59,11 @@ static void Bootstrap5Setup(RazorFormsOptions o)
 }
 
 static void BulmaSetup(RazorFormsOptions o)
+{
+	
+}
+
+static void MaterializeSetup(RazorFormsOptions o)
 {
 	
 }

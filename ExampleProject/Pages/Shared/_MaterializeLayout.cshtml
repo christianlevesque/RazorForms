@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<meta content="width=device-width, initial-scale=1.0"
+	      name="viewport"/>
+
+	<title>@ViewData["Title"] &middot; RazorForms example project</title>
+
+	<!-- Compiled and minified CSS -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+	      rel="stylesheet">
+
+	<!-- Compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</head>
+
+<body style="display:flex;flex-direction:column;min-height:100vh;">
+
+<nav>
+	<div class="container">
+		<div class="nav-wrapper">
+			<a asp-area=""
+			   asp-page="/Index"
+			   class="brand-logo">
+				Back to home
+			</a>
+
+			<ul class="navbar-end right">
+				@{
+					var links = new[]
+					{
+						("/Materialize/Index", "Materialize setup"),
+						("/Materialize/DefaultExamples", "Default labels"),
+						("/Materialize/AttributeDisplayExamples", "Attribute labels"),
+						("/Materialize/HtmlExamples", "HTML labels")
+					};
+				}
+
+				@foreach (var link in links)
+				{
+					var (pageUrl, text) = link;
+
+					<li>
+						<a asp-area=""
+						   asp-page="@pageUrl"
+						   class="navbar-item">
+							@text
+						</a>
+					</li>
+				}
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<div class="container"
+     style="flex-grow:1">
+	<main role="main">
+		@RenderBody()
+	</main>
+</div>
+
+<footer class="page-footer">
+	<div class="container">
+		<p>
+			&copy;2022 - RazorForms example project
+		</p>
+	</div>
+</footer>
+
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', () => M.AutoInit(null));
+</script>
+
+</body>
+</html>
