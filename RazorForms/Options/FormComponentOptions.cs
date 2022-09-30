@@ -12,6 +12,9 @@ public abstract class FormComponentOptions : ComponentOptions, IFormComponentOpt
 	public string? LabelClasses { get; set; }
 
 	/// <inheritdoc />
+	public string? LabelTextHtmlWrapper { get; set; }
+
+	/// <inheritdoc />
 	public string? InputWrapperClasses { get; set; }
 
 	/// <inheritdoc />

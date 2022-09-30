@@ -50,7 +50,8 @@ public static class RazorFormsMaterializeExtensions
 		{
 			RemoveWrappers = true,
 			InputFirst = true,
-			RenderInputInsideLabel = true
+			RenderInputInsideLabel = true,
+			LabelTextHtmlWrapper = "span"
 		},
 		CheckInputGroupOptions = new CheckInputGroupOptions
 		{
@@ -62,7 +63,8 @@ public static class RazorFormsMaterializeExtensions
 		{
 			RemoveWrappers = true,
 			InputFirst = true,
-			RenderInputInsideLabel = true
+			RenderInputInsideLabel = true,
+			LabelTextHtmlWrapper = "span"
 		},
 		RadioInputGroupOptions = new RadioInputGroupOptions
 		{

@@ -18,6 +18,11 @@ public interface IFormComponentOptions : IComponentOptions
 	string? LabelClasses { get; set; }
 
 	/// <summary>
+	/// Which HTML tag, if any, to wrap the &lt;label&gt; text with
+	/// </summary>
+	string? LabelTextHtmlWrapper { get; set; }
+
+	/// <summary>
 	/// CSS classes applied to the &lt;div&gt; surrounding the &lt;input&gt;
 	/// </summary>
 	string? InputWrapperClasses { get; set; }
