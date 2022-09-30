@@ -3,6 +3,7 @@ using RazorForms;
 using RazorForms.Options.Elements;
 using RazorForms.Options.Inputs;
 
+// ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection;
 
 public static class RazorFormsBootstrap5Extensions
