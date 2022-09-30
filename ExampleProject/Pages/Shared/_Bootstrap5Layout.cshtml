@@ -33,8 +33,10 @@
 					@{
 						var links = new[]
 						{
-							(Page: "/Bootstrap/Index", Text: "Bootstrap examples"),
-							(Page: "/Bootstrap/Text", Text: "Text")
+							("/Bootstrap/Index", "Bootstrap5 setup"),
+							("/Bootstrap/DefaultExamples", "Default labels"),
+							("/Bootstrap/AttributeDisplayExamples", "Attribute labels"),
+							("/Bootstrap/HtmlExamples", "HTML labels")
 						};
 					}
 
@@ -57,7 +59,7 @@
 	</nav>
 </header>
 
-<div class="container">
+<div class="container flex-grow-1">
 	<main class="pb-3"
 	      role="main">
 		@RenderBody()

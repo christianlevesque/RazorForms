@@ -33,8 +33,7 @@
 					@{
 						var links = new []
 						{
-							(Page: "/Bootstrap/Index", Text: "Bootstrap examples"),
-							(Page: "/Bulma/Index", Text: "Bulma examples")
+							("/Bootstrap/Index", "Bootstrap5")
 						};
 					}
 
@@ -56,7 +55,7 @@
 	</nav>
 </header>
 
-<div class="container">
+<div class="container flex-grow-1">
 	<main class="pb-3"
 	      role="main">
 		@RenderBody()

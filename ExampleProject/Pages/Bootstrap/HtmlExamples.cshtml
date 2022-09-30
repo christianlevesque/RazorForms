@@ -1,0 +1,271 @@
+@page
+@model ExampleProject.Pages.Shared.ExampleModel
+
+@{
+	ViewData["Title"] = "Bootstrap 5 example form with HTML labels";
+	const string rowClass = "col-12 col-md-6 mb-5";
+	const string buttonRowClass = "col-12 col-md-4 mb-5";
+}
+
+<h1 class="display-4 text-center">@ViewData["Title"]</h1>
+
+<p>
+	This page shows how to pass HTML or text content directly to the underlying &lt;label&gt; element so you can render arbitrary content. The labels used are the same as the example using attribute labels, but many of these labels have HTML included in them to show why you would prefer one approach to another.
+</p>
+
+<form asp-page="/"
+      method="post">
+	<div class="row">
+		<div class="col-12">
+			<h2 class="display-6">&lt;text-input&gt;</h2>
+		</div>
+		<div class="@rowClass">
+			<text-input asp-for="FirstName"
+			            disabled>
+				<strong>First</strong> name
+			</text-input>
+			<p>
+				You can pass arbitrary attributes down to the &lt;input&gt; by adding them to the &lt;text-input&gt; tag helper. In this case, the <code>disabled</code> attribute was passed to the &lt;text-input&gt; tag helper, so the  underlying &lt;input&gt; is also disabled.
+			</p>
+		</div>
+		<div class="@rowClass">
+			<text-input asp-for="LastName"
+			            class="fake-class">
+				<strong>Last</strong> name
+			</text-input>
+			<p>
+				The only attribute not passed to the underlying &lt;input&gt; is the <code>class</code> attribute. Classes are passed to the &lt;div&gt; wrapping the whole component output. In this case, the CSS class <code>fake-class</code> has been applied to the &lt;div&gt; wrapping the component.
+			</p>
+		</div>
+		<div class="@rowClass">
+			<text-input asp-for="Password">
+				Your <strong>secure</strong> password
+			</text-input>
+			<p>
+				Data types like passwords are automatically detected if the model property is decorated with <code>[DataType(DataType.Password)]</code>. No need to supply <code>type="password"</code> manually!
+			</p>
+		</div>
+		<div class="@rowClass">
+			<text-input asp-for="PasswordMatch"
+			            type="password">
+				Re-enter your <strong>secure</strong> password
+			</text-input>
+			<p>
+				Alternatively, if you don't decorate the model property with <code>[DataType(DataType.Password)]</code>, you can still pass <code>type="password"</code> and it will work as expected.
+			</p>
+		</div>
+		<div class="@rowClass">
+			<text-input asp-for="Age">
+				Your <strong>age</strong>
+			</text-input>
+			<p>
+				Other data types such as <code>int</code> are also detected automatically, and the appropriate input type is rendered according to the built-in ASP.NET logic.
+			</p>
+		</div>
+
+		<div class="col-12">
+			<h2 class="display-6">&lt;select-input&gt;</h2>
+		</div>
+
+		<div class="@rowClass">
+			<select-input asp-for="PageUrl"
+			              asp-items="Model.SocialMediaPlatforms"/>
+			<p>
+				You can render an array of <code>SelectListItem</code> within a &lt;select-input&gt; just like with the &lt;select&gt; tag helper.
+			</p>
+			<p class="text-info">
+				The &lt;select-input&gt; tag helper does not support arbitrary HTML content being passed to the label. The reason for this is that the &lt;select-input&gt; tag helper renders its child content inside the underlying &lt;select&gt;. Since Razor Pages doesn't support the Blazor <code>RenderFragment</code> technique, there is no meaningful way to differentiate between label code and &lt;option&gt; code. Because HTML label content is not supported, the label display name is equal to the model property name. 
+			</p>
+		</div>
+
+		<div class="@rowClass">
+			<select-input asp-for="Height">
+				<option value="">Select an approximate height range</option>
+				@foreach (var val in new[] { 48, 54, 60, 66, 72, 78, 84, 90, 96 })
+				{
+					<option value="@val">@val inches</option>
+				}
+			</select-input>
+			<p>
+				You can also render &lt;option&gt; elements as children of the &lt;select-input&gt;.
+			</p>
+		</div>
+
+		<div class="col-12">
+			<h2 class="display-6">&lt;text-area-input&gt;</h2>
+		</div>
+
+		<div class="col-12">
+			<text-area-input asp-for="Biography"
+			                 style="height:200px;">
+				Your <strong>bio</strong>
+			</text-area-input>
+			<p>
+				As with other RazorForms tag helpers, you can pass arbitrary attributes to the &lt;text-area-input&gt; tag helper. In this case, the height is set using <code>style="height:200px"</code>.
+			</p>
+		</div>
+
+		<div class="col-12">
+			<h2 class="display-6">&lt;check-input-group&gt; and &lt;check-input&gt;</h2>
+		</div>
+
+		<div class="@rowClass">
+			<check-input-group asp-for="Interests">
+				<check-input asp-for="Interests"
+				             value="coding">
+					<strong>Coding</strong>
+				</check-input>
+				<check-input asp-for="Interests"
+				             value="hiking">
+					<strong>Hiking</strong>
+				</check-input>
+				<check-input asp-for="Interests"
+				             value="reading">
+					<strong>Reading</strong>
+				</check-input>
+				<check-input asp-for="Interests"
+				             value="drawing">
+					<strong>Drawing</strong>
+				</check-input>
+				<check-input asp-for="Interests"
+				             value="sports">
+					<strong>Sports</strong>
+				</check-input>
+				<check-input asp-for="Interests"
+				             value="boating">
+					Building <strong>boats</strong> in your basement
+				</check-input>
+			</check-input-group>
+			<p>
+				A &lt;check-input-group&gt; creates a validity context around a group of checkboxes, so it will display errors if the associated model property fails validation. As you can see, each &lt;check-input&gt; has the same text. This is because of how RazorForms automatically determines the label text for inputs.
+			</p>
+			<p class="text-info">
+				The &lt;check-input-group&gt; tag helper does not support arbitrary HTML content being passed to the label. The reason for this is that the &lt;check-input-group&gt; tag helper renders its child content as a list of checkboxes. Since Razor Pages doesn't support the Blazor <code>RenderFragment</code> technique, there is no meaningful way to differentiate between label code and checkbox code. Because HTML label content is not supported, the label display name is equal to the model property name.
+			</p>
+		</div>
+		<div class="@rowClass">
+			<check-input-group asp-for="Numbers">
+				<check-input asp-for="Numbers"
+				             value="1">
+					1
+				</check-input>
+				<check-input asp-for="Numbers"
+				             value="2">
+					2
+				</check-input>
+				<check-input asp-for="Numbers"
+				             value="3">
+					3
+				</check-input>
+				<check-input asp-for="Numbers"
+				             value="4">
+					4
+				</check-input>
+				<check-input asp-for="Numbers"
+				             value="5">
+					5
+				</check-input>
+				<check-input asp-for="Numbers"
+				             value="6">
+					6
+				</check-input>
+			</check-input-group>
+			<p>
+				&lt;check-input&gt; also works with numeric types. RazorForms uses the built-in input tag helper under the hood, so any type that can be used with a checkbox should work with &lt;check-input&gt;.
+			</p>
+		</div>
+
+		<div class="col-12">
+			<h2 class="display-6">&lt;radio-input-group&gt; and &lt;radio-input&gt;</h2>
+		</div>
+
+		<div class="@rowClass">
+			<radio-input-group asp-for="Series">
+				<radio-input asp-for="Series"
+				             value="Lord of the Rings">
+					Lord of the Rings
+				</radio-input>
+				<radio-input asp-for="Series"
+				             value="The Wheel of Time">
+					The Wheel of Time
+				</radio-input>
+				<radio-input asp-for="Series"
+				             value="Harry Potter">
+					Harry Potter
+				</radio-input>
+			</radio-input-group>
+			<p>
+				&lt;radio-input-group&gt; and &lt;radio-input&gt; work essentially the same as &lt;check-input[-group]&gt;, with one difference: the associated model property can't be a list because only one item can be checked at once.
+			</p>
+			<p class="text-info">
+				The &lt;radio-input-group&gt; tag helper does not support arbitrary HTML content being passed to the label. The reason for this is that the &lt;radio-input-group&gt; tag helper renders its child content as a list of radio buttons. Since Razor Pages doesn't support the Blazor <code>RenderFragment</code> technique, there is no meaningful way to differentiate between label code and radio button code. Because HTML label content is not supported, the label display name is equal to the model property name. 
+			</p>
+		</div>
+		<div class="@rowClass">
+			<radio-input-group asp-for="Number">
+				<radio-input asp-for="Number"
+				             value="3">
+					3
+				</radio-input>
+				<radio-input asp-for="Number"
+				             value="7">
+					7
+				</radio-input>
+				<radio-input asp-for="Number"
+				             value="13">
+					13
+				</radio-input>
+			</radio-input-group>
+			<p>
+				Also like &lt;check-input[-group]&gt;, &lt;radio-input[-group]&gt; can be used with numeric types.
+			</p>
+		</div>
+
+		<div class="col-12">
+			<h2 class="display-6">Standalone &lt;check-input&gt;</h2>
+		</div>
+
+		<div class="@rowClass">
+			<check-input asp-for="WantsMarketingEmails">
+				Sign me up for marketing emails
+			</check-input>
+			<check-input asp-for="AcceptTos">
+				I accept the
+				<a asp-area=""
+				   asp-page="/Terms"
+				   target="_blank">
+					Terms of Service
+				</a>
+			</check-input>
+			<p>
+				A standalone &lt;check-input&gt; can be used just fine without specifying label content because only one checkbox with that label will be created.
+			</p>
+			<p class="text-info">
+				Here, you can see one of the biggest advantages of rendering HTML labels over using <code>[Display(Name = "")]</code> - you can pass functional HTML into the label, such as in the terms of service agreement, where you can click a link that takes you to the terms of service page in a new tab. This is not possible with attributes.
+			</p>
+		</div>
+
+		<h2 class="display-6">&lt;submit-button&gt;, &lt;reset-button&gt;, and &lt;default-button&gt;</h2>
+
+		<div class="@buttonRowClass">
+			<submit-button>Submit</submit-button>
+			<p>
+				The RazorForms button tag helpers render less HTML than other RazorForms tag helpers. The only markup rendered is the &lt;button&gt; element, its associated classes, and any arbitrary attributes passed into the tag helper. The child content of the button tag helpers is rendered as the child content of the generated &lt;button&gt;.
+			</p>
+		</div>
+
+		<div class="@buttonRowClass">
+			<reset-button class="custom-button">Reset</reset-button>
+			<p>
+				Like with other tag helpers, you can pass arbitrary classes into the button tag helpers. Unlike other tag helpers, however, classes passed in are rendered on the &lt;button&gt; and not the component wrapper, even if the component wrapper is enabled.
+			</p>
+		</div>
+
+		<div class="@buttonRowClass">
+			<default-button disabled>Just a button</default-button>
+			<p>
+				Like with other tag helpers, you can pass arbitrary attributres into the button tag helpers. In this case, the <code>disabled</code> attribute was passed into the button tag helper, and it was rendered directly on the &lt;button&gt;.
+			</p>
+		</div>
+	</div>
+</form>
