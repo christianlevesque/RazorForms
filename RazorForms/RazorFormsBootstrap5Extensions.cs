@@ -32,6 +32,33 @@ public static class RazorFormsBootstrap5Extensions
 		return self.UseRazorForms(_bootstrapDefaults);
 	}
 
+	/// <summary>
+	/// Add RazorForms support with configurable Bootstrap 5 settings, along with added configuration to set up Bootstrap floating form labels
+	/// </summary>
+	/// <param name="self">The <see cref="IServiceCollection"/> instance</param>
+	/// <param name="action">An <see cref="Action"/> that can be used to mutate the default Bootstrapv5 options</param>
+	/// <returns></returns>
+	public static IServiceCollection UseRazorFormsWithBootstrap5FloatingLabels(this IServiceCollection self,
+		Action<RazorFormsOptions> action)
+	{
+		// Inputs
+		_bootstrapDefaults.InputOptions.InputBlockWrapperClasses = "form-floating";
+		_bootstrapDefaults.InputOptions.InputFirst = true;
+		_bootstrapDefaults.InputOptions.RemoveWrappers = true;
+
+		// TextAreas
+		_bootstrapDefaults.TextAreaOptions.InputBlockWrapperClasses = "form-floating";
+		_bootstrapDefaults.TextAreaOptions.InputFirst = true;
+		_bootstrapDefaults.TextAreaOptions.RemoveWrappers = true;
+
+		// Selects
+		_bootstrapDefaults.SelectOptions.InputBlockWrapperClasses = "form-floating";
+		_bootstrapDefaults.SelectOptions.InputFirst = true;
+		_bootstrapDefaults.SelectOptions.RemoveWrappers = true;
+
+		return self.UseRazorFormsWithBootstrap5(action);
+	}
+
 	private static RazorFormsOptions _bootstrapDefaults = new()
 	{
 		InputOptions = new InputOptions
