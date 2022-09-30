@@ -10,7 +10,9 @@ builder.Services
 	.AddRazorPages()
 	.AddRazorRuntimeCompilation();
 
-builder.Services.UseRazorFormsWithBootstrap5(Bootstrap5Setup);
+builder.Services.UseRazorFormsWithBulma(BulmaSetup);
+
+// builder.Services.UseRazorFormsWithBootstrap5(Bootstrap5Setup);
 // builder.Services.UseRazorFormsWithBootstrap5FloatingLabels(Bootstrap5Setup);
 
 var app = builder.Build();
@@ -54,4 +56,9 @@ static void Bootstrap5Setup(RazorFormsOptions o)
 	// Radio/checkbox
 	o.CheckInputGroupOptions.ComponentWrapperClasses = "mb-3";
 	o.RadioInputGroupOptions.ComponentWrapperClasses = "mb-3";
+}
+
+static void BulmaSetup(RazorFormsOptions o)
+{
+	
 }
