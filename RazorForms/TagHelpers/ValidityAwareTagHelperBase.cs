@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Text.Encodings.Web;
+﻿using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
@@ -97,7 +96,7 @@ public abstract class ValidityAwareTagHelperBase : RazorFormsTagHelperBase
 		var childContent = await output.GetChildContentAsync();
 		if (childContent.IsEmptyOrWhiteSpace && !string.IsNullOrEmpty(For!.Metadata.DisplayName))
 		{
-			childContent.Append(For!.Metadata.DisplayName);
+			childContent.AppendHtml(Utilities.GenerateLabelText(Options, For!.Metadata.DisplayName));
 		}
 
 		// Generate wrapper
@@ -137,16 +136,18 @@ public abstract class ValidityAwareTagHelperBase : RazorFormsTagHelperBase
 			else
 			{
 				// If the label DOESN'T receive the child content, we still need to manually add the display name text here
+				var labelHtml = Utilities.GenerateLabelText(Options, For!.Metadata.DisplayName!);
+
 				if (Options.InputFirst ?? false)
 				{
 					labelChildContent = labelChildContent
 						.AppendHtml(InputGenerator.Render(input))
-						.AppendHtml(For!.Metadata.DisplayName);
+						.AppendHtml(labelHtml);
 				}
 				else
 				{
 					labelChildContent = labelChildContent
-						.AppendHtml(For!.Metadata.DisplayName)
+						.AppendHtml(labelHtml)
 						.AppendHtml(InputGenerator.Render(input));
 				}
 			}

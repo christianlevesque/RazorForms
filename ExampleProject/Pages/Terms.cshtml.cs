@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace BootstrapExample.Pages;
+namespace ExampleProject.Pages;
 
 public class Terms : PageModel
 {

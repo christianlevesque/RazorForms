@@ -52,7 +52,7 @@ public abstract class CheckRadioTagHelperBase : ValidityUnawareTagHelperBase<ICh
 		var childContent = await output.GetChildContentAsync();
 		if (childContent.IsEmptyOrWhiteSpace && !string.IsNullOrEmpty(For!.Metadata.DisplayName))
 		{
-			childContent.Append(For!.Metadata.DisplayName);
+			childContent.AppendHtml(Utilities.GenerateLabelText(Options, For!.Metadata.DisplayName));
 		}
 
 		// Generate wrapper

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<meta content="width=device-width, initial-scale=1.0"
+	      name="viewport"/>
+
+	<title>@ViewData["Title"] &middot; RazorForms example project</title>
+
+	<link href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+	      rel="stylesheet">
+</head>
+
+<body class="is-flex hero is-full-height is-flex-direction-column">
+
+<nav class="navbar"
+     style="border-bottom:1px solid lightgray;">
+	<div class="container">
+		<div class="navbar-brand">
+        	<a asp-area=""
+        	   asp-page="/Index"
+        	   class="navbar-item">
+        		Back to home
+        	</a>
+        </div>
+
+		<div class="navbar-menu">
+			<div class="navbar-end">
+				@{
+					var links = new[]
+					{
+						("/Bulma/Index", "Bulma setup"),
+						("/Bulma/DefaultExamples", "Default labels"),
+						("/Bulma/AttributeDisplayExamples", "Attribute labels"),
+						("/Bulma/HtmlExamples", "HTML labels")
+					};
+				}
+        
+				@foreach (var link in links)
+				{
+					var (pageUrl, text) = link;
+        
+					<a asp-area=""
+					   asp-page="@pageUrl"
+					   class="navbar-item">
+						@text
+					</a>
+				}
+			</div>
+		</div>
+	</div>
+</nav>
+
+<div class="container is-flex-grow-1">
+	<main class="pb-3"
+	      role="main">
+		@RenderBody()
+	</main>
+</div>
+
+<footer class="footer">
+	<div class="content has-text-centered">
+		<p>
+			&copy;2022 - RazorForms example project
+		</p>
+	</div>
+</footer>
+
+</body>
+</html>

@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using RazorForms.Options;
 
 namespace RazorForms;
 
@@ -35,5 +36,18 @@ public static class Utilities
 
 		var value = self.Length == 0 ? input : $" {input}";
 		self.Append(value);
+	}
+
+	/// <summary>
+	/// Generates the &lt;label&gt; inner text and surrounds it with an HTML tag if necessary
+	/// </summary>
+	/// <param name="options">the current tag helper's <see cref="IFormComponentOptions"/></param>
+	/// <param name="text">the inner text to display in the &lt;label&gt;</param>
+	/// <returns></returns>
+	public static string GenerateLabelText(IFormComponentOptions options, string text)
+	{
+		return string.IsNullOrWhiteSpace(options.LabelTextHtmlWrapper)
+			? text
+			: $"<{options.LabelTextHtmlWrapper}>{text}</{options.LabelTextHtmlWrapper}>";
 	}
 }
