@@ -1,7 +1,5 @@
 ﻿using System;
 using RazorForms;
-using RazorForms.Generators.Elements;
-using RazorForms.Generators.Inputs;
 using RazorForms.Options.Elements;
 using RazorForms.Options.Inputs;
 
@@ -18,8 +16,7 @@ public static class RazorFormsExtensions
 	/// <returns></returns>
 	public static IServiceCollection UseRazorForms(this IServiceCollection self, RazorFormsOptions options)
 	{
-		return self.ConfigureRazorFormsCore()
-		           .ConfigureRazorFormsInputOptions(options.InputOptions)
+		return self.ConfigureRazorFormsInputOptions(options.InputOptions)
 		           .ConfigureRazorFormsCheckInputOptions(options.CheckInputOptions)
 		           .ConfigureRazorFormsRadioInputOptions(options.RadioInputOptions)
 		           .ConfigureRazorFormsCheckInputGroupOptions(options.CheckInputGroupOptions)
@@ -40,30 +37,6 @@ public static class RazorFormsExtensions
 		var options = new RazorFormsOptions();
 		action(options);
 		return self.UseRazorForms(options);
-	}
-
-	/// <summary>
-	/// Adds the core RazorForms services to the dependency container
-	/// </summary>
-	/// <remarks>
-	/// This method is automatically called, so unless you're hacking the core, there's no need to call this method manually.
-	/// </remarks>
-	/// <param name="self">The <see cref="IServiceCollection"/> instance</param>
-	/// <returns></returns>
-	public static IServiceCollection ConfigureRazorFormsCore(this IServiceCollection self)
-	{
-		return self.AddTransient<ILabelGenerator, LabelGenerator>()
-		           .AddTransient<IInputGenerator, InputGenerator>()
-		           .AddTransient<ICheckInputGenerator, CheckInputGenerator>()
-		           .AddTransient<IRadioInputGenerator, RadioInputGenerator>()
-		           .AddTransient<ICheckRadioInputSectionGenerator, CheckRadioInputSectionGenerator>()
-		           .AddTransient<ITextAreaGenerator, TextAreaGenerator>()
-		           .AddTransient<IInputBlockWrapperGenerator, InputBlockWrapperGenerator>()
-		           .AddTransient<ISelectGenerator, SelectGenerator>()
-		           .AddTransient<IErrorGenerator, ErrorGenerator>()
-		           .AddTransient<ISubmitButtonGenerator, SubmitButtonGenerator>()
-		           .AddTransient<IResetButtonGenerator, ResetButtonGenerator>()
-		           .AddTransient<IDefaultButtonGenerator, DefaultButtonGenerator>();
 	}
 
 	/// <summary>
