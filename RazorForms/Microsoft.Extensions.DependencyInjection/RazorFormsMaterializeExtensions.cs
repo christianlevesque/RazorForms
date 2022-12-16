@@ -1,7 +1,6 @@
 using System;
 using RazorForms;
-using RazorForms.Options.Elements;
-using RazorForms.Options.Inputs;
+using RazorForms.Options;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection;
@@ -35,7 +34,7 @@ public static class RazorFormsMaterializeExtensions
 
 	private static RazorFormsOptions _materializeDefaults = new()
 	{
-		InputOptions = new InputOptions
+		InputOptions = new FormComponentWithValidationOptions
 		{
 			InputBlockWrapperClasses = "input-field",
 			InputValidClasses = "valid",
@@ -46,33 +45,33 @@ public static class RazorFormsMaterializeExtensions
 			InputFirst = true,
 			ErrorClasses = "helper-text red-text"
 		},
-		CheckInputOptions = new CheckInputOptions
+		CheckInputOptions = new FormComponentOptions
 		{
 			RemoveWrappers = true,
 			InputFirst = true,
 			RenderInputInsideLabel = true,
 			LabelTextHtmlWrapper = "span"
 		},
-		CheckInputGroupOptions = new CheckInputGroupOptions
+		CheckInputGroupOptions = new FormComponentWithValidationOptions
 		{
 			LabelValidClasses = "green-text",
 			LabelErrorClasses = "red-text",
 			ErrorClasses = "helper-text red-text"
 		},
-		RadioInputOptions = new RadioInputOptions
+		RadioInputOptions = new FormComponentOptions
 		{
 			RemoveWrappers = true,
 			InputFirst = true,
 			RenderInputInsideLabel = true,
 			LabelTextHtmlWrapper = "span"
 		},
-		RadioInputGroupOptions = new RadioInputGroupOptions
+		RadioInputGroupOptions = new FormComponentWithValidationOptions
 		{
 			LabelValidClasses = "green-text",
 			LabelErrorClasses = "red-text",
 			ErrorClasses = "helper-text red-text"
 		},
-		TextAreaOptions = new TextAreaOptions
+		TextAreaOptions = new FormComponentWithValidationOptions
 		{
 			InputBlockWrapperClasses = "input-field",
 			InputClasses = "materialize-textarea",
@@ -84,7 +83,7 @@ public static class RazorFormsMaterializeExtensions
 			InputFirst = true,
 			ErrorClasses = "helper-text red-text"
 		},
-		SelectOptions = new SelectOptions
+		SelectOptions = new FormComponentWithValidationOptions
 		{
 			InputBlockWrapperClasses = "input-field",
 			InputValidClasses = "valid",
@@ -94,12 +93,6 @@ public static class RazorFormsMaterializeExtensions
 			RemoveWrappers = true,
 			InputFirst = true,
 			ErrorClasses = "helper-text red-text"
-		},
-		ButtonOptions = new ButtonOptions
-		{
-			SubmitButtonClasses = "waves-effect waves-light btn",
-			ResetButtonClasses = "waves-effect waves-light btn red",
-			DefaultButtonClasses = "waves-effect waves-light btn blue"
 		}
 	};
 }

@@ -1,7 +1,6 @@
 using System;
 using RazorForms;
-using RazorForms.Options.Elements;
-using RazorForms.Options.Inputs;
+using RazorForms.Options;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection;
@@ -62,7 +61,7 @@ public static class RazorFormsBootstrap5Extensions
 
 	private static RazorFormsOptions _bootstrapDefaults = new()
 	{
-		InputOptions = new InputOptions
+		InputOptions = new FormComponentWithValidationOptions
 		{
 			LabelClasses = "form-label",
 			LabelErrorClasses = "text-danger",
@@ -72,7 +71,7 @@ public static class RazorFormsBootstrap5Extensions
 			InputErrorClasses = "is-invalid",
 			ErrorWrapperClasses = "text-danger list-unstyled"
 		},
-		CheckInputOptions = new CheckInputOptions
+		CheckInputOptions = new FormComponentOptions
 		{
 			InputBlockWrapperClasses = "form-check",
 			LabelClasses = "form-check-label",
@@ -80,14 +79,14 @@ public static class RazorFormsBootstrap5Extensions
 			InputFirst = true,
 			RemoveWrappers = true
 		},
-		CheckInputGroupOptions = new CheckInputGroupOptions
+		CheckInputGroupOptions = new FormComponentWithValidationOptions
 		{
 			LabelClasses = "form-label",
 			LabelErrorClasses = "text-danger",
 			LabelValidClasses = "text-success",
 			ErrorWrapperClasses = "text-danger list-unstyled"
 		},
-		RadioInputOptions = new RadioInputOptions
+		RadioInputOptions = new FormComponentOptions
 		{
 			InputBlockWrapperClasses = "form-check",
 			LabelClasses = "form-check-label",
@@ -95,14 +94,14 @@ public static class RazorFormsBootstrap5Extensions
 			InputFirst = true,
 			RemoveWrappers = true
 		},
-		RadioInputGroupOptions = new RadioInputGroupOptions
+		RadioInputGroupOptions = new FormComponentWithValidationOptions
 		{
 			LabelClasses = "form-label",
 			LabelErrorClasses = "text-danger",
 			LabelValidClasses = "text-success",
 			ErrorWrapperClasses = "text-danger list-unstyled"
 		},
-		TextAreaOptions = new TextAreaOptions
+		TextAreaOptions = new FormComponentWithValidationOptions
 		{
 			LabelClasses = "form-label",
 			LabelErrorClasses = "text-danger",
@@ -112,7 +111,7 @@ public static class RazorFormsBootstrap5Extensions
 			InputErrorClasses = "is-invalid",
 			ErrorWrapperClasses = "text-danger list-unstyled"
 		},
-		SelectOptions = new SelectOptions
+		SelectOptions = new FormComponentWithValidationOptions
 		{
 			LabelClasses = "form-label",
 			LabelErrorClasses = "text-danger",
@@ -121,13 +120,6 @@ public static class RazorFormsBootstrap5Extensions
 			InputValidClasses = "is-valid",
 			InputErrorClasses = "is-invalid",
 			ErrorWrapperClasses = "text-danger list-unstyled"
-		},
-		ButtonOptions = new ButtonOptions
-		{
-			SubmitButtonClasses = "btn btn-primary",
-			ResetButtonClasses = "btn btn-outline-secondary",
-			DefaultButtonClasses = "btn btn-secondary",
-			RemoveWrappers = true
 		}
 	};
 }

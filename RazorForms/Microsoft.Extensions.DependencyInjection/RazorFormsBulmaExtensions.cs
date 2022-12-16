@@ -1,7 +1,6 @@
 using System;
 using RazorForms;
-using RazorForms.Options.Elements;
-using RazorForms.Options.Inputs;
+using RazorForms.Options;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection;
@@ -37,7 +36,7 @@ public static class RazorFormsBulmaExtensions
 
 	private static RazorFormsOptions _bulmaDefaults = new()
 	{
-		InputOptions = new InputOptions
+		InputOptions = new FormComponentWithValidationOptions
 		{
 			ComponentWrapperClasses = "field",
 			InputBlockWrapperClasses = "control",
@@ -50,7 +49,7 @@ public static class RazorFormsBulmaExtensions
 			ErrorClasses = "help is-danger",
 			RemoveWrappers = true
 		},
-		CheckInputOptions = new CheckInputOptions
+		CheckInputOptions = new FormComponentOptions
 		{
 			LabelClasses = "checkbox",
 			InputClasses = "mr-2",
@@ -58,7 +57,7 @@ public static class RazorFormsBulmaExtensions
 			RenderInputInsideLabel = true,
 			RemoveWrappers = true
 		},
-		RadioInputOptions = new RadioInputOptions
+		RadioInputOptions = new FormComponentOptions
 		{
 			LabelClasses = "radio",
 			InputClasses = "mr-2",
@@ -66,7 +65,7 @@ public static class RazorFormsBulmaExtensions
 			RenderInputInsideLabel = true,
 			RemoveWrappers = true
 		},
-		CheckInputGroupOptions = new CheckInputGroupOptions
+		CheckInputGroupOptions = new FormComponentWithValidationOptions
 		{
 			ComponentWrapperClasses = "field",
 			LabelClasses = "label",
@@ -74,7 +73,7 @@ public static class RazorFormsBulmaExtensions
 			LabelErrorClasses = "has-text-danger",
 			ErrorClasses = "help is-danger"
 		},
-		RadioInputGroupOptions = new RadioInputGroupOptions
+		RadioInputGroupOptions = new FormComponentWithValidationOptions
 		{
 			ComponentWrapperClasses = "field",
 			LabelClasses = "label",
@@ -82,7 +81,7 @@ public static class RazorFormsBulmaExtensions
 			LabelErrorClasses = "has-text-danger",
 			ErrorClasses = "help is-danger"
 		},
-		TextAreaOptions = new TextAreaOptions
+		TextAreaOptions = new FormComponentWithValidationOptions
 		{
 			ComponentWrapperClasses = "field",
 			InputBlockWrapperClasses = "control",
@@ -95,7 +94,7 @@ public static class RazorFormsBulmaExtensions
 			ErrorClasses = "help is-danger",
 			RemoveWrappers = true
 		},
-		SelectOptions = new SelectOptions
+		SelectOptions = new FormComponentWithValidationOptions
 		{
 			ComponentWrapperClasses = "field",
 			InputBlockWrapperClasses = "control",
@@ -106,12 +105,6 @@ public static class RazorFormsBulmaExtensions
 			LabelValidClasses = "has-text-success",
 			LabelErrorClasses = "has-text-danger",
 			ErrorClasses = "help is-danger"
-		},
-		ButtonOptions = new ButtonOptions
-		{
-			SubmitButtonClasses = "button is-primary",
-			ResetButtonClasses = "button is-dark is-outlined",
-			DefaultButtonClasses = "button is-light"
 		}
 	};
 }
