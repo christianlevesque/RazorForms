@@ -7,6 +7,8 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class RazorFormsBootstrap5Extensions
 {
+	public const string TemplateBasePath = "RazorFormsTemplates/Bootstrap5";
+
 	/// <summary>
 	/// Adds RazorForms support, configured to use basic Bootstrap 5 settings
 	/// </summary>
@@ -63,6 +65,7 @@ public static class RazorFormsBootstrap5Extensions
 	{
 		InputOptions = new FormComponentWithValidationOptions
 		{
+			TemplatePath = $"{TemplateBasePath}/Input",
 			LabelClasses = "form-label",
 			LabelErrorClasses = "text-danger",
 			LabelValidClasses = "text-success",
@@ -73,6 +76,7 @@ public static class RazorFormsBootstrap5Extensions
 		},
 		CheckInputOptions = new FormComponentOptions
 		{
+			TemplatePath = $"{TemplateBasePath}/Checkbox",
 			InputBlockWrapperClasses = "form-check",
 			LabelClasses = "form-check-label",
 			InputClasses = "form-check-input",
@@ -81,6 +85,7 @@ public static class RazorFormsBootstrap5Extensions
 		},
 		CheckInputGroupOptions = new FormComponentWithValidationOptions
 		{
+			TemplatePath = $"{TemplateBasePath}/CheckboxGroup",
 			LabelClasses = "form-label",
 			LabelErrorClasses = "text-danger",
 			LabelValidClasses = "text-success",
@@ -88,6 +93,7 @@ public static class RazorFormsBootstrap5Extensions
 		},
 		RadioInputOptions = new FormComponentOptions
 		{
+			TemplatePath = $"{TemplateBasePath}/Radio",
 			InputBlockWrapperClasses = "form-check",
 			LabelClasses = "form-check-label",
 			InputClasses = "form-check-input",
@@ -96,6 +102,7 @@ public static class RazorFormsBootstrap5Extensions
 		},
 		RadioInputGroupOptions = new FormComponentWithValidationOptions
 		{
+			TemplatePath = $"{TemplateBasePath}/RadioGroup",
 			LabelClasses = "form-label",
 			LabelErrorClasses = "text-danger",
 			LabelValidClasses = "text-success",
@@ -103,6 +110,7 @@ public static class RazorFormsBootstrap5Extensions
 		},
 		TextAreaOptions = new FormComponentWithValidationOptions
 		{
+			TemplatePath = $"{TemplateBasePath}/Textarea",
 			LabelClasses = "form-label",
 			LabelErrorClasses = "text-danger",
 			LabelValidClasses = "text-success",
@@ -113,6 +121,7 @@ public static class RazorFormsBootstrap5Extensions
 		},
 		SelectOptions = new FormComponentWithValidationOptions
 		{
+			TemplatePath = $"{TemplateBasePath}/Select",
 			LabelClasses = "form-label",
 			LabelErrorClasses = "text-danger",
 			LabelValidClasses = "text-success",

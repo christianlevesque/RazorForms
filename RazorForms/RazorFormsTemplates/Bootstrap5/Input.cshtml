@@ -1,0 +1,38 @@
+@model RazorForms.Models.ValidityAwareMarkupModel
+
+<div class="@Model.ElementOptions.InputBlockWrapperClasses">
+	@if (Model.ElementOptions.RemoveWrappers)
+	{
+		@if (Model.InputHtml is not null && Model.ElementOptions.InputFirst)
+		{
+			@Model.InputHtml
+		}
+
+		@Model.LabelHtml
+
+		@if (Model.InputHtml is not null && !Model.ElementOptions.InputFirst)
+		{
+			@Model.InputHtml
+		}
+	}
+	else
+	{
+		@if (Model.InputHtml is not null && Model.ElementOptions.InputFirst)
+		{
+			<div class="@Model.ElementOptions.InputWrapperClasses">
+				@Model.InputHtml
+			</div>
+		}
+
+		<div class="@Model.ElementOptions.LabelWrapperClasses">
+			@Model.LabelHtml
+		</div>
+
+		@if (Model.InputHtml is not null && !Model.ElementOptions.InputFirst)
+		{
+			<div class="@Model.ElementOptions.InputWrapperClasses">
+				@Model.InputHtml
+			</div>
+		}
+	}
+</div>

@@ -3,6 +3,11 @@
 public class FormComponentOptions
 {
 	/// <summary>
+	/// Specifies the root-relative path to the tag helper's Razor template
+	/// </summary>
+	public string TemplatePath { get; set; } = string.Empty;
+
+	/// <summary>
 	/// CSS classes applied to the &lt;div&gt; surrounding the entire component
 	/// </summary>
 	public string ComponentWrapperClasses { get; set; } = string.Empty;
