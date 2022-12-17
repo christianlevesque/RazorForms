@@ -39,7 +39,7 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 	/// <summary>
 	/// The HTML element to wrap the input tag helper output with
 	/// </summary>
-	protected string InputTag { get; set; } = string.Empty;
+	protected string InputTag { get; set; } = "input";
 
 	/// <summary>
 	/// The <see cref="TagMode"/> to use for the input tag helper output
@@ -67,9 +67,16 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 	/// <inheritdoc />
 	public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
 	{
+		// Set up the output wrapper
+		output.TagName = ContainerTag;
+		output.TagMode = ContainerTagMode;
+		ApplyCssClassesToComponent(output);
+
+		// Set up model
 		var model = await GenerateHtmlModel(context, output);
 		await ProcessModel(model);
 
+		// Render content
 		var content = await HtmlHelper.PartialAsync($"~/{Options.TemplatePath}.cshtml", model);
 		output.Content.SetHtmlContent(content);
 	}
@@ -85,10 +92,6 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 	{
 		// The IHtmlHelper isn't ready to use as-is
 		(HtmlHelper as IViewContextAware)!.Contextualize(ViewContext);
-
-		// Set up the output wrapper
-		output.TagName = ContainerTag;
-		output.TagMode = ContainerTagMode;
 
 		// Set up the viewmodel to send to the Razor template
 		var model = new TModel
@@ -142,6 +145,8 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 			"label",
 			new TagHelperAttributeList(),
 			DefaultTagHelperContent);
+
+		AddCustomLabelAttributes(labelOutput.Attributes);
 
 		TagHelperContent labelChildContent = new DefaultTagHelperContent();
 		var providedChildContent = await output.GetChildContentAsync();
@@ -232,6 +237,8 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 			TagMode = InputTagMode
 		};
 
+		AddCustomInputAttributes(inputOutput.Attributes);
+
 		if (!LabelReceivesChildContent)
 		{
 			inputOutput.Content.SetHtmlContent(await output.GetChildContentAsync());
@@ -244,6 +251,18 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 		await tagHelper.ProcessAsync(context, inputOutput);
 		return inputOutput;
 	}
+
+	/// <summary>
+	/// Adds additional attributes to the label's output
+	/// </summary>
+	/// <param name="attributes">The label attributes</param>
+	protected virtual void AddCustomLabelAttributes(TagHelperAttributeList attributes) {}
+
+	/// <summary>
+	/// Adds additional attributes to the input's output
+	/// </summary>
+	/// <param name="attributes">The input attributes</param>
+	protected virtual void AddCustomInputAttributes(TagHelperAttributeList attributes) {}
 
 	/// <summary>
 	/// Creates the HTML tag that captures user input (&lt;Input&gt;, &lt;select&gt;, etc.)
@@ -263,9 +282,22 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 		AddClass(input, Options.InputClasses);
 	}
 
+	/// <summary>
+	/// Applies CSS classes to the &lt;label&gt; tag
+	/// </summary>
+	/// <param name="label">The <see cref="TagHelperOutput"/> for the &lt;label&gt; tag</param>
 	protected virtual void ApplyCssClassesToLabel(TagHelperOutput label)
 	{
 		AddClass(label, Options.LabelClasses);
+	}
+
+	/// <summary>
+	/// Applies CSS classes to the component wrapper element
+	/// </summary>
+	/// <param name="component">The <see cref="TagHelperOutput"/> for the wrapper element</param>
+	protected virtual void ApplyCssClassesToComponent(TagHelperOutput component)
+	{
+		AddClass(component, Options.ComponentWrapperClasses);
 	}
 
 	/// <summary>
@@ -297,7 +329,6 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 	/// <param name="model">The <see cref="MarkupModel{TOptions}"/> to add classes to</param>
 	protected virtual void AddCssClasses(MarkupModel<TOptions> model)
 	{
-		model.ElementOptions.ComponentWrapperClasses = Options.ComponentWrapperClasses;
 		model.ElementOptions.InputBlockWrapperClasses = Options.InputBlockWrapperClasses;
 		model.ElementOptions.InputWrapperClasses = Options.InputWrapperClasses;
 		model.ElementOptions.LabelWrapperClasses = Options.LabelWrapperClasses;

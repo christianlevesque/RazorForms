@@ -24,7 +24,6 @@ public class TextInputTagHelper : ValidityAwareTagHelperBase
 			options.InputOptions)
 	{
 		LabelReceivesChildContent = true;
-		InputTag = "input";
 	}
 
 	/// <inheritdoc />

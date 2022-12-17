@@ -143,5 +143,15 @@ public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMa
 			Options.LabelValidClasses,
 			Options.LabelErrorClasses);
 	}
+
+	/// <inheritdoc />
+	protected override void ApplyCssClassesToComponent(TagHelperOutput component)
+	{
+		AddValidityAwareClasses(
+			component,
+			Options.ComponentWrapperClasses,
+			Options.ComponentWrapperValidClasses,
+			Options.ComponentWrapperErrorClasses);
+	}
 #endregion
 }

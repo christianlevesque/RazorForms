@@ -7,8 +7,9 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class RazorFormsBootstrap5Extensions
 {
-	public const string TemplateBasePath = "RazorFormsTemplates";
-	public const string ValidityAwareContentPartial = $"{TemplateBasePath}/Partials/ValidityAwareContent";
+	private const string TemplateBasePath = "RazorFormsTemplates";
+	private const string ValidityAwareContentPartial = $"{TemplateBasePath}/Partials/ValidityAwareContent";
+	private const string ContentPartial = $"{TemplateBasePath}/Partials/Content";
 
 	/// <summary>
 	/// Adds RazorForms support, configured to use basic Bootstrap 5 settings
@@ -77,7 +78,7 @@ public static class RazorFormsBootstrap5Extensions
 		},
 		CheckInputOptions = new FormComponentOptions
 		{
-			TemplatePath = $"{TemplateBasePath}/Checkbox",
+			TemplatePath = ContentPartial,
 			InputBlockWrapperClasses = "form-check",
 			LabelClasses = "form-check-label",
 			InputClasses = "form-check-input",
@@ -94,7 +95,7 @@ public static class RazorFormsBootstrap5Extensions
 		},
 		RadioInputOptions = new FormComponentOptions
 		{
-			TemplatePath = $"{TemplateBasePath}/Radio",
+			TemplatePath = ContentPartial,
 			InputBlockWrapperClasses = "form-check",
 			LabelClasses = "form-check-label",
 			InputClasses = "form-check-input",
