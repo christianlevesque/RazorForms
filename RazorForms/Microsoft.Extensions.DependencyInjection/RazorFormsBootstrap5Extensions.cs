@@ -7,7 +7,8 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class RazorFormsBootstrap5Extensions
 {
-	public const string TemplateBasePath = "RazorFormsTemplates/Bootstrap5";
+	public const string TemplateBasePath = "RazorFormsTemplates";
+	public const string ValidityAwareContentPartial = $"{TemplateBasePath}/Partials/ValidityAwareContent";
 
 	/// <summary>
 	/// Adds RazorForms support, configured to use basic Bootstrap 5 settings
@@ -65,7 +66,7 @@ public static class RazorFormsBootstrap5Extensions
 	{
 		InputOptions = new FormComponentWithValidationOptions
 		{
-			TemplatePath = $"{TemplateBasePath}/Input",
+			TemplatePath = ValidityAwareContentPartial,
 			LabelClasses = "form-label",
 			LabelErrorClasses = "text-danger",
 			LabelValidClasses = "text-success",
@@ -85,7 +86,7 @@ public static class RazorFormsBootstrap5Extensions
 		},
 		CheckInputGroupOptions = new FormComponentWithValidationOptions
 		{
-			TemplatePath = $"{TemplateBasePath}/CheckboxGroup",
+			TemplatePath = ValidityAwareContentPartial,
 			LabelClasses = "form-label",
 			LabelErrorClasses = "text-danger",
 			LabelValidClasses = "text-success",
@@ -102,7 +103,7 @@ public static class RazorFormsBootstrap5Extensions
 		},
 		RadioInputGroupOptions = new FormComponentWithValidationOptions
 		{
-			TemplatePath = $"{TemplateBasePath}/RadioGroup",
+			TemplatePath = ValidityAwareContentPartial,
 			LabelClasses = "form-label",
 			LabelErrorClasses = "text-danger",
 			LabelValidClasses = "text-success",
@@ -110,7 +111,7 @@ public static class RazorFormsBootstrap5Extensions
 		},
 		TextAreaOptions = new FormComponentWithValidationOptions
 		{
-			TemplatePath = $"{TemplateBasePath}/Textarea",
+			TemplatePath = ValidityAwareContentPartial,
 			LabelClasses = "form-label",
 			LabelErrorClasses = "text-danger",
 			LabelValidClasses = "text-success",
@@ -121,7 +122,7 @@ public static class RazorFormsBootstrap5Extensions
 		},
 		SelectOptions = new FormComponentWithValidationOptions
 		{
-			TemplatePath = $"{TemplateBasePath}/Select",
+			TemplatePath = ValidityAwareContentPartial,
 			LabelClasses = "form-label",
 			LabelErrorClasses = "text-danger",
 			LabelValidClasses = "text-success",
