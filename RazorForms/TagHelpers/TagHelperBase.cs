@@ -150,11 +150,18 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 
 		TagHelperContent labelChildContent = new DefaultTagHelperContent();
 		var providedChildContent = await output.GetChildContentAsync();
-		if (providedChildContent.IsEmptyOrWhiteSpace
-		    && !string.IsNullOrEmpty(For.Metadata.DisplayName))
+		if (providedChildContent.IsEmptyOrWhiteSpace)
 		{
-			providedChildContent.AppendHtml(
-				Utilities.GenerateLabelText(Options, For.Metadata.DisplayName));
+			if (!string.IsNullOrEmpty(For.Metadata.DisplayName))
+			{
+				providedChildContent.AppendHtml(
+                	Utilities.GenerateLabelText(Options, For.Metadata.DisplayName));
+			}
+			else
+			{
+				providedChildContent.AppendHtml(
+					Utilities.GenerateLabelText(Options, For.Metadata.Name!));
+			}
 		}
 
 		if (Options.RenderInputInsideLabel)
@@ -195,13 +202,13 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 						.AppendHtml(inputContent);
 				}
 			}
+			labelOutput.Content.SetHtmlContent(labelChildContent);
 		}
 		else if (LabelReceivesChildContent)
 		{
 			labelChildContent = labelChildContent.AppendHtml(providedChildContent);
+			labelOutput.Content.SetHtmlContent(labelChildContent);
 		}
-
-		labelOutput.Content.SetHtmlContent(labelChildContent);
 
 		ApplyCssClassesToLabel(labelOutput);
 
@@ -229,6 +236,13 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 		{
 			TagMode = InputTagMode
 		};
+
+		if (!LabelReceivesChildContent)
+		{
+			inputOutput.Content.SetHtmlContent(await output.GetChildContentAsync());
+		}
+
+		tagHelper.Init(context);
 
 		ApplyCssClassesToInput(inputOutput);
 
