@@ -1,0 +1,17 @@
+@model RazorForms.Models.PartialMarkupModel
+
+@if (Model.Content is null)
+{
+	return;
+}
+
+@if (Model.RemoveWrappers)
+{
+	@Model.Content
+}
+else
+{
+	<div class="@Model.WrapperClasses">
+		@Model.Content
+	</div>
+}

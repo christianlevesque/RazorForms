@@ -71,4 +71,12 @@ public class FormComponentWithValidationOptions : FormComponentOptions
 	/// CSS classes applied to the &lt;li&gt; containing each input validation error
 	/// </summary>
 	public string ErrorClasses { get; set; } = string.Empty;
+
+	/// <summary>
+	/// Whether to always show the error container element, regardless of validation state
+	/// </summary>
+	/// <remarks>
+	/// Setting this value to <c>true</c> will simplify frontend input validation because the error container will exist regardless of validation state.
+	/// </remarks>
+	public bool AlwaysShowErrorContainer { get; set; }
 }

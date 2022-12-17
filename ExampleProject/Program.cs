@@ -38,20 +38,25 @@ static void Bootstrap5Setup(RazorFormsOptions o)
 	o.InputOptions.ComponentWrapperClasses = "mb-3";
 	o.InputOptions.ErrorWrapperClasses = $"{o.InputOptions.ErrorWrapperClasses} mt-1";
 	o.InputOptions.ErrorClasses = "small";
+	o.InputOptions.AlwaysShowErrorContainer = true;
 
 	// TextArea
 	o.TextAreaOptions.ComponentWrapperClasses = "mb-3";
 	o.TextAreaOptions.ErrorWrapperClasses = $"{o.InputOptions.ErrorWrapperClasses} mt-1";
 	o.TextAreaOptions.ErrorClasses = "small";
+	o.TextAreaOptions.AlwaysShowErrorContainer = true;
 
 	// Select
 	o.SelectOptions.ComponentWrapperClasses = "mb-3";
 	o.SelectOptions.ErrorWrapperClasses = $"{o.SelectOptions.ErrorWrapperClasses} mt-1";
 	o.SelectOptions.ErrorClasses = "small";
+	o.SelectOptions.AlwaysShowErrorContainer = true;
 
 	// Radio/checkbox
 	o.CheckInputGroupOptions.ComponentWrapperClasses = "mb-3";
+	o.CheckInputGroupOptions.AlwaysShowErrorContainer = true;
 	o.RadioInputGroupOptions.ComponentWrapperClasses = "mb-3";
+	o.RadioInputGroupOptions.AlwaysShowErrorContainer = true;
 }
 
 static void BulmaSetup(RazorFormsOptions o)

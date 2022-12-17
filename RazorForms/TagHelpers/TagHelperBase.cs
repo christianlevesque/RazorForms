@@ -90,7 +90,7 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 		};
 
 		SetupModelOptions(model.ElementOptions);
-		AddCssClasses(model, Options);
+		AddCssClasses(model);
 
 		return model;
 	}
@@ -262,8 +262,7 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 	/// Adds CSS classes to the <see cref="MarkupModel{TOptions}"/> based on the provided options
 	/// </summary>
 	/// <param name="model">The <see cref="MarkupModel{TOptions}"/> to add classes to</param>
-	/// <param name="options">The options that define the CSS classes to add</param>
-	protected virtual void AddCssClasses(MarkupModel<TOptions> model, TOptions options)
+	protected virtual void AddCssClasses(MarkupModel<TOptions> model)
 	{
 		model.ElementOptions.ComponentWrapperClasses = Options.ComponentWrapperClasses;
 		model.ElementOptions.InputBlockWrapperClasses = Options.InputBlockWrapperClasses;

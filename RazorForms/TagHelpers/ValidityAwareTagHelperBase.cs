@@ -1,12 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using RazorForms.Models;
@@ -85,6 +82,16 @@ public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMa
 		model.Errors = Errors;
 
 		return Task.CompletedTask;
+	}
+
+	protected override void AddCssClasses(
+		MarkupModel<FormComponentWithValidationOptions> model)
+	{
+		base.AddCssClasses(model);
+
+		model.ElementOptions.ErrorWrapperClasses = Options.ErrorWrapperClasses;
+		model.ElementOptions.ErrorClasses = Options.ErrorClasses;
+		model.ElementOptions.AlwaysShowErrorContainer = Options.AlwaysShowErrorContainer;
 	}
 
 	/// <summary>
