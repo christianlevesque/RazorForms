@@ -13,6 +13,18 @@ namespace RazorForms.TagHelpers;
 
 public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMarkupModel, FormComponentWithValidationOptions>
 {
+	protected ValidityAwareTagHelperBase(
+		IHtmlGenerator htmlGenerator,
+		IHtmlHelper htmlHelper,
+		FormComponentWithValidationOptions options) 
+		: base(
+			htmlGenerator,
+			htmlHelper,
+			options)
+	{
+	}
+
+#region Validation
 	private bool? _isValid;
 	private bool? _isInvalid;
 	private IList<string>? _errors;
@@ -63,18 +75,9 @@ public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMa
 			return _errors;
 		}
 	}
+#endregion
 
-	protected ValidityAwareTagHelperBase(
-		IHtmlGenerator htmlGenerator,
-		IHtmlHelper htmlHelper,
-		FormComponentWithValidationOptions options) 
-		: base(
-			htmlGenerator,
-			htmlHelper,
-			options)
-	{
-	}
-
+#region Model generation and manipulation
 	protected override Task ProcessModel(ValidityAwareMarkupModel model)
 	{
 		model.IsValid = IsValid;
@@ -83,7 +86,9 @@ public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMa
 
 		return Task.CompletedTask;
 	}
+#endregion
 
+#region CSS generation
 	protected override void AddCssClasses(
 		MarkupModel<FormComponentWithValidationOptions> model)
 	{
@@ -118,4 +123,25 @@ public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMa
 			AddClass(output, invalidClasses);
 		}
 	}
+
+	/// <inheritdoc />
+	protected override void ApplyCssClassesToInput(TagHelperOutput input)
+	{
+		AddValidityAwareClasses(
+			input,
+			Options.InputClasses,
+			Options.InputValidClasses,
+			Options.InputErrorClasses);
+	}
+
+	/// <inheritdoc />
+	protected override void ApplyCssClassesToLabel(TagHelperOutput label)
+	{
+		AddValidityAwareClasses(
+			label,
+			Options.LabelClasses,
+			Options.LabelValidClasses,
+			Options.LabelErrorClasses);
+	}
+#endregion
 }

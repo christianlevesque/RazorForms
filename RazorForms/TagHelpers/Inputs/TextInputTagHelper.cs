@@ -28,6 +28,7 @@ public class TextInputTagHelper : ValidityAwareTagHelperBase
 		InputTagProcessingIsAsync = false;
 	}
 
+	/// <inheritdoc />
 	protected override TagHelper CreateInput(TagHelperAttributeList attributes)
 	{
 		return new InputTagHelper(HtmlGenerator)
@@ -36,23 +37,5 @@ public class TextInputTagHelper : ValidityAwareTagHelperBase
 			For = For,
 			Format = Format
 		};
-	}
-
-	protected override void ApplyCssClassesToInput(TagHelperOutput input)
-	{
-		AddValidityAwareClasses(
-			input,
-			Options.InputClasses,
-			Options.InputValidClasses,
-			Options.InputErrorClasses);
-	}
-
-	protected override void ApplyCssClassesToLabel(TagHelperOutput label)
-	{
-		AddValidityAwareClasses(
-			label,
-			Options.LabelClasses,
-			Options.LabelValidClasses,
-			Options.LabelErrorClasses);
 	}
 }
