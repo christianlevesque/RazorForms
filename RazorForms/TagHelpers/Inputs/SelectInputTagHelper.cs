@@ -28,7 +28,6 @@ public class SelectInputTagHelper : ValidityAwareTagHelperBase
 	{
 		InputTag = "select";
 		InputTagMode = TagMode.StartTagAndEndTag;
-		InputTagProcessingIsAsync = false;
 		LabelReceivesChildContent = false;
 	}
 

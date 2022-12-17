@@ -25,7 +25,6 @@ public class TextInputTagHelper : ValidityAwareTagHelperBase
 	{
 		LabelReceivesChildContent = true;
 		InputTag = "input";
-		InputTagProcessingIsAsync = false;
 	}
 
 	/// <inheritdoc />

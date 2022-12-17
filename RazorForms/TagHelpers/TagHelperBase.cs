@@ -46,11 +46,6 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 	/// </summary>
 	protected TagMode InputTagMode { get; set; } = TagMode.SelfClosing;
 
-	/// <summary>
-	/// Whether processing the input tag helper should be async
-	/// </summary>
-	protected bool InputTagProcessingIsAsync { get; set; } = true;
-
 	[HtmlAttributeName("asp-for")]
 	public ModelExpression For { get; set; } = default!;
 
@@ -246,14 +241,7 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 
 		ApplyCssClassesToInput(inputOutput);
 
-		if (InputTagProcessingIsAsync)
-		{
-			await tagHelper.ProcessAsync(context, inputOutput);
-		}
-		else
-		{
-			tagHelper.Process(context, inputOutput);
-		}
+		await tagHelper.ProcessAsync(context, inputOutput);
 		return inputOutput;
 	}
 

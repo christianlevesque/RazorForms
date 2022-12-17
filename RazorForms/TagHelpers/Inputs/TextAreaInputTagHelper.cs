@@ -20,7 +20,6 @@ public class TextAreaInputTagHelper : ValidityAwareTagHelperBase
 	{
 		InputTag = "textarea";
 		InputTagMode = TagMode.StartTagAndEndTag;
-		InputTagProcessingIsAsync = false;
 		LabelReceivesChildContent = true;
 	}
 
