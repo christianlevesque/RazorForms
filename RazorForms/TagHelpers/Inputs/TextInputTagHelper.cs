@@ -47,7 +47,6 @@ public class TextInputTagHelper : ValidityAwareTagHelperBase
 		};
 
 		ApplyCssClassesToInput(inputOutput);
-		AddClass(inputOutput, "just another class");
 
 		inputHelper.Process(context, inputOutput);
 		return Task.FromResult(inputOutput);
