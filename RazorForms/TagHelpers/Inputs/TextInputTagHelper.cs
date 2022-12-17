@@ -24,32 +24,18 @@ public class TextInputTagHelper : ValidityAwareTagHelperBase
 			options.InputOptions)
 	{
 		LabelReceivesChildContent = true;
+		InputTag = "input";
+		InputTagProcessingIsAsync = false;
 	}
 
-	protected override Task<TagHelperOutput> CreateInput(
-		TagHelperContext context,
-		TagHelperOutput output,
-		TagHelperAttributeList attributes)
+	protected override TagHelper CreateInput(TagHelperAttributeList attributes)
 	{
-		var inputHelper = new InputTagHelper(HtmlGenerator)
+		return new InputTagHelper(HtmlGenerator)
 		{
 			ViewContext = ViewContext,
 			For = For,
 			Format = Format
 		};
-
-		var inputOutput = new TagHelperOutput(
-			"input",
-			attributes,
-			DefaultTagHelperContent)
-		{
-			TagMode = TagMode.SelfClosing
-		};
-
-		ApplyCssClassesToInput(inputOutput);
-
-		inputHelper.Process(context, inputOutput);
-		return Task.FromResult(inputOutput);
 	}
 
 	protected override void ApplyCssClassesToInput(TagHelperOutput input)

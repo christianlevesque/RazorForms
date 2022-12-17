@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -30,12 +29,27 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 	/// <summary>
 	/// The HTML element to wrap the entire tag helper output with
 	/// </summary>
-	protected string OutputTag { get; set; } = "div";
+	protected string ContainerTag { get; set; } = "div";
 
 	/// <summary>
 	/// The <see cref="TagMode"/> to use for the tag helper output
 	/// </summary>
-	protected TagMode OutputTagMode { get; set; } = TagMode.StartTagAndEndTag;
+	protected TagMode ContainerTagMode { get; set; } = TagMode.StartTagAndEndTag;
+
+	/// <summary>
+	/// The HTML element to wrap the input tag helper output with
+	/// </summary>
+	protected string InputTag { get; set; } = string.Empty;
+
+	/// <summary>
+	/// The <see cref="TagMode"/> to use for the input tag helper output
+	/// </summary>
+	protected TagMode InputTagMode { get; set; } = TagMode.SelfClosing;
+
+	/// <summary>
+	/// Whether processing the input tag helper should be async
+	/// </summary>
+	protected bool InputTagProcessingIsAsync { get; set; } = true;
 
 	[HtmlAttributeName("asp-for")]
 	public ModelExpression For { get; set; } = default!;
@@ -78,8 +92,8 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 		(HtmlHelper as IViewContextAware)!.Contextualize(ViewContext);
 
 		// Set up the output wrapper
-		output.TagName = OutputTag;
-		output.TagMode = OutputTagMode;
+		output.TagName = ContainerTag;
+		output.TagMode = ContainerTagMode;
 
 		// Set up the viewmodel to send to the Razor template
 		var model = new TModel
@@ -201,23 +215,40 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 	/// <param name="context">The <see cref="TagHelperContext"/></param>
 	/// <param name="output">The <see cref="TagHelperOutput"/> of the root element</param>
 	/// <returns></returns>
-	protected Task<TagHelperOutput> CreateInputCore(TagHelperContext context, TagHelperOutput output)
+	protected async Task<TagHelperOutput> CreateInputCore(
+		TagHelperContext context,
+		TagHelperOutput output)
 	{
 		var attributes = Utilities.GetInputAttributes(output.Attributes);
-		return CreateInput(context, output, attributes);
+		var tagHelper = CreateInput(attributes);
+
+		var inputOutput = new TagHelperOutput(
+			InputTag,
+			attributes,
+			DefaultTagHelperContent)
+		{
+			TagMode = InputTagMode
+		};
+
+		ApplyCssClassesToInput(inputOutput);
+
+		if (InputTagProcessingIsAsync)
+		{
+			await tagHelper.ProcessAsync(context, inputOutput);
+		}
+		else
+		{
+			tagHelper.Process(context, inputOutput);
+		}
+		return inputOutput;
 	}
 
 	/// <summary>
-	/// Creates the &lt;input&gt; tag
+	/// Creates the HTML tag that captures user input (&lt;Input&gt;, &lt;select&gt;, etc.)
 	/// </summary>
-	/// <param name="context">The <see cref="TagHelperContext"/></param>
-	/// <param name="output">The <see cref="TagHelperOutput"/> of the root element</param>
-	/// <param name="attributes">The attributes to pass to the &lt;input&gt;</param>
+	/// <param name="attributes">The attributes to pass to the tag</param>
 	/// <returns></returns>
-	protected abstract Task<TagHelperOutput> CreateInput(
-		TagHelperContext context,
-		TagHelperOutput output,
-		TagHelperAttributeList attributes);
+	protected abstract TagHelper CreateInput(TagHelperAttributeList attributes);
 #endregion
 
 #region CSS generation
