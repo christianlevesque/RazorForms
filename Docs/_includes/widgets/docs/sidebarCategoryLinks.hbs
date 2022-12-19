@@ -1,0 +1,18 @@
+<div class="accordion-item">
+	<p class="accordion-header" id="{{ collectionName }}Label">
+		<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#{{ collectionName }}" aria-expanded="true" aria-controls="collapseOne">
+			{{ displayName }}
+		</button>
+	</p>
+	<div id="{{ collectionName }}"
+		 class="accordion-collapse collapse show"
+		 aria-labelledby="{{ collectionName }}Label">
+		<div class="accordion-body">
+			{{# each (lookup collections collectionName) }}
+				<a href="{{ this.url }}" class="d-block">
+					{{ this.data.pageTitle }}
+				</a>
+			{{/each}}
+		</div>
+	</div>
+</div>

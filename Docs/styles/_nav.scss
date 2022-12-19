@@ -1,0 +1,13 @@
+@import "variables";
+
+.navbar {
+	border-bottom: 1px solid $gray-400;
+}
+
+.navbar-expand-lg .navbar-nav .nav-link:last-of-type {
+	// The first nav item should not have right-padding, so it's flush with the .container
+	padding-right: 0;
+
+	// The Bootstrap navbar SCSS overrides the $nav-link-padding-x variable, so we need to reset that too
+	padding-left: 2rem;
+}

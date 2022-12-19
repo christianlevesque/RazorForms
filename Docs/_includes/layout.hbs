@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	{{> ui/head blurb=blurb pageTitle=pageTitle siteTitle=metadata.title }}
+</head>
+<body class="pt-5 min-vh-100 d-flex flex-column">
+
+{{> ui/nav uri=page.url links=metadata.links }}
+
+<div class="container flex-grow-1">
+	{{{ content }}}
+</div>
+
+{{> ui/footer }}
+
+</body>
+</html>

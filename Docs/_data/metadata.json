@@ -1,0 +1,18 @@
+{
+	"title": "RazorForms",
+	"links": [
+		{
+			"name": "Home",
+			"href": "/"
+		},
+		{
+			"name": "Docs",
+			"href": "/docs"
+		},
+		{
+			"name": "Examples",
+			"href": "/examples"
+		}
+	],
+	"siteUrl": "https://www.razorforms.com"
+}
