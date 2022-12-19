@@ -4,6 +4,8 @@ The `<radio-input-group>` tag helper is used to create labels and input validati
 
 The `<radio-input-group>` tag helper **generates error messages** if its corresponding model member fails validation.
 
+The `<radio-input-group>` tag helper **renders child content** as raw HTML, after the generated `<label>` and before the error output.
+
 ## Usage notes
 
 ### Basic usage

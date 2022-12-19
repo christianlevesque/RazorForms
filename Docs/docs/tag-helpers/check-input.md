@@ -4,6 +4,8 @@ The `<check-input>` tag helper is used to create check-based `<input>` elements.
 
 The `<check-input>` tag helper **does not generate error messages** if its corresponding model member fails validation because it's unlikely you need validation messages on a specific checkbox. In order to render error messages for a model member represented by checkboxes, wrap the `<check-input>` tag helper instances in a `<check-input-group>` tag helper.
 
+The `<check-input>` tag helper **renders child content** as a raw HTML child of the generated `<label>`.
+
 ## Usage notes
 
 ### Basic usage

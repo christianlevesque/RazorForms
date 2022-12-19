@@ -4,6 +4,8 @@ The `<text-area-input>` tag helper is used to create `<textarea>` elements.
 
 The `<text-area-input` tag helper **generates error messages** if its corresponding model member fails validation.
 
+The `<text-area-input>` tag helper **renders child content** as a raw HTML child of the generated `<label>`.
+
 ## Usage notes
 
 ### Basic usage

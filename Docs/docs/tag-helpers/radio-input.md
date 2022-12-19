@@ -4,6 +4,8 @@ The `<radio-input>` tag helper is used to create radio-based `<input>` elements.
 
 The `<radio-input>` tag helper **does not generate error messages** if its corresponding model member fails validation because it's unlikely you need validation messages on a specific radio button. In order to render error messages for a model member represented by radio buttons, wrap the `<radio-input>` tag helper instances in a `<radio-input-group>` tag helper.
 
+The `<radio-input>` tag helper **renders child content** as a raw HTML child of the generated `<label>`.
+
 ## Usage notes
 
 ### Basic usage

@@ -4,6 +4,8 @@ The `<select-input>` tag helper is used to create `<select>` elements.
 
 The `<select-input>` tag helper **generates error messages** if its corresponding model member fails validation.
 
+The `<select-input>` tag helper **renders child content** as a raw HTML child of the generated `<select>`.
+
 ## Usage notes
 
 ### Basic usage
@@ -31,6 +33,8 @@ public class MyModel : PageModel
     </select-input>
 </form>
 ```
+
+### Child content
 
 ### Programmatic option rendering
 
