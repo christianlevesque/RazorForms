@@ -83,7 +83,8 @@
 				<option value="">Select an approximate height range</option>
 				@foreach (var val in new[] { 48, 54, 60, 66, 72, 78, 84, 90, 96 })
 				{
-					<option value="@val">@val inches</option>
+					<option value="@val"
+					        selected="@(val == Model.Height)">@val inches</option>
 				}
 			</select-input>
 			<p>
@@ -248,28 +249,7 @@
 		</div>
 
 		<div class="col s12">
-			<h2>&lt;submit-button&gt;, &lt;reset-button&gt;, and &lt;default-button&gt;</h2>
-		</div>
-
-		<div class="@buttonRowClass">
-			<submit-button>Submit</submit-button>
-			<p>
-				The RazorForms button tag helpers render less HTML than other RazorForms tag helpers. The only markup rendered is the &lt;button&gt; element, its associated classes, and any arbitrary attributes passed into the tag helper. The child content of the button tag helpers is rendered as the child content of the generated &lt;button&gt;.
-			</p>
-		</div>
-
-		<div class="@buttonRowClass">
-			<reset-button class="custom-button">Reset</reset-button>
-			<p>
-				Like with other tag helpers, you can pass arbitrary classes into the button tag helpers. Unlike other tag helpers, however, classes passed in are rendered on the &lt;button&gt; and not the component wrapper, even if the component wrapper is enabled.
-			</p>
-		</div>
-
-		<div class="@buttonRowClass">
-			<default-button disabled>Just a button</default-button>
-			<p>
-				Like with other tag helpers, you can pass arbitrary attributres into the button tag helpers. In this case, the <code>disabled</code> attribute was passed into the button tag helper, and it was rendered directly on the &lt;button&gt;.
-			</p>
+			<button class="waves-effect waves-light btn" type="submit">Submit</button>
 		</div>
 	</div>
 </form>

@@ -1,19 +1,33 @@
-﻿using System.Text.Encodings.Web;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.TagHelpers;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using RazorForms.Generators;
-using RazorForms.Generators.Elements;
+using RazorForms.Models;
 using RazorForms.Options;
 
 namespace RazorForms.TagHelpers;
 
-public abstract class ValidityAwareTagHelperBase : RazorFormsTagHelperBase
+public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMarkupModel, FormComponentWithValidationOptions>
 {
+	protected ValidityAwareTagHelperBase(
+		IHtmlGenerator htmlGenerator,
+		IHtmlHelper htmlHelper,
+		FormComponentWithValidationOptions options) 
+		: base(
+			htmlGenerator,
+			htmlHelper,
+			options)
+	{
+	}
+
+#region Validation
 	private bool? _isValid;
 	private bool? _isInvalid;
+	private IList<string>? _errors;
 
 	protected bool IsValid
 	{
@@ -22,11 +36,6 @@ public abstract class ValidityAwareTagHelperBase : RazorFormsTagHelperBase
 			if (_isValid.HasValue)
 			{
 				return _isValid.Value;
-			}
-
-			if (ViewContext == null || For == null)
-			{
-				return (_isValid = false).Value;
 			}
 
 			_isValid = ViewContext.ModelState.GetFieldValidationState(For.Name) == ModelValidationState.Valid;
@@ -44,145 +53,105 @@ public abstract class ValidityAwareTagHelperBase : RazorFormsTagHelperBase
 				return _isInvalid.Value;
 			}
 
-			if (ViewContext == null || For == null)
-			{
-				return (_isInvalid = false).Value;
-			}
-
 			_isInvalid = ViewContext.ModelState.GetFieldValidationState(For.Name) == ModelValidationState.Invalid;
 
 			return _isInvalid.Value;
 		}
 	}
 
-	public readonly IFormComponentWithValidationOptions Options;
-	protected readonly IValidityAwareOutputGenerator<IFormComponentWithValidationOptions> InputGenerator;
-	protected readonly ILabelGenerator LabelGenerator;
-	protected readonly IInputBlockWrapperGenerator InputBlockWrapperGenerator;
-	protected readonly IErrorGenerator ErrorGenerator;
-
-	/// <inheritdoc />
-	protected ValidityAwareTagHelperBase(IHtmlGenerator generator,
-	                                     IFormComponentWithValidationOptions options,
-	                                     IInputBlockWrapperGenerator inputBlockWrapperGenerator,
-	                                     ILabelGenerator labelGenerator,
-	                                     IValidityAwareOutputGenerator<IFormComponentWithValidationOptions> inputGenerator,
-	                                     IErrorGenerator errorGenerator) : base(generator)
+	protected IEnumerable<string> Errors
 	{
-		Options = options;
-		InputBlockWrapperGenerator = inputBlockWrapperGenerator;
-		LabelGenerator = labelGenerator;
-		InputGenerator = inputGenerator;
-		ErrorGenerator = errorGenerator;
+		get
+		{
+			if (_errors != null)
+			{
+				return _errors;
+			}
+
+			_errors = !ViewContext.ViewData.ModelState.TryGetValue(For.Name, out var errors)
+				? Array.Empty<string>() 
+				: errors.Errors.Select(e => e.ErrorMessage).ToList();
+
+			return _errors;
+		}
+	}
+#endregion
+
+#region Model generation and manipulation
+	protected override Task ProcessModel(ValidityAwareMarkupModel model)
+	{
+		model.IsValid = IsValid;
+		model.IsInvalid = IsInvalid;
+		model.Errors = Errors;
+
+		return Task.CompletedTask;
+	}
+#endregion
+
+#region CSS generation
+	protected override void AddCssClasses(
+		MarkupModel<FormComponentWithValidationOptions> model)
+	{
+		base.AddCssClasses(model);
+
+		model.ElementOptions.ErrorWrapperClasses = Options.ErrorWrapperClasses;
+		model.ElementOptions.ErrorClasses = Options.ErrorClasses;
+		model.ElementOptions.AlwaysShowErrorContainer = Options.AlwaysShowErrorContainer;
+	}
+
+	/// <summary>
+	/// Appends CSS classes based on whether the current form element is valid or not
+	/// </summary>
+	/// <param name="output">The <see cref="TagHelperOutput"/> to add classes to</param>
+	/// <param name="baseClasses">Classes that should be added regardless of validity</param>
+	/// <param name="validClasses">Classes that should be added only if the form element is explicitly valid</param>
+	/// <param name="invalidClasses">Classes that should be added only if the form element is explicitly invalid</param>
+	protected virtual void AddValidityAwareClasses(
+		TagHelperOutput output,
+		string baseClasses,
+		string validClasses,
+		string invalidClasses)
+	{
+		AddClass(output, baseClasses);
+
+		if (IsValid)
+		{
+			AddClass(output, validClasses);
+		}
+		else if (IsInvalid)
+		{
+			AddClass(output, invalidClasses);
+		}
 	}
 
 	/// <inheritdoc />
-	public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
+	protected override void ApplyCssClassesToInput(TagHelperOutput input)
 	{
-		ThrowIfForNull();
-
-		output.TagName = "div";
-		output.TagMode = TagMode.StartTagAndEndTag;
-
-		// Set up attributes and prepare them to be passed to the child <input>
-		var attributesList = ProcessAttributes(output);
-
-		if (!string.IsNullOrEmpty(Options.ComponentWrapperClasses))
-		{
-			output.AddClass(Options.ComponentWrapperClasses, HtmlEncoder.Default);
-		}
-
-		// Set up output generation
-		var childContent = await output.GetChildContentAsync();
-		if (childContent.IsEmptyOrWhiteSpace && !string.IsNullOrEmpty(For!.Metadata.DisplayName))
-		{
-			childContent.AppendHtml(Utilities.GenerateLabelText(Options, For!.Metadata.DisplayName));
-		}
-
-		// Generate wrapper
-		InputBlockWrapperGenerator.Init(Options, IsValid, IsInvalid);
-		var wrapper = await InputBlockWrapperGenerator.GenerateOutput(context, this);
-
-		// Generate input
-		InputGenerator.Init(Options, IsValid, IsInvalid);
-		var input = await InputGenerator.GenerateOutput(context,
-		                                                this,
-		                                                attributesList,
-		                                                LabelReceivesChildContent ? null : childContent);
-
-		// Generate label
-		LabelGenerator.Init(Options, IsValid, IsInvalid);
-
-		TagHelperContent labelChildContent = new DefaultTagHelperContent();
-		if (Options.RenderInputInsideLabel ?? false)
-		{
-			if (LabelReceivesChildContent)
-			{
-				// If the label receives the child content, everything will work as we expect
-				// because we manually added the display name text to the child content above
-				if (Options.InputFirst ?? false)
-				{
-					labelChildContent = labelChildContent
-						.AppendHtml(InputGenerator.Render(input))
-						.AppendHtml(childContent);
-				}
-				else
-				{
-					labelChildContent = labelChildContent
-						.AppendHtml(childContent)
-					    .AppendHtml(InputGenerator.Render(input));
-				}
-			}
-			else
-			{
-				// If the label DOESN'T receive the child content, we still need to manually add the display name text here
-				var labelHtml = Utilities.GenerateLabelText(Options, For!.Metadata.DisplayName!);
-
-				if (Options.InputFirst ?? false)
-				{
-					labelChildContent = labelChildContent
-						.AppendHtml(InputGenerator.Render(input))
-						.AppendHtml(labelHtml);
-				}
-				else
-				{
-					labelChildContent = labelChildContent
-						.AppendHtml(labelHtml)
-						.AppendHtml(InputGenerator.Render(input));
-				}
-			}
-		}
-		else if (LabelReceivesChildContent)
-		{
-			labelChildContent = labelChildContent.AppendHtml(childContent);
-		}
-
-		var label = await LabelGenerator.GenerateOutput(context,
-		                                                this,
-		                                                childContent: labelChildContent);
-
-		ErrorGenerator.Init(Options, IsValid, IsInvalid, For!, ViewContext!);
-		var errors = await ErrorGenerator.GenerateOutput(context);
-
-		if (Options.RenderInputInsideLabel ?? false)
-		{
-			wrapper.PreContent.SetHtmlContent(LabelGenerator.Render(label));
-		}
-		else
-		{
-			if (Options.InputFirst ?? false)
-            {
-            	wrapper.PreContent.SetHtmlContent(InputGenerator.Render(input));
-            	wrapper.PostContent.SetHtmlContent(LabelGenerator.Render(label));
-            }
-            else
-            {
-            	wrapper.PreContent.SetHtmlContent(LabelGenerator.Render(label));
-            	wrapper.PostContent.SetHtmlContent(InputGenerator.Render(input));
-            }
-		}
-
-		wrapper.PostElement.SetHtmlContent(ErrorGenerator.Render(errors));
-		output.Content.SetHtmlContent(InputBlockWrapperGenerator.Render(wrapper));
+		AddValidityAwareClasses(
+			input,
+			Options.InputClasses,
+			Options.InputValidClasses,
+			Options.InputErrorClasses);
 	}
+
+	/// <inheritdoc />
+	protected override void ApplyCssClassesToLabel(TagHelperOutput label)
+	{
+		AddValidityAwareClasses(
+			label,
+			Options.LabelClasses,
+			Options.LabelValidClasses,
+			Options.LabelErrorClasses);
+	}
+
+	/// <inheritdoc />
+	protected override void ApplyCssClassesToComponent(TagHelperOutput component)
+	{
+		AddValidityAwareClasses(
+			component,
+			Options.ComponentWrapperClasses,
+			Options.ComponentWrapperValidClasses,
+			Options.ComponentWrapperErrorClasses);
+	}
+#endregion
 }

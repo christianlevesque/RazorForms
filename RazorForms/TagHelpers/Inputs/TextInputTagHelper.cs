@@ -1,20 +1,9 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.IO;
-using System.Linq;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using Microsoft.Extensions.Logging;
-using RazorForms.Generators;
-using RazorForms.Generators.Elements;
-using RazorForms.Generators.Inputs;
-using RazorForms.Options.Inputs;
+using RazorForms.Options;
 
 namespace RazorForms.TagHelpers.Inputs;
 
@@ -25,19 +14,26 @@ public class TextInputTagHelper : ValidityAwareTagHelperBase
 	[HtmlAttributeName(FormatAttributeName)]
 	public string? Format { get; set; }
 
-	/// <inheritdoc />
-	public TextInputTagHelper(IHtmlGenerator generator,
-	                          IInputOptions options,
-	                          IInputBlockWrapperGenerator inputBlockWrapperGenerator,
-	                          ILabelGenerator labelGenerator,
-	                          IInputGenerator inputGenerator,
-	                          IErrorGenerator errorGenerator) : base(generator,
-	                                                                 options,
-	                                                                 inputBlockWrapperGenerator, 
-	                                                                 labelGenerator, 
-	                                                                 inputGenerator,
-	                                                                 errorGenerator)
+	public TextInputTagHelper(
+		IHtmlGenerator htmlGenerator,
+		IHtmlHelper htmlHelper,
+		RazorFormsOptions options)
+		: base(
+			htmlGenerator,
+			htmlHelper,
+			options.InputOptions)
 	{
 		LabelReceivesChildContent = true;
+	}
+
+	/// <inheritdoc />
+	protected override TagHelper CreateInput(TagHelperAttributeList attributes)
+	{
+		return new InputTagHelper(HtmlGenerator)
+		{
+			ViewContext = ViewContext,
+			For = For,
+			Format = Format
+		};
 	}
 }

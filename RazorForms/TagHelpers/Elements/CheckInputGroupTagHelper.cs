@@ -1,23 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using RazorForms.Generators.Elements;
-using RazorForms.Options.Inputs;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace RazorForms.TagHelpers.Elements;
 
 public class CheckInputGroupTagHelper : ValidityAwareTagHelperBase
 {
-	/// <inheritdoc />
-	public CheckInputGroupTagHelper(IHtmlGenerator generator,
-	                                ICheckInputGroupOptions options,
-	                                IInputBlockWrapperGenerator inputBlockWrapperGenerator,
-	                                ILabelGenerator labelGenerator,
-	                                ICheckRadioInputSectionGenerator inputGenerator,
-	                                IErrorGenerator errorGenerator) : base(generator,
-	                                                                       options,
-	                                                                       inputBlockWrapperGenerator,
-	                                                                       labelGenerator,
-	                                                                       inputGenerator,
-	                                                                       errorGenerator)
+	public CheckInputGroupTagHelper(
+		IHtmlGenerator htmlGenerator,
+		IHtmlHelper htmlHelper,
+		RazorFormsOptions options)
+		: base(
+			htmlGenerator,
+			htmlHelper,
+			options.CheckInputGroupOptions)
 	{
+		LabelReceivesChildContent = false;
+		InputTag = string.Empty;
+		InputTagMode = TagMode.StartTagAndEndTag;
 	}
 }

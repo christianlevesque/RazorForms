@@ -1,0 +1,43 @@
+@using RazorForms.Models
+@model RazorForms.Models.ValidityAwareMarkupModel
+
+@{
+	const string partialPath = "~/RazorFormsTemplates/Partials/WrappedContent.cshtml";
+
+	var inputContent = await Html.PartialAsync(
+		partialPath,
+		new PartialMarkupModel(
+			Model.InputHtml,
+			Model.ElementOptions.InputWrapperClasses,
+			Model.ElementOptions.RemoveWrappers));
+
+	var labelContent = await Html.PartialAsync(
+		partialPath,
+		new PartialMarkupModel(
+			Model.LabelHtml,
+			Model.ElementOptions.LabelWrapperClasses,
+			Model.ElementOptions.RemoveWrappers));
+}
+
+<div class="@Model.ElementOptions.InputBlockWrapperClasses">
+	@if (Model.ElementOptions.InputFirst)
+	{
+		@inputContent
+		@labelContent
+	}
+	else
+	{
+		@labelContent
+		@inputContent
+	}
+</div>
+
+@if (Model.ElementOptions.AlwaysShowErrorContainer || Model.IsInvalid)
+{
+	<ul class="@Model.ElementOptions.ErrorWrapperClasses">
+		@foreach (var e in Model.Errors)
+		{
+			<li class="@Model.ElementOptions.ErrorClasses">@e</li>
+		}
+	</ul>
+}

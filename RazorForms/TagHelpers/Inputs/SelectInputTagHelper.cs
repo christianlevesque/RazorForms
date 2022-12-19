@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.Logging;
-using RazorForms.Generators;
-using RazorForms.Generators.Elements;
-using RazorForms.Generators.Inputs;
-using RazorForms.Options.Inputs;
+using RazorForms.Options;
 
 namespace RazorForms.TagHelpers.Inputs;
 
@@ -18,18 +16,28 @@ public class SelectInputTagHelper : ValidityAwareTagHelperBase
 	[HtmlAttributeName(ItemsAttributeName)]
 	public IEnumerable<SelectListItem>? Items { get; set; }
 
-	/// <inheritdoc />
-	public SelectInputTagHelper(IHtmlGenerator generator,
-	                            ISelectOptions options,
-	                            IInputBlockWrapperGenerator inputBlockWrapperGenerator,
-	                            ILabelGenerator labelGenerator,
-	                            ISelectGenerator selectGenerator,
-	                            IErrorGenerator errorGenerator) : base(generator,
-	                                                                   options,
-	                                                                   inputBlockWrapperGenerator,
-	                                                                   labelGenerator,
-	                                                                   selectGenerator,
-	                                                                   errorGenerator)
+	/// <inheritdoc/>
+	public SelectInputTagHelper(
+		IHtmlGenerator htmlGenerator,
+		IHtmlHelper htmlHelper,
+		RazorFormsOptions options)
+		: base(
+			htmlGenerator,
+			htmlHelper,
+			options.SelectOptions)
 	{
+		InputTag = "select";
+		InputTagMode = TagMode.StartTagAndEndTag;
+		LabelReceivesChildContent = false;
+	}
+
+	protected override TagHelper CreateInput(TagHelperAttributeList attributes)
+	{
+		return new SelectTagHelper(HtmlGenerator)
+		{
+			ViewContext = ViewContext,
+			For = For,
+			Items = Items
+		};
 	}
 }

@@ -1,31 +1,28 @@
 ﻿using System.Linq;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using Microsoft.Extensions.Logging;
-using RazorForms.Generators.Elements;
-using RazorForms.Generators.Inputs;
-using RazorForms.Options;
-using RazorForms.Options.Inputs;
 
 namespace RazorForms.TagHelpers.Inputs;
 
 public class RadioInputTagHelper : CheckRadioTagHelperBase
 {
 	/// <inheritdoc />
-	public RadioInputTagHelper(IHtmlGenerator generator,
-	                           IRadioInputOptions options,
-	                           IInputBlockWrapperGenerator wrapperGenerator,
-	                           ILabelGenerator labelGenerator,
-	                           IRadioInputGenerator inputGenerator) : base(generator,
-	                                                                       options,
-	                                                                       wrapperGenerator,
-	                                                                       labelGenerator,
-	                                                                       inputGenerator)
+	public RadioInputTagHelper(
+		IHtmlGenerator htmlGenerator,
+		IHtmlHelper htmlHelper,
+		RazorFormsOptions options)
+		: base(
+			htmlGenerator,
+			htmlHelper,
+			options.CheckInputOptions)
 	{
+		Type = "radio";
 	}
 
 	/// <inheritdoc />
-	protected override void AddCheckedAttributeIfAppropriate(TagHelperAttributeList attributes)
+	protected override void AddCheckedAttribute(TagHelperAttributeList attributes)
 	{
 		var currentValue = attributes.FirstOrDefault(a => a.Name == "value");
 		if (currentValue == null)

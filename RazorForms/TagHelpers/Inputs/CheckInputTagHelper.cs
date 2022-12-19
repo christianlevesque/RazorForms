@@ -2,34 +2,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
+using System.Reflection.Emit;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using RazorForms.Generators.Elements;
-using RazorForms.Generators.Inputs;
-using RazorForms.Options.Inputs;
+using RazorForms.Options;
 
 namespace RazorForms.TagHelpers.Inputs;
 
 public class CheckInputTagHelper : CheckRadioTagHelperBase
 {
-	/// <inheritdoc />
-	public CheckInputTagHelper(IHtmlGenerator generator,
-	                           ICheckInputOptions options,
-	                           IInputBlockWrapperGenerator wrapperGenerator,
-	                           ILabelGenerator labelGenerator,
-	                           ICheckInputGenerator inputGenerator) : base(generator,
-	                                                                       options,
-	                                                                       wrapperGenerator,
-	                                                                       labelGenerator,
-	                                                                       inputGenerator)
+	public CheckInputTagHelper(
+		IHtmlGenerator htmlGenerator,
+		IHtmlHelper htmlHelper,
+		RazorFormsOptions options)
+		: base(
+			htmlGenerator,
+			htmlHelper,
+			options.CheckInputOptions)
 	{
+		Type = "checkbox";
 	}
 
 	/// <inheritdoc/>
-	protected override void AddCheckedAttributeIfAppropriate(TagHelperAttributeList attributes)
+	protected override void AddCheckedAttribute(TagHelperAttributeList attributes)
 	{
 		var currentValue = attributes.FirstOrDefault(a => a.Name == "value");
 		if (currentValue == null)
@@ -37,13 +34,14 @@ public class CheckInputTagHelper : CheckRadioTagHelperBase
 			return;
 		}
 
-		var setValues = ViewContext?.ViewData.Eval(For!.Name);
+		var setValues = ViewContext.ViewData.Eval(For.Name);
 		if (setValues == null)
 		{
 			return;
 		}
 
-		if (!setValues.GetType().IsGenericType || setValues.GetType().GetGenericTypeDefinition() != typeof(List<>))
+		if (!setValues.GetType().IsGenericType
+		    || setValues.GetType().GetGenericTypeDefinition() != typeof(List<>))
 		{
 			return;
 		}

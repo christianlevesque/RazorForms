@@ -1,26 +1,35 @@
-﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using RazorForms.Generators;
-using RazorForms.Generators.Elements;
-using RazorForms.Generators.Inputs;
-using RazorForms.Options.Inputs;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Razor.TagHelpers;
+using RazorForms.Options;
+using RazorForms.TagHelpers;
 
 namespace RazorForms.TagHelpers.Inputs;
 
 public class TextAreaInputTagHelper : ValidityAwareTagHelperBase
 {
-	/// <inheritdoc />
-	public TextAreaInputTagHelper(IHtmlGenerator generator,
-                                  ITextAreaOptions options,
-                                  IInputBlockWrapperGenerator inputBlockWrapperGenerator,
-                                  ILabelGenerator labelGenerator,
-                                  ITextAreaGenerator inputGenerator,
-                                  IErrorGenerator errorGenerator) : base(generator,
-                                                                         options,
-                                                                         inputBlockWrapperGenerator,
-                                                                         labelGenerator,
-                                                                         inputGenerator,
-                                                                         errorGenerator)
+	public TextAreaInputTagHelper(
+		IHtmlGenerator htmlGenerator,
+		IHtmlHelper htmlHelper,
+		RazorFormsOptions options)
+		: base(
+			htmlGenerator,
+			htmlHelper,
+			options.TextAreaOptions)
 	{
+		InputTag = "textarea";
+		InputTagMode = TagMode.StartTagAndEndTag;
 		LabelReceivesChildContent = true;
+	}
+
+	/// <inheritdoc />
+	protected override TagHelper CreateInput(TagHelperAttributeList attributes)
+	{
+		return new TextAreaTagHelper(HtmlGenerator)
+		{
+			ViewContext = ViewContext,
+			For = For
+		};
 	}
 }
