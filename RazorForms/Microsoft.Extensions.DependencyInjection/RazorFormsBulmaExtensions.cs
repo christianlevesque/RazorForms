@@ -7,10 +7,6 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class RazorFormsBulmaExtensions
 {
-	private const string TemplateBasePath = "RazorFormsTemplates";
-	private const string ValidityAwareContentPartial = $"{TemplateBasePath}/Partials/ValidityAwareContent";
-	private const string ContentPartial = $"{TemplateBasePath}/Partials/Content";
-
 	/// <summary>
 	/// Adds RazorForms support, configured to use basic Bulma settings
 	/// </summary>
@@ -42,7 +38,7 @@ public static class RazorFormsBulmaExtensions
 	{
 		InputOptions = new FormComponentWithValidationOptions
 		{
-			TemplatePath = ValidityAwareContentPartial,
+			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			ComponentWrapperClasses = "field",
 			InputBlockWrapperClasses = "control",
 			InputClasses = "input",
@@ -56,7 +52,7 @@ public static class RazorFormsBulmaExtensions
 		},
 		CheckInputOptions = new FormComponentOptions
 		{
-			TemplatePath = ContentPartial,
+			TemplatePath = RazorFormsExtensions.ContentPartial,
 			LabelClasses = "checkbox",
 			InputClasses = "mr-2",
 			InputFirst = true,
@@ -65,7 +61,7 @@ public static class RazorFormsBulmaExtensions
 		},
 		RadioInputOptions = new FormComponentOptions
 		{
-			TemplatePath = ContentPartial,
+			TemplatePath = RazorFormsExtensions.ContentPartial,
 			LabelClasses = "radio",
 			InputClasses = "mr-2",
 			InputFirst = true,
@@ -74,7 +70,7 @@ public static class RazorFormsBulmaExtensions
 		},
 		CheckInputGroupOptions = new FormComponentWithValidationOptions
 		{
-			TemplatePath = ValidityAwareContentPartial,
+			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			ComponentWrapperClasses = "field",
 			LabelClasses = "label",
 			LabelValidClasses = "has-text-success",
@@ -83,7 +79,7 @@ public static class RazorFormsBulmaExtensions
 		},
 		RadioInputGroupOptions = new FormComponentWithValidationOptions
 		{
-			TemplatePath = ValidityAwareContentPartial,
+			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			ComponentWrapperClasses = "field",
 			LabelClasses = "label",
 			LabelValidClasses = "has-text-success",
@@ -92,7 +88,7 @@ public static class RazorFormsBulmaExtensions
 		},
 		TextAreaOptions = new FormComponentWithValidationOptions
 		{
-			TemplatePath = ValidityAwareContentPartial,
+			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			ComponentWrapperClasses = "field",
 			InputBlockWrapperClasses = "control",
 			InputClasses = "textarea",
@@ -106,7 +102,7 @@ public static class RazorFormsBulmaExtensions
 		},
 		SelectOptions = new FormComponentWithValidationOptions
 		{
-			TemplatePath = ValidityAwareContentPartial,
+			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			ComponentWrapperClasses = "field",
 			InputBlockWrapperClasses = "control",
 			InputWrapperClasses = "select",

@@ -7,10 +7,6 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class RazorFormsBootstrap5Extensions
 {
-	private const string TemplateBasePath = "RazorFormsTemplates";
-	private const string ValidityAwareContentPartial = $"{TemplateBasePath}/Partials/ValidityAwareContent";
-	private const string ContentPartial = $"{TemplateBasePath}/Partials/Content";
-
 	/// <summary>
 	/// Adds RazorForms support, configured to use basic Bootstrap 5 settings
 	/// </summary>
@@ -67,7 +63,7 @@ public static class RazorFormsBootstrap5Extensions
 	{
 		InputOptions = new FormComponentWithValidationOptions
 		{
-			TemplatePath = ValidityAwareContentPartial,
+			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			LabelClasses = "form-label",
 			LabelErrorClasses = "text-danger",
 			LabelValidClasses = "text-success",
@@ -78,7 +74,7 @@ public static class RazorFormsBootstrap5Extensions
 		},
 		CheckInputOptions = new FormComponentOptions
 		{
-			TemplatePath = ContentPartial,
+			TemplatePath = RazorFormsExtensions.ContentPartial,
 			InputBlockWrapperClasses = "form-check",
 			LabelClasses = "form-check-label",
 			InputClasses = "form-check-input",
@@ -87,7 +83,7 @@ public static class RazorFormsBootstrap5Extensions
 		},
 		CheckInputGroupOptions = new FormComponentWithValidationOptions
 		{
-			TemplatePath = ValidityAwareContentPartial,
+			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			LabelClasses = "form-label",
 			LabelErrorClasses = "text-danger",
 			LabelValidClasses = "text-success",
@@ -95,7 +91,7 @@ public static class RazorFormsBootstrap5Extensions
 		},
 		RadioInputOptions = new FormComponentOptions
 		{
-			TemplatePath = ContentPartial,
+			TemplatePath = RazorFormsExtensions.ContentPartial,
 			InputBlockWrapperClasses = "form-check",
 			LabelClasses = "form-check-label",
 			InputClasses = "form-check-input",
@@ -104,7 +100,7 @@ public static class RazorFormsBootstrap5Extensions
 		},
 		RadioInputGroupOptions = new FormComponentWithValidationOptions
 		{
-			TemplatePath = ValidityAwareContentPartial,
+			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			LabelClasses = "form-label",
 			LabelErrorClasses = "text-danger",
 			LabelValidClasses = "text-success",
@@ -112,7 +108,7 @@ public static class RazorFormsBootstrap5Extensions
 		},
 		TextAreaOptions = new FormComponentWithValidationOptions
 		{
-			TemplatePath = ValidityAwareContentPartial,
+			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			LabelClasses = "form-label",
 			LabelErrorClasses = "text-danger",
 			LabelValidClasses = "text-success",
@@ -123,7 +119,7 @@ public static class RazorFormsBootstrap5Extensions
 		},
 		SelectOptions = new FormComponentWithValidationOptions
 		{
-			TemplatePath = ValidityAwareContentPartial,
+			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			LabelClasses = "form-label",
 			LabelErrorClasses = "text-danger",
 			LabelValidClasses = "text-success",

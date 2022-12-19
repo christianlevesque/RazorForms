@@ -7,10 +7,6 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class RazorFormsMaterializeExtensions
 {
-	private const string TemplateBasePath = "RazorFormsTemplates";
-	private const string ValidityAwareContentPartial = $"{TemplateBasePath}/Partials/ValidityAwareContent";
-	private const string ContentPartial = $"{TemplateBasePath}/Partials/Content";
-
 	/// <summary>
 	/// Adds RazorForms support, configured to use basic Materialize settings
 	/// </summary>
@@ -40,7 +36,7 @@ public static class RazorFormsMaterializeExtensions
 	{
 		InputOptions = new FormComponentWithValidationOptions
 		{
-			TemplatePath = ValidityAwareContentPartial,
+			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			InputBlockWrapperClasses = "input-field",
 			InputValidClasses = "valid",
 			InputErrorClasses = "invalid",
@@ -52,7 +48,7 @@ public static class RazorFormsMaterializeExtensions
 		},
 		CheckInputOptions = new FormComponentOptions
 		{
-			TemplatePath = ContentPartial,
+			TemplatePath = RazorFormsExtensions.ContentPartial,
 			RemoveWrappers = true,
 			InputFirst = true,
 			RenderInputInsideLabel = true,
@@ -60,14 +56,14 @@ public static class RazorFormsMaterializeExtensions
 		},
 		CheckInputGroupOptions = new FormComponentWithValidationOptions
 		{
-			TemplatePath = ValidityAwareContentPartial,
+			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			LabelValidClasses = "green-text",
 			LabelErrorClasses = "red-text",
 			ErrorClasses = "helper-text red-text"
 		},
 		RadioInputOptions = new FormComponentOptions
 		{
-			TemplatePath = ContentPartial,
+			TemplatePath = RazorFormsExtensions.ContentPartial,
 			RemoveWrappers = true,
 			InputFirst = true,
 			RenderInputInsideLabel = true,
@@ -75,14 +71,14 @@ public static class RazorFormsMaterializeExtensions
 		},
 		RadioInputGroupOptions = new FormComponentWithValidationOptions
 		{
-			TemplatePath = ValidityAwareContentPartial,
+			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			LabelValidClasses = "green-text",
 			LabelErrorClasses = "red-text",
 			ErrorClasses = "helper-text red-text"
 		},
 		TextAreaOptions = new FormComponentWithValidationOptions
 		{
-			TemplatePath = ValidityAwareContentPartial,
+			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			InputBlockWrapperClasses = "input-field",
 			InputClasses = "materialize-textarea",
 			InputValidClasses = "valid",
@@ -95,7 +91,7 @@ public static class RazorFormsMaterializeExtensions
 		},
 		SelectOptions = new FormComponentWithValidationOptions
 		{
-			TemplatePath = ValidityAwareContentPartial,
+			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			InputBlockWrapperClasses = "input-field",
 			InputValidClasses = "valid",
 			InputErrorClasses = "invalid",
