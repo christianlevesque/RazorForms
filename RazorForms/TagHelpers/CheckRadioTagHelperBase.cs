@@ -34,6 +34,15 @@ public abstract class CheckRadioTagHelperBase : TagHelperBase<MarkupModel<FormCo
 	{
 	}
 
+	protected override TagHelper CreateInput(TagHelperAttributeList attributes)
+	{
+		return new InputTagHelper(HtmlGenerator)
+		{
+			ViewContext = ViewContext,
+			For = For
+		};
+	}
+
 	/// <inheritdoc/>
 	protected override void AddCustomInputAttributes(TagHelperAttributeList attributes)
 	{

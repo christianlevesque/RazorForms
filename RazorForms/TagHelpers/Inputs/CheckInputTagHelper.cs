@@ -26,15 +26,6 @@ public class CheckInputTagHelper : CheckRadioTagHelperBase
 		Type = "checkbox";
 	}
 
-	protected override TagHelper CreateInput(TagHelperAttributeList attributes)
-	{
-		return new InputTagHelper(HtmlGenerator)
-		{
-			ViewContext = ViewContext,
-			For = For
-		};
-	}
-
 	/// <inheritdoc/>
 	protected override void AddCheckedAttribute(TagHelperAttributeList attributes)
 	{
