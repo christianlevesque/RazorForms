@@ -19,15 +19,13 @@
 			Model.ElementOptions.RemoveWrappers));
 }
 
-<div class="@Model.ElementOptions.InputBlockWrapperClasses">
-	@if (Model.ElementOptions.InputFirst)
-	{
-		@inputContent
-		@labelContent
-	}
-	else
-	{
-		@labelContent
-		@inputContent
-	}
-</div>
+@if (Model.ElementOptions.InputFirst)
+{
+	@inputContent
+	@labelContent
+}
+else
+{
+	@labelContent
+	@inputContent
+}

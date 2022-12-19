@@ -16,7 +16,7 @@ public class RadioInputGroupTagHelper : ValidityAwareTagHelperBase
 			options.CheckInputGroupOptions)
 	{
 		LabelReceivesChildContent = false;
-		InputTag = "div";
+		InputTag = string.Empty;
 		InputTagMode = TagMode.StartTagAndEndTag;
 	}
 }

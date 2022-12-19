@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using RazorForms.Options;
 
 namespace RazorForms.TagHelpers.Elements;
 
@@ -17,7 +16,7 @@ public class CheckInputGroupTagHelper : ValidityAwareTagHelperBase
 			options.CheckInputGroupOptions)
 	{
 		LabelReceivesChildContent = false;
-		InputTag = "div";
+		InputTag = string.Empty;
 		InputTagMode = TagMode.StartTagAndEndTag;
 	}
 }
