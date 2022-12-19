@@ -96,10 +96,14 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 		// Set up the viewmodel to send to the Razor template
 		var model = new TModel
 		{
-			InputHtml = await CreateInputCore(context, output),
 			LabelHtml = await CreateLabel(context, output),
 			ElementOptions = new TOptions()
 		};
+
+		if (!Options.RenderInputInsideLabel)
+		{
+			model.InputHtml = await CreateInputCore(context, output);
+		}
 
 		SetupModelOptions(model.ElementOptions);
 		AddCssClasses(model);
