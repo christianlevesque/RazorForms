@@ -72,15 +72,17 @@ The form shown above can be refactored using RazorForms:
     <text-input asp-for="Email"/>
     <text-input asp-for="Password"/>
     <text-input asp-for="PasswordConfirm"/>
-    <submit-button>
+    <button type="submit"
+            class="btn btn-primary">
         Register
-    </submit-button>
-    <reset-button>
+    </button>
+    <button type="reset"
+            class="btn btn-outline-secondary">
         Register
-    </reset-button>
+    </button>
 </form>
 ```
 
-That's a reduction of _almost 75%_ (47 lines vs. 13 lines with RazorForms). The correct input type is automatically detected in most cases, so all you usually need to do is pass the `asp-for` attribute with a reference to the model member the form field is for, just like with the built-in label and input tag helpers.
+That's a reduction of _almost 70%_ (47 lines vs. 15 lines with RazorForms). The correct input type is automatically detected in most cases, so all you usually need to do is pass the `asp-for` attribute with a reference to the model member the form field is for, just like with the built-in label and input tag helpers.
 
 For more information on using RazorForms in a project, see the [docs](https://www.razorforms.com).
