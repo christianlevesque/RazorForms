@@ -2,13 +2,13 @@
 @model ExampleProject.Pages.Bulma.Index
 
 @{
-    ViewData["Title"] = "Bootstrap 5 setup";
+    ViewData["Title"] = "Bulma setup";
 }
 
 <h1 class="is-size-1 text-center">@ViewData["Title"]</h1>
 
 <p>
-    To use Bootstrap 5 styles in your RazorForms project, all you need to do is call the Bootstrap 5 setup extension method on your <code>IServiceCollection</code>. Our extension methods are in the <code>Microsoft.Extensions.DependencyInjection</code> namespace, so you don't need to import anything beyond installing the NuGet package.
+    To use Bulma styles in your RazorForms project, all you need to do is call the Bulma setup extension method on your <code>IServiceCollection</code>. Our extension methods are in the <code>Microsoft.Extensions.DependencyInjection</code> namespace, so you don't need to import anything beyond installing the NuGet package.
 </p>
 
 <pre>
@@ -22,29 +22,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-builder.Services.UseRazorFormsWithBootstrap5(o =>
-{
-    // Add your customizations here
-});
-</code>
-</pre>
-
-<p>
-    Alternatively, you can also use Bootstrap 5 with support for floating form labels preconfigured for you:
-</p>
-
-<pre>
-<code>
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-builder.Services.AddRazorPages();
-
-builder.Services.UseRazorFormsWithBootstrap5FloatingLabels(o =>
+builder.Services.UseRazorFormsWithBulma(o =>
 {
     // Add your customizations here
 });
