@@ -244,11 +244,15 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 			inputOutput.Content.SetHtmlContent(await output.GetChildContentAsync());
 		}
 
-		tagHelper.Init(context);
+		tagHelper?.Init(context);
 
 		ApplyCssClassesToInput(inputOutput);
 
-		await tagHelper.ProcessAsync(context, inputOutput);
+		if (tagHelper is not null)
+		{
+			await tagHelper.ProcessAsync(context, inputOutput);
+		}
+
 		return inputOutput;
 	}
 
@@ -269,7 +273,7 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 	/// </summary>
 	/// <param name="attributes">The attributes to pass to the tag</param>
 	/// <returns></returns>
-	protected abstract TagHelper CreateInput(TagHelperAttributeList attributes);
+	protected virtual TagHelper? CreateInput(TagHelperAttributeList attributes) => null;
 #endregion
 
 #region CSS generation
