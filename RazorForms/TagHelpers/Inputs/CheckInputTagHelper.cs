@@ -22,7 +22,6 @@ public class CheckInputTagHelper : CheckRadioTagHelperBase
 			htmlHelper,
 			options.CheckInputOptions)
 	{
-		LabelReceivesChildContent = true;
 		Type = "checkbox";
 	}
 

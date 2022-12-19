@@ -18,7 +18,6 @@ public class RadioInputTagHelper : CheckRadioTagHelperBase
 			htmlHelper,
 			options.CheckInputOptions)
 	{
-		LabelReceivesChildContent = true;
 		Type = "radio";
 	}
 
