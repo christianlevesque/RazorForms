@@ -6,9 +6,9 @@
 
 		<PackageId>RazorForms</PackageId>
 		<Title>RazorForms</Title>
-		<PackageVersion>1.0.0-beta4</PackageVersion>
+		<PackageVersion>1.0.0-beta5</PackageVersion>
 		<PackageReleaseNotes>
-			Completely reworked the internals of the package to make it simpler: Generators have been removed; Most options have been removed; Components are now based on overridable CSHTML files.
+			Made small modifications to generated HTML so that it exactly matches previous versions' generated HTML
 		</PackageReleaseNotes>
 		<Authors>Christian LeVesque</Authors>
 		<Description>A small, configurable library of form tag helpers for Razor Pages. The goal of RazorForms is to create a package that can support most popular front-end CSS frameworks, or be configured to support your own custom CSS.</Description>
