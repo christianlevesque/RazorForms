@@ -1,6 +1,4 @@
-﻿using RazorForms.Options;
-
-namespace RazorForms;
+﻿namespace RazorForms.Options;
 
 public class RazorFormsOptions
 {
