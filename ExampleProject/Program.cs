@@ -40,7 +40,7 @@ static void CustomSetup(RazorFormsOptions o)
 	var validationOptions = new FormComponentWithValidationOptions
 	{
 		TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
-		AlwaysShowErrorContainer = true,
+		AlwaysRenderErrorContainer = true,
 		ComponentWrapperClasses = "component",
 		ErrorWrapperClasses = "error-wrapper",
 		InputBlockWrapperClasses = "input-block",
@@ -72,25 +72,25 @@ static void Bootstrap5Setup(RazorFormsOptions o)
 	o.TextInputOptions.ComponentWrapperClasses = "mb-3";
 	o.TextInputOptions.ErrorWrapperClasses = $"{o.TextInputOptions.ErrorWrapperClasses} mt-1";
 	o.TextInputOptions.ErrorClasses = "small";
-	o.TextInputOptions.AlwaysShowErrorContainer = true;
+	o.TextInputOptions.AlwaysRenderErrorContainer = true;
 
 	// TextArea
 	o.TextAreaInputOptions.ComponentWrapperClasses = "mb-3";
 	o.TextAreaInputOptions.ErrorWrapperClasses = $"{o.TextInputOptions.ErrorWrapperClasses} mt-1";
 	o.TextAreaInputOptions.ErrorClasses = "small";
-	o.TextAreaInputOptions.AlwaysShowErrorContainer = true;
+	o.TextAreaInputOptions.AlwaysRenderErrorContainer = true;
 
 	// Select
 	o.SelectInputOptions.ComponentWrapperClasses = "mb-3";
 	o.SelectInputOptions.ErrorWrapperClasses = $"{o.SelectInputOptions.ErrorWrapperClasses} mt-1";
 	o.SelectInputOptions.ErrorClasses = "small";
-	o.SelectInputOptions.AlwaysShowErrorContainer = true;
+	o.SelectInputOptions.AlwaysRenderErrorContainer = true;
 
 	// Radio/checkbox
 	o.CheckInputGroupOptions.ComponentWrapperClasses = "mb-3";
-	o.CheckInputGroupOptions.AlwaysShowErrorContainer = true;
+	o.CheckInputGroupOptions.AlwaysRenderErrorContainer = true;
 	o.RadioInputGroupOptions.ComponentWrapperClasses = "mb-3";
-	o.RadioInputGroupOptions.AlwaysShowErrorContainer = true;
+	o.RadioInputGroupOptions.AlwaysRenderErrorContainer = true;
 }
 
 static void BulmaSetup(RazorFormsOptions o)

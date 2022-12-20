@@ -38,7 +38,7 @@ public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMa
 				return _isValid.Value;
 			}
 
-			_isValid = ViewContext.ModelState.GetFieldValidationState(For.Name) == ModelValidationState.Valid;
+			_isValid = ViewContext.ModelState.GetFieldValidationState(For.Name) == ModelValidationState.Invalid;
 
 			return _isValid.Value;
 		}
@@ -96,7 +96,7 @@ public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMa
 
 		model.ElementOptions.ErrorWrapperClasses = Options.ErrorWrapperClasses;
 		model.ElementOptions.ErrorClasses = Options.ErrorClasses;
-		model.ElementOptions.AlwaysShowErrorContainer = Options.AlwaysShowErrorContainer;
+		model.ElementOptions.AlwaysRenderErrorContainer = Options.AlwaysRenderErrorContainer;
 	}
 
 	/// <summary>

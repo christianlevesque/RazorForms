@@ -78,5 +78,5 @@ public class FormComponentWithValidationOptions : FormComponentOptions
 	/// <remarks>
 	/// Setting this value to <c>true</c> will simplify frontend input validation because the error container will exist regardless of validation state.
 	/// </remarks>
-	public bool AlwaysShowErrorContainer { get; set; }
+	public bool AlwaysRenderErrorContainer { get; set; }
 }
