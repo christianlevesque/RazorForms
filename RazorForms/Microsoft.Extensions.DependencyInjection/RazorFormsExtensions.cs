@@ -29,7 +29,37 @@ public static class RazorFormsExtensions
 	/// <returns></returns>
 	public static IServiceCollection UseRazorForms(this IServiceCollection self, Action<RazorFormsOptions> action)
 	{
-		var options = new RazorFormsOptions();
+		var options = new RazorFormsOptions
+		{
+			CheckInputOptions =
+			{
+				TemplatePath = ContentPartial
+			},
+			CheckInputGroupOptions =
+			{
+				TemplatePath = ValidityAwareContentPartial
+			},
+			RadioInputOptions =
+			{
+				TemplatePath = ContentPartial
+			},
+			RadioInputGroupOptions =
+			{
+				TemplatePath = ValidityAwareContentPartial
+			},
+			TextInputOptions =
+			{
+				TemplatePath = ValidityAwareContentPartial
+			},
+			TextAreaInputOptions = 
+			{
+				TemplatePath = ValidityAwareContentPartial
+			},
+			SelectInputOptions = 
+			{
+				TemplatePath = ValidityAwareContentPartial
+			}
+		};
 		action(options);
 		return self.UseRazorForms(options);
 	}
