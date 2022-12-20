@@ -1,5 +1,4 @@
 using System;
-using RazorForms;
 using RazorForms.Options;
 
 // ReSharper disable once CheckNamespace
@@ -34,14 +33,14 @@ public static class RazorFormsMaterializeExtensions
 
 	private static RazorFormsOptions _materializeDefaults = new()
 	{
-		InputOptions = new FormComponentWithValidationOptions
+		TextInputOptions = new FormComponentWithValidationOptions
 		{
 			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			InputBlockWrapperClasses = "input-field",
 			InputValidClasses = "valid",
-			InputErrorClasses = "invalid",
+			InputInvalidClasses = "invalid",
 			LabelValidClasses = "green-text",
-			LabelErrorClasses = "red-text",
+			LabelInvalidClasses = "red-text",
 			RemoveWrappers = true,
 			InputFirst = true,
 			ErrorClasses = "helper-text red-text"
@@ -58,7 +57,7 @@ public static class RazorFormsMaterializeExtensions
 		{
 			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			LabelValidClasses = "green-text",
-			LabelErrorClasses = "red-text",
+			LabelInvalidClasses = "red-text",
 			ErrorClasses = "helper-text red-text"
 		},
 		RadioInputOptions = new FormComponentOptions
@@ -73,30 +72,30 @@ public static class RazorFormsMaterializeExtensions
 		{
 			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			LabelValidClasses = "green-text",
-			LabelErrorClasses = "red-text",
+			LabelInvalidClasses = "red-text",
 			ErrorClasses = "helper-text red-text"
 		},
-		TextAreaOptions = new FormComponentWithValidationOptions
+		TextAreaInputOptions = new FormComponentWithValidationOptions
 		{
 			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			InputBlockWrapperClasses = "input-field",
 			InputClasses = "materialize-textarea",
 			InputValidClasses = "valid",
-			InputErrorClasses = "invalid",
+			InputInvalidClasses = "invalid",
 			LabelValidClasses = "green-text",
-			LabelErrorClasses = "red-text",
+			LabelInvalidClasses = "red-text",
 			RemoveWrappers = true,
 			InputFirst = true,
 			ErrorClasses = "helper-text red-text"
 		},
-		SelectOptions = new FormComponentWithValidationOptions
+		SelectInputOptions = new FormComponentWithValidationOptions
 		{
 			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			InputBlockWrapperClasses = "input-field",
 			InputValidClasses = "valid",
-			InputErrorClasses = "invalid",
+			InputInvalidClasses = "invalid",
 			LabelValidClasses = "green-text",
-			LabelErrorClasses = "red-text",
+			LabelInvalidClasses = "red-text",
 			RemoveWrappers = true,
 			InputFirst = true,
 			ErrorClasses = "helper-text red-text"

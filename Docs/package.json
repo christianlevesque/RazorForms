@@ -1,0 +1,46 @@
+{
+	"name": "christianlevesque.io",
+	"version": "1.0.0",
+	"description": "My personal website and blog",
+	"main": "index.js",
+	"scripts": {
+		"clean": "rimraf build",
+		"build": "npm-run-all clean build:scripts build:site",
+		"build:scripts": "npx webpack",
+		"build:site": "npx @11ty/eleventy --output=build --formats=md,hbs",
+		"serve:11ty": "npx @11ty/eleventy --serve --output=build --formats=md,hbs",
+		"serve": "npm-run-all clean build:scripts serve:11ty"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com//christianlevesque/christianlevesque.io"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@11ty/eleventy": "^1.0.1",
+		"@11ty/eleventy-plugin-syntaxhighlight": "^4.0.0",
+		"@babel/core": "^7.18.5",
+		"@babel/preset-env": "^7.18.2",
+		"@popperjs/core": "^2.11.5",
+		"autoprefixer": "^10.4.7",
+		"babel-loader": "^8.2.5",
+		"bootstrap": "^5.1.3",
+		"copy-webpack-plugin": "^10.2.4",
+		"css-loader": "^6.7.1",
+		"file-loader": "^6.2.0",
+		"html-webpack-plugin": "^5.5.0",
+		"markdown-it": "^12.3.2",
+		"mini-css-extract-plugin": "^2.6.1",
+		"npm-run-all": "^4.1.5",
+		"postcss": "^8.4.14",
+		"postcss-loader": "^6.2.1",
+		"rimraf": "^3.0.2",
+		"sass": "^1.52.3",
+		"sass-loader": "^12.6.0",
+		"style-loader": "^3.3.1",
+		"webpack": "^5.73.0",
+		"webpack-cli": "^4.10.0"
+	}
+}

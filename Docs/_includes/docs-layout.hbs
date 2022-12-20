@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	{{> ui/head blurb=blurb pageTitle=pageTitle siteTitle=metadata.title }}
+</head>
+<body class="pt-5 min-vh-100 d-flex flex-column">
+
+{{> ui/nav uri=page.url links=metadata.links }}
+
+<div class="container flex-grow-1">
+	<div class="row">
+		<div class="col-3">
+			<section class="accordion position-sticky docs-sidebar">
+				{{> widgets/docs/sidebarCategoryLinks collections=collections collectionName="introduction" displayName="Introduction" }}
+				{{> widgets/docs/sidebarCategoryLinks collections=collections collectionName="taghelpers" displayName="Tag Helpers" }}
+			</section>
+		</div>
+		<div class="col-9 ps-5">
+			{{{ content }}}
+		</div>
+	</div>
+</div>
+
+{{> ui/footer }}
+
+</body>
+</html>

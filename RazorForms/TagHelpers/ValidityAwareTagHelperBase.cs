@@ -38,7 +38,7 @@ public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMa
 				return _isValid.Value;
 			}
 
-			_isValid = ViewContext.ModelState.GetFieldValidationState(For.Name) == ModelValidationState.Valid;
+			_isValid = ViewContext.ModelState.GetFieldValidationState(For.Name) == ModelValidationState.Invalid;
 
 			return _isValid.Value;
 		}
@@ -94,9 +94,10 @@ public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMa
 	{
 		base.AddCssClasses(model);
 
+		model.ElementOptions.InputBlockWrapperClasses = Options.InputBlockWrapperClasses;
 		model.ElementOptions.ErrorWrapperClasses = Options.ErrorWrapperClasses;
 		model.ElementOptions.ErrorClasses = Options.ErrorClasses;
-		model.ElementOptions.AlwaysShowErrorContainer = Options.AlwaysShowErrorContainer;
+		model.ElementOptions.AlwaysRenderErrorContainer = Options.AlwaysRenderErrorContainer;
 	}
 
 	/// <summary>
@@ -131,7 +132,7 @@ public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMa
 			input,
 			Options.InputClasses,
 			Options.InputValidClasses,
-			Options.InputErrorClasses);
+			Options.InputInvalidClasses);
 	}
 
 	/// <inheritdoc />
@@ -141,7 +142,7 @@ public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMa
 			label,
 			Options.LabelClasses,
 			Options.LabelValidClasses,
-			Options.LabelErrorClasses);
+			Options.LabelInvalidClasses);
 	}
 
 	/// <inheritdoc />
@@ -151,7 +152,7 @@ public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMa
 			component,
 			Options.ComponentWrapperClasses,
 			Options.ComponentWrapperValidClasses,
-			Options.ComponentWrapperErrorClasses);
+			Options.ComponentWrapperInvalidClasses);
 	}
 #endregion
 }

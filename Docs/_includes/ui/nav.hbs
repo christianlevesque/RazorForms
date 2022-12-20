@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-lg fixed-top bg-white">
+	<div class="container d-flex justify-content-between">
+		<a class="navbar-brand"
+		   href="/">
+			RazorForms
+		</a>
+
+		<button id="toggler"
+				type="button"
+				data-bs-toggle="collapse"
+				data-bs-target="#navbar"
+				class="navbar-toggler">
+			<i id="toggler-icon"
+			   class="fal fa-bars"></i>
+		</button>
+
+		<div id="navbar" class="collapse navbar-collapse flex-lg-grow-0">
+			<ul class="navbar-nav text-end">
+				{{#each this.links}}
+					<li class="nav-item">
+						<a class="nav-link {{ mainMenuActiveClass this.href ../uri }}"
+						   href="{{ this.href }}">
+							{{ this.name }}
+						</a>
+					</li>
+				{{/each}}
+			</ul>
+		</div>
+	</div>
+</nav>

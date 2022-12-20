@@ -13,16 +13,6 @@ public class FormComponentOptions
 	public string ComponentWrapperClasses { get; set; } = string.Empty;
 
 	/// <summary>
-	/// Determines whether or not to remove the &lt;div&gt; surrounding &lt;label&gt; and &lt;input&gt; elements
-	/// </summary>
-	public bool RemoveWrappers { get; set; }
-
-	/// <summary>
-	/// CSS classes applied to the &lt;div&gt; surrounding the entire input block
-	/// </summary>
-	public string InputBlockWrapperClasses { get; set; } = string.Empty;
-
-	/// <summary>
 	/// CSS classes applied to the &lt;div&gt; surrounding the &lt;label&gt;
 	/// </summary>
 	public string LabelWrapperClasses { get; set; } = string.Empty;
@@ -46,6 +36,11 @@ public class FormComponentOptions
 	/// CSS classes applied to the &lt;input&gt;
 	/// </summary>
 	public string InputClasses { get; set; } = string.Empty;
+
+	/// <summary>
+	/// Determines whether or not to remove the &lt;div&gt; surrounding &lt;label&gt; and &lt;input&gt; elements
+	/// </summary>
+	public bool RemoveWrappers { get; set; }
 
 	/// <summary>
 	/// Determines whether the &lt;input&gt; should come first in the markup or not

@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using RazorForms;
 using RazorForms.Options;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -40,7 +39,7 @@ static void CustomSetup(RazorFormsOptions o)
 	var validationOptions = new FormComponentWithValidationOptions
 	{
 		TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
-		AlwaysShowErrorContainer = true,
+		AlwaysRenderErrorContainer = true,
 		ComponentWrapperClasses = "component",
 		ErrorWrapperClasses = "error-wrapper",
 		InputBlockWrapperClasses = "input-block",
@@ -52,14 +51,13 @@ static void CustomSetup(RazorFormsOptions o)
 	{
 		TemplatePath = RazorFormsExtensions.ContentPartial,
 		ComponentWrapperClasses = "component",
-		InputBlockWrapperClasses = "input-block",
 		InputWrapperClasses = "input-wrapper",
 		LabelWrapperClasses = "label-wrapper"
 	};
 
-	o.InputOptions = validationOptions;
-	o.SelectOptions = validationOptions;
-	o.TextAreaOptions = validationOptions;
+	o.TextInputOptions = validationOptions;
+	o.SelectInputOptions = validationOptions;
+	o.TextAreaInputOptions = validationOptions;
 	o.CheckInputGroupOptions = validationOptions;
 	o.RadioInputGroupOptions = validationOptions;
 	o.CheckInputOptions = standardOptions;
@@ -69,28 +67,28 @@ static void CustomSetup(RazorFormsOptions o)
 static void Bootstrap5Setup(RazorFormsOptions o)
 {
 	// Text
-	o.InputOptions.ComponentWrapperClasses = "mb-3";
-	o.InputOptions.ErrorWrapperClasses = $"{o.InputOptions.ErrorWrapperClasses} mt-1";
-	o.InputOptions.ErrorClasses = "small";
-	o.InputOptions.AlwaysShowErrorContainer = true;
+	o.TextInputOptions.ComponentWrapperClasses = "mb-3";
+	o.TextInputOptions.ErrorWrapperClasses = $"{o.TextInputOptions.ErrorWrapperClasses} mt-1";
+	o.TextInputOptions.ErrorClasses = "small";
+	o.TextInputOptions.AlwaysRenderErrorContainer = true;
 
 	// TextArea
-	o.TextAreaOptions.ComponentWrapperClasses = "mb-3";
-	o.TextAreaOptions.ErrorWrapperClasses = $"{o.InputOptions.ErrorWrapperClasses} mt-1";
-	o.TextAreaOptions.ErrorClasses = "small";
-	o.TextAreaOptions.AlwaysShowErrorContainer = true;
+	o.TextAreaInputOptions.ComponentWrapperClasses = "mb-3";
+	o.TextAreaInputOptions.ErrorWrapperClasses = $"{o.TextInputOptions.ErrorWrapperClasses} mt-1";
+	o.TextAreaInputOptions.ErrorClasses = "small";
+	o.TextAreaInputOptions.AlwaysRenderErrorContainer = true;
 
 	// Select
-	o.SelectOptions.ComponentWrapperClasses = "mb-3";
-	o.SelectOptions.ErrorWrapperClasses = $"{o.SelectOptions.ErrorWrapperClasses} mt-1";
-	o.SelectOptions.ErrorClasses = "small";
-	o.SelectOptions.AlwaysShowErrorContainer = true;
+	o.SelectInputOptions.ComponentWrapperClasses = "mb-3";
+	o.SelectInputOptions.ErrorWrapperClasses = $"{o.SelectInputOptions.ErrorWrapperClasses} mt-1";
+	o.SelectInputOptions.ErrorClasses = "small";
+	o.SelectInputOptions.AlwaysRenderErrorContainer = true;
 
 	// Radio/checkbox
 	o.CheckInputGroupOptions.ComponentWrapperClasses = "mb-3";
-	o.CheckInputGroupOptions.AlwaysShowErrorContainer = true;
+	o.CheckInputGroupOptions.AlwaysRenderErrorContainer = true;
 	o.RadioInputGroupOptions.ComponentWrapperClasses = "mb-3";
-	o.RadioInputGroupOptions.AlwaysShowErrorContainer = true;
+	o.RadioInputGroupOptions.AlwaysRenderErrorContainer = true;
 }
 
 static void BulmaSetup(RazorFormsOptions o)

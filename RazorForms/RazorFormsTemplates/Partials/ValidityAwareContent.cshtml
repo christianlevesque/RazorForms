@@ -32,7 +32,7 @@
 	}
 </div>
 
-@if (Model.ElementOptions.AlwaysShowErrorContainer || Model.IsInvalid)
+@if (Model.ElementOptions.AlwaysRenderErrorContainer || Model.IsInvalid)
 {
 	<ul class="@Model.ElementOptions.ErrorWrapperClasses">
 		@foreach (var e in Model.Errors)

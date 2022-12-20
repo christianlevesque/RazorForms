@@ -1,5 +1,4 @@
 using System;
-using RazorForms;
 using RazorForms.Options;
 
 // ReSharper disable once CheckNamespace
@@ -42,40 +41,40 @@ public static class RazorFormsBootstrap5Extensions
 		Action<RazorFormsOptions> action)
 	{
 		// Inputs
-		_bootstrapDefaults.InputOptions.InputBlockWrapperClasses = "form-floating";
-		_bootstrapDefaults.InputOptions.InputFirst = true;
-		_bootstrapDefaults.InputOptions.RemoveWrappers = true;
+		_bootstrapDefaults.TextInputOptions.InputBlockWrapperClasses = "form-floating";
+		_bootstrapDefaults.TextInputOptions.InputFirst = true;
+		_bootstrapDefaults.TextInputOptions.RemoveWrappers = true;
 
 		// TextAreas
-		_bootstrapDefaults.TextAreaOptions.InputBlockWrapperClasses = "form-floating";
-		_bootstrapDefaults.TextAreaOptions.InputFirst = true;
-		_bootstrapDefaults.TextAreaOptions.RemoveWrappers = true;
+		_bootstrapDefaults.TextAreaInputOptions.InputBlockWrapperClasses = "form-floating";
+		_bootstrapDefaults.TextAreaInputOptions.InputFirst = true;
+		_bootstrapDefaults.TextAreaInputOptions.RemoveWrappers = true;
 
 		// Selects
-		_bootstrapDefaults.SelectOptions.InputBlockWrapperClasses = "form-floating";
-		_bootstrapDefaults.SelectOptions.InputFirst = true;
-		_bootstrapDefaults.SelectOptions.RemoveWrappers = true;
+		_bootstrapDefaults.SelectInputOptions.InputBlockWrapperClasses = "form-floating";
+		_bootstrapDefaults.SelectInputOptions.InputFirst = true;
+		_bootstrapDefaults.SelectInputOptions.RemoveWrappers = true;
 
 		return self.UseRazorFormsWithBootstrap5(action);
 	}
 
 	private static RazorFormsOptions _bootstrapDefaults = new()
 	{
-		InputOptions = new FormComponentWithValidationOptions
+		TextInputOptions = new FormComponentWithValidationOptions
 		{
 			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			LabelClasses = "form-label",
-			LabelErrorClasses = "text-danger",
+			LabelInvalidClasses = "text-danger",
 			LabelValidClasses = "text-success",
 			InputClasses = "form-control",
 			InputValidClasses = "is-valid",
-			InputErrorClasses = "is-invalid",
+			InputInvalidClasses = "is-invalid",
 			ErrorWrapperClasses = "text-danger list-unstyled"
 		},
 		CheckInputOptions = new FormComponentOptions
 		{
 			TemplatePath = RazorFormsExtensions.ContentPartial,
-			InputBlockWrapperClasses = "form-check",
+			ComponentWrapperClasses = "form-check",
 			LabelClasses = "form-check-label",
 			InputClasses = "form-check-input",
 			InputFirst = true,
@@ -85,14 +84,14 @@ public static class RazorFormsBootstrap5Extensions
 		{
 			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			LabelClasses = "form-label",
-			LabelErrorClasses = "text-danger",
+			LabelInvalidClasses = "text-danger",
 			LabelValidClasses = "text-success",
 			ErrorWrapperClasses = "text-danger list-unstyled"
 		},
 		RadioInputOptions = new FormComponentOptions
 		{
 			TemplatePath = RazorFormsExtensions.ContentPartial,
-			InputBlockWrapperClasses = "form-check",
+			ComponentWrapperClasses = "form-check",
 			LabelClasses = "form-check-label",
 			InputClasses = "form-check-input",
 			InputFirst = true,
@@ -102,30 +101,30 @@ public static class RazorFormsBootstrap5Extensions
 		{
 			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			LabelClasses = "form-label",
-			LabelErrorClasses = "text-danger",
+			LabelInvalidClasses = "text-danger",
 			LabelValidClasses = "text-success",
 			ErrorWrapperClasses = "text-danger list-unstyled"
 		},
-		TextAreaOptions = new FormComponentWithValidationOptions
+		TextAreaInputOptions = new FormComponentWithValidationOptions
 		{
 			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			LabelClasses = "form-label",
-			LabelErrorClasses = "text-danger",
+			LabelInvalidClasses = "text-danger",
 			LabelValidClasses = "text-success",
 			InputClasses = "form-control",
 			InputValidClasses = "is-valid",
-			InputErrorClasses = "is-invalid",
+			InputInvalidClasses = "is-invalid",
 			ErrorWrapperClasses = "text-danger list-unstyled"
 		},
-		SelectOptions = new FormComponentWithValidationOptions
+		SelectInputOptions = new FormComponentWithValidationOptions
 		{
 			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			LabelClasses = "form-label",
-			LabelErrorClasses = "text-danger",
+			LabelInvalidClasses = "text-danger",
 			LabelValidClasses = "text-success",
 			InputClasses = "form-select",
 			InputValidClasses = "is-valid",
-			InputErrorClasses = "is-invalid",
+			InputInvalidClasses = "is-invalid",
 			ErrorWrapperClasses = "text-danger list-unstyled"
 		}
 	};

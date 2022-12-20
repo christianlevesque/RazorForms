@@ -1,0 +1,81 @@
+// Colors
+$blue: #2196F3;
+$dark-blue: #0D47A1;
+$light-blue: #E3F2FD;
+$indigo: #3F51B5;
+$light-purple: #CFCFFA;
+$purple: #4527A0;
+$pink: #E91E63;
+$red: #F44336;
+$orange: #FF9800;
+$yellow: #FFEB3B;
+$light-green: #C8E6C9;
+$green: #4CAF50;
+$teal: #009688;
+$cyan: #00BCD4;
+$gray-100: #FAFAFA;
+$gray-200: #F5F5F5;
+$gray-300: #EEEEEE;
+$gray-400: #E0E0E0;
+$gray-450: #CCCCCC;
+$gray-500: #BDBDBD;
+$gray-600: #757575;
+$gray-700: #616161;
+$gray-800: #424242;
+$gray-900: #212121;
+$white: #FFFFFF;
+$black: $gray-900;
+
+$primary: $purple;
+$secondary: $green;
+$success: $blue;
+$info: $pink;
+$warning: $orange;
+
+$theme-colors: (
+		"primary": $primary,
+		"primary-light": $light-purple,
+		"secondary": $secondary,
+		"secondary-light": $light-green,
+		"success": $success,
+		"info": $info,
+		"warning": $warning
+);
+
+$code-color: $dark-blue;
+
+
+// Spacing
+$spacer: 1rem;
+
+$spacers: (
+		0: 0,
+		1: ($spacer * 0.5),
+		2: $spacer,
+		3: ($spacer * 1.5),
+		4: ($spacer * 2.5),
+		5: ($spacer * 4)
+);
+
+
+// Links
+//$link-color: map-get($theme-colors, "primary");
+$link-decoration: none;
+//$link-hover-color: darken($link-color, 15%);
+$link-hover-decoration: underline;
+
+
+// Typography
+$font-family-sans-serif: Roboto, "Helvetica Neue", Arial, sans-serif;
+$font-family-monospace: "Roboto Mono", monospace;
+$font-family-base: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+$font-size-sm: .5rem;
+$headings-margin-bottom: 1rem;
+$headings-font-family: $font-family-sans-serif;
+$headings-font-weight: 400;
+$headings-line-height: 2.2rem;
+$headings-color: inherit;
+
+
+// Navs
+$nav-link-padding-x: 2rem;
