@@ -42,10 +42,10 @@ public static class RazorFormsBulmaExtensions
 			InputBlockWrapperClasses = "control",
 			InputClasses = "input",
 			InputValidClasses = "is-success",
-			InputErrorClasses = "is-danger",
+			InputInvalidClasses = "is-danger",
 			LabelClasses = "label",
 			LabelValidClasses = "has-text-success",
-			LabelErrorClasses = "has-text-danger",
+			LabelInvalidClasses = "has-text-danger",
 			ErrorClasses = "help is-danger",
 			RemoveWrappers = true
 		},
@@ -73,7 +73,7 @@ public static class RazorFormsBulmaExtensions
 			ComponentWrapperClasses = "field",
 			LabelClasses = "label",
 			LabelValidClasses = "has-text-success",
-			LabelErrorClasses = "has-text-danger",
+			LabelInvalidClasses = "has-text-danger",
 			ErrorClasses = "help is-danger"
 		},
 		RadioInputGroupOptions = new FormComponentWithValidationOptions
@@ -82,7 +82,7 @@ public static class RazorFormsBulmaExtensions
 			ComponentWrapperClasses = "field",
 			LabelClasses = "label",
 			LabelValidClasses = "has-text-success",
-			LabelErrorClasses = "has-text-danger",
+			LabelInvalidClasses = "has-text-danger",
 			ErrorClasses = "help is-danger"
 		},
 		TextAreaInputOptions = new FormComponentWithValidationOptions
@@ -92,10 +92,10 @@ public static class RazorFormsBulmaExtensions
 			InputBlockWrapperClasses = "control",
 			InputClasses = "textarea",
 			InputValidClasses = "is-success",
-			InputErrorClasses = "is-danger",
+			InputInvalidClasses = "is-danger",
 			LabelClasses = "label",
 			LabelValidClasses = "has-text-success",
-			LabelErrorClasses = "has-text-danger",
+			LabelInvalidClasses = "has-text-danger",
 			ErrorClasses = "help is-danger",
 			RemoveWrappers = true
 		},
@@ -106,10 +106,10 @@ public static class RazorFormsBulmaExtensions
 			InputBlockWrapperClasses = "control",
 			InputWrapperClasses = "select",
 			InputWrapperValidClasses = "is-success",
-			InputWrapperErrorClasses = "is-danger",
+			InputWrapperInvalidClasses = "is-danger",
 			LabelClasses = "label mb-2",
 			LabelValidClasses = "has-text-success",
-			LabelErrorClasses = "has-text-danger",
+			LabelInvalidClasses = "has-text-danger",
 			ErrorClasses = "help is-danger"
 		}
 	};

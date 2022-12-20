@@ -64,11 +64,11 @@ public static class RazorFormsBootstrap5Extensions
 		{
 			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			LabelClasses = "form-label",
-			LabelErrorClasses = "text-danger",
+			LabelInvalidClasses = "text-danger",
 			LabelValidClasses = "text-success",
 			InputClasses = "form-control",
 			InputValidClasses = "is-valid",
-			InputErrorClasses = "is-invalid",
+			InputInvalidClasses = "is-invalid",
 			ErrorWrapperClasses = "text-danger list-unstyled"
 		},
 		CheckInputOptions = new FormComponentOptions
@@ -84,7 +84,7 @@ public static class RazorFormsBootstrap5Extensions
 		{
 			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			LabelClasses = "form-label",
-			LabelErrorClasses = "text-danger",
+			LabelInvalidClasses = "text-danger",
 			LabelValidClasses = "text-success",
 			ErrorWrapperClasses = "text-danger list-unstyled"
 		},
@@ -101,7 +101,7 @@ public static class RazorFormsBootstrap5Extensions
 		{
 			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			LabelClasses = "form-label",
-			LabelErrorClasses = "text-danger",
+			LabelInvalidClasses = "text-danger",
 			LabelValidClasses = "text-success",
 			ErrorWrapperClasses = "text-danger list-unstyled"
 		},
@@ -109,22 +109,22 @@ public static class RazorFormsBootstrap5Extensions
 		{
 			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			LabelClasses = "form-label",
-			LabelErrorClasses = "text-danger",
+			LabelInvalidClasses = "text-danger",
 			LabelValidClasses = "text-success",
 			InputClasses = "form-control",
 			InputValidClasses = "is-valid",
-			InputErrorClasses = "is-invalid",
+			InputInvalidClasses = "is-invalid",
 			ErrorWrapperClasses = "text-danger list-unstyled"
 		},
 		SelectInputOptions = new FormComponentWithValidationOptions
 		{
 			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			LabelClasses = "form-label",
-			LabelErrorClasses = "text-danger",
+			LabelInvalidClasses = "text-danger",
 			LabelValidClasses = "text-success",
 			InputClasses = "form-select",
 			InputValidClasses = "is-valid",
-			InputErrorClasses = "is-invalid",
+			InputInvalidClasses = "is-invalid",
 			ErrorWrapperClasses = "text-danger list-unstyled"
 		}
 	};

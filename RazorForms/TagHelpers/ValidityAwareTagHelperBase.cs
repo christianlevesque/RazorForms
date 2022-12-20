@@ -131,7 +131,7 @@ public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMa
 			input,
 			Options.InputClasses,
 			Options.InputValidClasses,
-			Options.InputErrorClasses);
+			Options.InputInvalidClasses);
 	}
 
 	/// <inheritdoc />
@@ -141,7 +141,7 @@ public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMa
 			label,
 			Options.LabelClasses,
 			Options.LabelValidClasses,
-			Options.LabelErrorClasses);
+			Options.LabelInvalidClasses);
 	}
 
 	/// <inheritdoc />
@@ -151,7 +151,7 @@ public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMa
 			component,
 			Options.ComponentWrapperClasses,
 			Options.ComponentWrapperValidClasses,
-			Options.ComponentWrapperErrorClasses);
+			Options.ComponentWrapperInvalidClasses);
 	}
 #endregion
 }

@@ -38,9 +38,9 @@ public static class RazorFormsMaterializeExtensions
 			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			InputBlockWrapperClasses = "input-field",
 			InputValidClasses = "valid",
-			InputErrorClasses = "invalid",
+			InputInvalidClasses = "invalid",
 			LabelValidClasses = "green-text",
-			LabelErrorClasses = "red-text",
+			LabelInvalidClasses = "red-text",
 			RemoveWrappers = true,
 			InputFirst = true,
 			ErrorClasses = "helper-text red-text"
@@ -57,7 +57,7 @@ public static class RazorFormsMaterializeExtensions
 		{
 			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			LabelValidClasses = "green-text",
-			LabelErrorClasses = "red-text",
+			LabelInvalidClasses = "red-text",
 			ErrorClasses = "helper-text red-text"
 		},
 		RadioInputOptions = new FormComponentOptions
@@ -72,7 +72,7 @@ public static class RazorFormsMaterializeExtensions
 		{
 			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			LabelValidClasses = "green-text",
-			LabelErrorClasses = "red-text",
+			LabelInvalidClasses = "red-text",
 			ErrorClasses = "helper-text red-text"
 		},
 		TextAreaInputOptions = new FormComponentWithValidationOptions
@@ -81,9 +81,9 @@ public static class RazorFormsMaterializeExtensions
 			InputBlockWrapperClasses = "input-field",
 			InputClasses = "materialize-textarea",
 			InputValidClasses = "valid",
-			InputErrorClasses = "invalid",
+			InputInvalidClasses = "invalid",
 			LabelValidClasses = "green-text",
-			LabelErrorClasses = "red-text",
+			LabelInvalidClasses = "red-text",
 			RemoveWrappers = true,
 			InputFirst = true,
 			ErrorClasses = "helper-text red-text"
@@ -93,9 +93,9 @@ public static class RazorFormsMaterializeExtensions
 			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			InputBlockWrapperClasses = "input-field",
 			InputValidClasses = "valid",
-			InputErrorClasses = "invalid",
+			InputInvalidClasses = "invalid",
 			LabelValidClasses = "green-text",
-			LabelErrorClasses = "red-text",
+			LabelInvalidClasses = "red-text",
 			RemoveWrappers = true,
 			InputFirst = true,
 			ErrorClasses = "helper-text red-text"
