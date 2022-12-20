@@ -77,7 +77,7 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 		await ProcessModel(model);
 
 		// Render content
-		var content = await HtmlHelper.PartialAsync($"~/{Options.TemplatePath}.cshtml", model);
+		var content = await HtmlHelper.PartialAsync(Options.TemplatePath, model);
 		output.Content.SetHtmlContent(content);
 	}
 

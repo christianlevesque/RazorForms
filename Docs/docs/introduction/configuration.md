@@ -41,7 +41,7 @@ The following properties are used:
 
 #### `string TemplatePath`
 
-The `TemplatePath` property specifies the path to the `.cshtml` file to use as a template when rendering the tag helper. This path doesn't include the leading `~/` or the `.cshtml` extension, so if the template you want to use resides at `~/Views/RazorForms/TextInput.cshtml`, you would set this property to `Views/RazorForms/TextInput`.
+The `TemplatePath` property specifies the path to the `.cshtml` file to use as a template when rendering the tag helper.
 
 #### `string ComponentWrapperClasses`
 

@@ -6,9 +6,9 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class RazorFormsExtensions
 {
-	public const string TemplateBasePath = "RazorFormsTemplates";
-	public const string ValidityAwareContentPartial = $"{TemplateBasePath}/Partials/ValidityAwareContent";
-	public const string ContentPartial = $"{TemplateBasePath}/Partials/Content";
+	public const string TemplateBasePath = "~/RazorFormsTemplates";
+	public const string ValidityAwareContentPartial = $"{TemplateBasePath}/Partials/ValidityAwareContent.cshtml";
+	public const string ContentPartial = $"{TemplateBasePath}/Partials/Content.cshtml";
 
 	/// <summary>
 	/// Adds RazorForms support using the supplied <see cref="RazorFormsOptions"/> instance
