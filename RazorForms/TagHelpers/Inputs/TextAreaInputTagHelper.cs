@@ -16,7 +16,7 @@ public class TextAreaInputTagHelper : ValidityAwareTagHelperBase
 		: base(
 			htmlGenerator,
 			htmlHelper,
-			options.TextAreaOptions)
+			options.TextAreaInputOptions)
 	{
 		InputTag = "textarea";
 		InputTagMode = TagMode.StartTagAndEndTag;

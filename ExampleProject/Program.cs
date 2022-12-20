@@ -57,9 +57,9 @@ static void CustomSetup(RazorFormsOptions o)
 		LabelWrapperClasses = "label-wrapper"
 	};
 
-	o.InputOptions = validationOptions;
-	o.SelectOptions = validationOptions;
-	o.TextAreaOptions = validationOptions;
+	o.TextInputOptions = validationOptions;
+	o.SelectInputOptions = validationOptions;
+	o.TextAreaInputOptions = validationOptions;
 	o.CheckInputGroupOptions = validationOptions;
 	o.RadioInputGroupOptions = validationOptions;
 	o.CheckInputOptions = standardOptions;
@@ -69,22 +69,22 @@ static void CustomSetup(RazorFormsOptions o)
 static void Bootstrap5Setup(RazorFormsOptions o)
 {
 	// Text
-	o.InputOptions.ComponentWrapperClasses = "mb-3";
-	o.InputOptions.ErrorWrapperClasses = $"{o.InputOptions.ErrorWrapperClasses} mt-1";
-	o.InputOptions.ErrorClasses = "small";
-	o.InputOptions.AlwaysShowErrorContainer = true;
+	o.TextInputOptions.ComponentWrapperClasses = "mb-3";
+	o.TextInputOptions.ErrorWrapperClasses = $"{o.TextInputOptions.ErrorWrapperClasses} mt-1";
+	o.TextInputOptions.ErrorClasses = "small";
+	o.TextInputOptions.AlwaysShowErrorContainer = true;
 
 	// TextArea
-	o.TextAreaOptions.ComponentWrapperClasses = "mb-3";
-	o.TextAreaOptions.ErrorWrapperClasses = $"{o.InputOptions.ErrorWrapperClasses} mt-1";
-	o.TextAreaOptions.ErrorClasses = "small";
-	o.TextAreaOptions.AlwaysShowErrorContainer = true;
+	o.TextAreaInputOptions.ComponentWrapperClasses = "mb-3";
+	o.TextAreaInputOptions.ErrorWrapperClasses = $"{o.TextInputOptions.ErrorWrapperClasses} mt-1";
+	o.TextAreaInputOptions.ErrorClasses = "small";
+	o.TextAreaInputOptions.AlwaysShowErrorContainer = true;
 
 	// Select
-	o.SelectOptions.ComponentWrapperClasses = "mb-3";
-	o.SelectOptions.ErrorWrapperClasses = $"{o.SelectOptions.ErrorWrapperClasses} mt-1";
-	o.SelectOptions.ErrorClasses = "small";
-	o.SelectOptions.AlwaysShowErrorContainer = true;
+	o.SelectInputOptions.ComponentWrapperClasses = "mb-3";
+	o.SelectInputOptions.ErrorWrapperClasses = $"{o.SelectInputOptions.ErrorWrapperClasses} mt-1";
+	o.SelectInputOptions.ErrorClasses = "small";
+	o.SelectInputOptions.AlwaysShowErrorContainer = true;
 
 	// Radio/checkbox
 	o.CheckInputGroupOptions.ComponentWrapperClasses = "mb-3";

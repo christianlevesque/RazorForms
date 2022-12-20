@@ -21,7 +21,7 @@ public class TextInputTagHelper : ValidityAwareTagHelperBase
 		: base(
 			htmlGenerator,
 			htmlHelper,
-			options.InputOptions)
+			options.TextInputOptions)
 	{
 		LabelReceivesChildContent = true;
 	}

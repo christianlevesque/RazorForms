@@ -36,7 +36,7 @@ public static class RazorFormsBulmaExtensions
 
 	private static RazorFormsOptions _bulmaDefaults = new()
 	{
-		InputOptions = new FormComponentWithValidationOptions
+		TextInputOptions = new FormComponentWithValidationOptions
 		{
 			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			ComponentWrapperClasses = "field",
@@ -86,7 +86,7 @@ public static class RazorFormsBulmaExtensions
 			LabelErrorClasses = "has-text-danger",
 			ErrorClasses = "help is-danger"
 		},
-		TextAreaOptions = new FormComponentWithValidationOptions
+		TextAreaInputOptions = new FormComponentWithValidationOptions
 		{
 			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			ComponentWrapperClasses = "field",
@@ -100,7 +100,7 @@ public static class RazorFormsBulmaExtensions
 			ErrorClasses = "help is-danger",
 			RemoveWrappers = true
 		},
-		SelectOptions = new FormComponentWithValidationOptions
+		SelectInputOptions = new FormComponentWithValidationOptions
 		{
 			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			ComponentWrapperClasses = "field",

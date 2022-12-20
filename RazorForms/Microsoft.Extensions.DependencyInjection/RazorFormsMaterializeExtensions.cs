@@ -34,7 +34,7 @@ public static class RazorFormsMaterializeExtensions
 
 	private static RazorFormsOptions _materializeDefaults = new()
 	{
-		InputOptions = new FormComponentWithValidationOptions
+		TextInputOptions = new FormComponentWithValidationOptions
 		{
 			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			InputBlockWrapperClasses = "input-field",
@@ -76,7 +76,7 @@ public static class RazorFormsMaterializeExtensions
 			LabelErrorClasses = "red-text",
 			ErrorClasses = "helper-text red-text"
 		},
-		TextAreaOptions = new FormComponentWithValidationOptions
+		TextAreaInputOptions = new FormComponentWithValidationOptions
 		{
 			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			InputBlockWrapperClasses = "input-field",
@@ -89,7 +89,7 @@ public static class RazorFormsMaterializeExtensions
 			InputFirst = true,
 			ErrorClasses = "helper-text red-text"
 		},
-		SelectOptions = new FormComponentWithValidationOptions
+		SelectInputOptions = new FormComponentWithValidationOptions
 		{
 			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 			InputBlockWrapperClasses = "input-field",

@@ -24,7 +24,7 @@ public class SelectInputTagHelper : ValidityAwareTagHelperBase
 		: base(
 			htmlGenerator,
 			htmlHelper,
-			options.SelectOptions)
+			options.SelectInputOptions)
 	{
 		InputTag = "select";
 		InputTagMode = TagMode.StartTagAndEndTag;
