@@ -94,6 +94,7 @@ public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMa
 	{
 		base.AddCssClasses(model);
 
+		model.ElementOptions.InputBlockWrapperClasses = Options.InputBlockWrapperClasses;
 		model.ElementOptions.ErrorWrapperClasses = Options.ErrorWrapperClasses;
 		model.ElementOptions.ErrorClasses = Options.ErrorClasses;
 		model.ElementOptions.AlwaysRenderErrorContainer = Options.AlwaysRenderErrorContainer;

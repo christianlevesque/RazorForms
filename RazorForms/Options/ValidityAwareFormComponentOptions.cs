@@ -13,6 +13,11 @@ public class FormComponentWithValidationOptions : FormComponentOptions
 	public string ComponentWrapperInvalidClasses { get; set; } = string.Empty;
 
 	/// <summary>
+	/// CSS classes applied to the &lt;div&gt; surrounding the entire input block
+	/// </summary>
+	public string InputBlockWrapperClasses { get; set; } = string.Empty;
+
+	/// <summary>
 	/// CSS classes applied to the &lt;div&gt; surrounding the entire input block when model validation succeeds
 	/// </summary>
 	public string InputBlockWrapperValidClasses { get; set; } = string.Empty;

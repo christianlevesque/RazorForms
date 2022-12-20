@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using RazorForms;
 using RazorForms.Options;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,14 +9,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages()
 	.AddRazorRuntimeCompilation();
 
-builder.Services.UseRazorForms(CustomSetup);
+// builder.Services.UseRazorForms(CustomSetup);
 
 // builder.Services.UseRazorFormsWithMaterialize(MaterializeSetup);
 
 // builder.Services.UseRazorFormsWithBulma(BulmaSetup);
 
 // builder.Services.UseRazorFormsWithBootstrap5(Bootstrap5Setup);
-// builder.Services.UseRazorFormsWithBootstrap5FloatingLabels(Bootstrap5Setup);
+builder.Services.UseRazorFormsWithBootstrap5FloatingLabels(Bootstrap5Setup);
 
 var app = builder.Build();
 
@@ -52,7 +51,6 @@ static void CustomSetup(RazorFormsOptions o)
 	{
 		TemplatePath = RazorFormsExtensions.ContentPartial,
 		ComponentWrapperClasses = "component",
-		InputBlockWrapperClasses = "input-block",
 		InputWrapperClasses = "input-wrapper",
 		LabelWrapperClasses = "label-wrapper"
 	};

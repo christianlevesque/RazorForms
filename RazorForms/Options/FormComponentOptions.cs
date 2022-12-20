@@ -13,11 +13,6 @@ public class FormComponentOptions
 	public string ComponentWrapperClasses { get; set; } = string.Empty;
 
 	/// <summary>
-	/// CSS classes applied to the &lt;div&gt; surrounding the entire input block
-	/// </summary>
-	public string InputBlockWrapperClasses { get; set; } = string.Empty;
-
-	/// <summary>
 	/// CSS classes applied to the &lt;div&gt; surrounding the &lt;label&gt;
 	/// </summary>
 	public string LabelWrapperClasses { get; set; } = string.Empty;

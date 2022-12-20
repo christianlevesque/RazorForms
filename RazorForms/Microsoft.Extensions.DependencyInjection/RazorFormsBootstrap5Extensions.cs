@@ -74,7 +74,7 @@ public static class RazorFormsBootstrap5Extensions
 		CheckInputOptions = new FormComponentOptions
 		{
 			TemplatePath = RazorFormsExtensions.ContentPartial,
-			InputBlockWrapperClasses = "form-check",
+			ComponentWrapperClasses = "form-check",
 			LabelClasses = "form-check-label",
 			InputClasses = "form-check-input",
 			InputFirst = true,
@@ -91,7 +91,7 @@ public static class RazorFormsBootstrap5Extensions
 		RadioInputOptions = new FormComponentOptions
 		{
 			TemplatePath = RazorFormsExtensions.ContentPartial,
-			InputBlockWrapperClasses = "form-check",
+			ComponentWrapperClasses = "form-check",
 			LabelClasses = "form-check-label",
 			InputClasses = "form-check-input",
 			InputFirst = true,
