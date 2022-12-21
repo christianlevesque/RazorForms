@@ -3,6 +3,10 @@ using RazorForms.Options;
 
 namespace RazorForms.Models;
 
+/// <summary>
+/// The model used when rendering validity-unaware content 
+/// </summary>
+/// <typeparam name="TOptions">The type of the options object</typeparam>
 public class MarkupModel<TOptions>
 	where TOptions : FormComponentOptions
 {
@@ -10,7 +14,7 @@ public class MarkupModel<TOptions>
 	/// Represents the HTML content of the &lt;input&gt; element
 	/// </summary>
 	/// <remarks>
-	/// The input HTML will be null if the <see cref="IFormComponentOptions.RenderInputInsideLabel"/> option is <c>true</c>.
+	/// The input HTML will be null if the <see cref="FormComponentOptions.RenderInputInsideLabel"/> option is <c>true</c>.
 	/// </remarks>
 	public TagHelperOutput? InputHtml { get; set; }
 

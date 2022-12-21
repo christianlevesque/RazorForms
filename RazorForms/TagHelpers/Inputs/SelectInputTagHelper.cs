@@ -9,6 +9,9 @@ using RazorForms.Options;
 
 namespace RazorForms.TagHelpers.Inputs;
 
+/// <summary>
+/// Creates a &lt;select&gt; input
+/// </summary>
 public class SelectInputTagHelper : ValidityAwareTagHelperBase
 {
 	protected const string ItemsAttributeName = "asp-items";

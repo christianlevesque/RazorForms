@@ -11,6 +11,11 @@ using RazorForms.Options;
 
 namespace RazorForms.TagHelpers;
 
+/// <summary>
+/// Adds common functionality for use among all RazorForms tag helpers
+/// </summary>
+/// <typeparam name="TModel">The type of the razor component model</typeparam>
+/// <typeparam name="TOptions">The type of the options object</typeparam>
 public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 	where TModel : MarkupModel<TOptions>, new()
 	where TOptions : FormComponentOptions, new()

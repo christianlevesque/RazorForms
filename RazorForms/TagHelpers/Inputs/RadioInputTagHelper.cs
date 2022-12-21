@@ -7,6 +7,9 @@ using RazorForms.Options;
 
 namespace RazorForms.TagHelpers.Inputs;
 
+/// <summary>
+/// Creates a radio &lt;input&gt;
+/// </summary>
 public class RadioInputTagHelper : CheckRadioTagHelperBase
 {
 	/// <inheritdoc />

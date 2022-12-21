@@ -1,5 +1,8 @@
 ﻿namespace RazorForms.Options;
 
+/// <summary>
+/// The options used to configure validity-aware tag helpers
+/// </summary>
 public class ValidityAwareFormComponentOptions : FormComponentOptions
 {
 	/// <summary>

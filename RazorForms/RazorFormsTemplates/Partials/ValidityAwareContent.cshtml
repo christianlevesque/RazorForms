@@ -6,14 +6,14 @@
 
 	var inputContent = await Html.PartialAsync(
 		partialPath,
-		new PartialMarkupModel(
+		new WrappedContentModel(
 			Model.InputHtml,
 			Model.ElementOptions.InputWrapperClasses,
 			Model.ElementOptions.RemoveWrappers));
 
 	var labelContent = await Html.PartialAsync(
 		partialPath,
-		new PartialMarkupModel(
+		new WrappedContentModel(
 			Model.LabelHtml,
 			Model.ElementOptions.LabelWrapperClasses,
 			Model.ElementOptions.RemoveWrappers));

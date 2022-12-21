@@ -5,6 +5,9 @@ using RazorForms.Options;
 
 namespace RazorForms.TagHelpers.Elements;
 
+/// <summary>
+/// Wraps around a series of &lt;check-input&gt; tag helpers to create a group label and error output
+/// </summary>
 public class CheckInputGroupTagHelper : ValidityAwareTagHelperBase
 {
 	public CheckInputGroupTagHelper(

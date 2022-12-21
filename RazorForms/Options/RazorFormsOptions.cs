@@ -1,5 +1,8 @@
 ﻿namespace RazorForms.Options;
 
+/// <summary>
+/// Contains the full group of configuration options for each tag helper used by RazorForms
+/// </summary>
 public class RazorFormsOptions
 {
 	/// <summary>

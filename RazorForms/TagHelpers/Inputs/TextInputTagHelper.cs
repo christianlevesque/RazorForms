@@ -7,6 +7,9 @@ using RazorForms.Options;
 
 namespace RazorForms.TagHelpers.Inputs;
 
+/// <summary>
+/// Creates a text- or numeric-based &lt;input&gt;
+/// </summary>
 public class TextInputTagHelper : ValidityAwareTagHelperBase
 {
 	protected const string FormatAttributeName = "asp-format";

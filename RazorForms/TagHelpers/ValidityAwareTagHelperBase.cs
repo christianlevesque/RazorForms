@@ -12,6 +12,9 @@ using RazorForms.Options;
 
 namespace RazorForms.TagHelpers;
 
+/// <summary>
+/// Adds common functionality for use among all validity-aware RazorForms tag helpers
+/// </summary>
 public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMarkupModel, ValidityAwareFormComponentOptions>
 {
 	protected ValidityAwareTagHelperBase(

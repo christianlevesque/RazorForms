@@ -7,6 +7,9 @@ using RazorForms.TagHelpers;
 
 namespace RazorForms.TagHelpers.Inputs;
 
+/// <summary>
+/// Creates a &lt;textarea&gt; input
+/// </summary>
 public class TextAreaInputTagHelper : ValidityAwareTagHelperBase
 {
 	public TextAreaInputTagHelper(
