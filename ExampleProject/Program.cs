@@ -6,8 +6,7 @@ using RazorForms.Options;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages()
-	.AddRazorRuntimeCompilation();
+builder.Services.AddRazorPages();
 
 builder.Services.UseRazorForms(CustomSetup);
 
