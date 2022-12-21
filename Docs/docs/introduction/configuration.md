@@ -35,7 +35,7 @@ var config = new RazorFormsOptions
 
 ### FormComponentOptions properties
 
-The `FormComponentOptions` class is used to configure all tag helpers in RazorForms (the `ValidityAwareFormComponentOptions` class extends this, and all of these properties are also used for validity-aware tag helpers). Most of these properties define CSS classes to apply to various parts of the markup. To reference the markup created by each tag helper, view that tag helper's documentation page.
+The `FormComponentOptions` class is used to configure all tag helpers in RazorForms (the `ValidityAwareFormComponentOptions` class extends this, and all of these properties are also used for validity-aware tag helpers). Most of these properties define CSS classes to apply to various parts of the markup. To reference the default markup created by each tag helper, view that tag helper's documentation page.
 
 The following properties are used:
 
@@ -137,6 +137,8 @@ Applying your Razor Forms configuration is simple. You have three options availa
 2. Provide an `Action` that configures a default instance of `RazorForms.Options.RazorFormsOptions`.
 3. Use one of the library-specific extension methods to use RazorForms preconfigured for one of several CSS libraries, such as Bootstrap 5.
 
+**NOTE**: You never need to manually set the `TemplatePath` property on each option because `UseRazorForms(RazorFormsOptions)` sets these properties if they are empty, and every overload of `UseRazorForms()`, including library-specific extension methods, eventually calls back to `UseRazorForms(RazorFormsOptions)`. You only need to manually set the `TemplatePath` property if you wish to use a different template than the default.
+
 ### Configuring RazorForms with a new `RazorFormsOptions` instance
 
 To provide your own `RazorFormsOptions` instance, pass it to your `UseRazorForms()` call:
@@ -158,8 +160,6 @@ var razorFormsOptions = new RazorFormsOptions
 builder.Services.UseRazorForms(razorFormsOptions); // Add your customized options to RazorForms
 ```
 
-**NOTE**: When providing your own `RazorFormsOptions` instance, you need to manually set the `TemplatePath` property on each option because options class properties default to CLR defaults and empty strings only. RazorForms requires a `.cshtml` template for each tag helper. See [TemplatePath](#template-path) for more information.
-
 ### Configuring RazorForms with an `Action`
 
 To change values on the default `RazorFormsOptions` instance, pass an `Action<RazorFormsOptions>` to your `UseRazorForms()` call:
@@ -177,8 +177,6 @@ builder.Services.UseRazorForms(o =>
     // Add your customizations here
 });
 ```
-
-**NOTE**: When configuring a `RazorFormsOptions` instance with an `Action`, the default template paths are supplied for you. So if the default templates are acceptable to you, there's no need to set the `TemplatePath` property on each option.
 
 ### Configuring RazorForms to use a preconfigured CSS library
 
