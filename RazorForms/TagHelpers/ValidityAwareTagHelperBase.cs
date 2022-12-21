@@ -38,7 +38,7 @@ public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMa
 				return _isValid.Value;
 			}
 
-			_isValid = ViewContext.ModelState.GetFieldValidationState(For.Name) == ModelValidationState.Invalid;
+			_isValid = ViewContext.ModelState.GetFieldValidationState(For.Name) == ModelValidationState.Valid;
 
 			return _isValid.Value;
 		}
