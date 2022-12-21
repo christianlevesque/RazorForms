@@ -19,13 +19,15 @@
 			Model.ElementOptions.RemoveWrappers));
 }
 
-@if (Model.ElementOptions.InputFirst)
-{
-	@inputContent
-	@labelContent
-}
-else
-{
-	@labelContent
-	@inputContent
-}
+<div class="@Model.ElementOptions.ComponentWrapperClasses">
+	@if (Model.ElementOptions.InputFirst)
+    {
+    	@inputContent
+    	@labelContent
+    }
+    else
+    {
+    	@labelContent
+    	@inputContent
+    }
+</div>

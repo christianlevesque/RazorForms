@@ -29,7 +29,7 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 	/// <summary>
 	/// The HTML element to wrap the entire tag helper output with
 	/// </summary>
-	protected string ContainerTag { get; set; } = "div";
+	protected string ContainerTag { get; set; } = "";
 
 	/// <summary>
 	/// The <see cref="TagMode"/> to use for the tag helper output
@@ -73,7 +73,6 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 		// Set up the output wrapper
 		output.TagName = ContainerTag;
 		output.TagMode = ContainerTagMode;
-		ApplyCssClassesToComponent(output);
 
 		// Set up model
 		var model = await GenerateHtmlModel(context, output);
@@ -305,15 +304,6 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 	}
 
 	/// <summary>
-	/// Applies CSS classes to the component wrapper element
-	/// </summary>
-	/// <param name="component">The <see cref="TagHelperOutput"/> for the wrapper element</param>
-	protected virtual void ApplyCssClassesToComponent(TagHelperOutput component)
-	{
-		AddClass(component, Options.ComponentWrapperClasses);
-	}
-
-	/// <summary>
 	/// Applies CSS classes directly to a <see cref="TagHelperOutput"/>
 	/// </summary>
 	/// <param name="output">The <see cref="TagHelperOutput"/> receiving the classes</param>
@@ -342,6 +332,7 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 	/// <param name="model">The <see cref="MarkupModel{TOptions}"/> to add classes to</param>
 	protected virtual void AddCssClasses(MarkupModel<TOptions> model)
 	{
+		model.ElementOptions.ComponentWrapperClasses = Options.ComponentWrapperClasses;
 		model.ElementOptions.InputWrapperClasses = Options.InputWrapperClasses;
 		model.ElementOptions.LabelWrapperClasses = Options.LabelWrapperClasses;
 	}

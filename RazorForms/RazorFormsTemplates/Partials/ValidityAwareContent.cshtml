@@ -19,25 +19,27 @@
 			Model.ElementOptions.RemoveWrappers));
 }
 
-<div class="@Model.ElementOptions.InputBlockWrapperClasses">
-	@if (Model.ElementOptions.InputFirst)
-	{
-		@inputContent
-		@labelContent
-	}
-	else
-	{
-		@labelContent
-		@inputContent
-	}
-</div>
+<div class="@Model.ElementOptions.ComponentWrapperClasses">
+	<div class="@Model.ElementOptions.InputBlockWrapperClasses">
+    	@if (Model.ElementOptions.InputFirst)
+    	{
+    		@inputContent
+    		@labelContent
+    	}
+    	else
+    	{
+    		@labelContent
+    		@inputContent
+    	}
+    </div>
 
-@if (Model.ElementOptions.AlwaysRenderErrorContainer || Model.IsInvalid)
-{
-	<ul class="@Model.ElementOptions.ErrorWrapperClasses">
-		@foreach (var e in Model.Errors)
-		{
-			<li class="@Model.ElementOptions.ErrorClasses">@e</li>
-		}
-	</ul>
-}
+    @if (Model.ElementOptions.AlwaysRenderErrorContainer || Model.IsInvalid)
+    {
+    	<ul class="@Model.ElementOptions.ErrorWrapperClasses">
+    		@foreach (var e in Model.Errors)
+    		{
+    			<li class="@Model.ElementOptions.ErrorClasses">@e</li>
+    		}
+    	</ul>
+    }
+</div>
