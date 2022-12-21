@@ -1,4 +1,5 @@
 using System;
+using RazorForms;
 using RazorForms.Options;
 
 // ReSharper disable once CheckNamespace
@@ -14,7 +15,7 @@ public static class RazorFormsMaterializeExtensions
 	/// </remarks>
 	/// <param name="self">The <see cref="IServiceCollection"/> instance</param>
 	/// <returns></returns>
-	public static IServiceCollection UseRazorFormsWithMaterialize(this IServiceCollection self) => self.UseRazorForms(_materializeDefaults);
+	public static IServiceCollection UseRazorFormsWithMaterialize(this IServiceCollection self) => self.UseRazorForms(ApplyMaterializeDefaults);
 
 	/// <summary>
 	/// Adds RazorForms support with configurable Materialize settings
@@ -27,78 +28,72 @@ public static class RazorFormsMaterializeExtensions
 	/// <returns></returns>
 	public static IServiceCollection UseRazorFormsWithMaterialize(this IServiceCollection self, Action<RazorFormsOptions> action)
 	{
-		action(_materializeDefaults);
-		return self.UseRazorForms(_materializeDefaults);
+		var materialize = new RazorFormsOptions();
+		action(materialize);
+		ApplyMaterializeDefaults(materialize);
+
+		return self.UseRazorForms(materialize);
 	}
 
-	private static RazorFormsOptions _materializeDefaults = new()
+	private static void ApplyMaterializeDefaults(RazorFormsOptions o)
 	{
-		TextInputOptions = new FormComponentWithValidationOptions
-		{
-			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
-			InputBlockWrapperClasses = "input-field",
-			InputValidClasses = "valid",
-			InputInvalidClasses = "invalid",
-			LabelValidClasses = "green-text",
-			LabelInvalidClasses = "red-text",
-			RemoveWrappers = true,
-			InputFirst = true,
-			ErrorClasses = "helper-text red-text"
-		},
-		CheckInputOptions = new FormComponentOptions
-		{
-			TemplatePath = RazorFormsExtensions.ContentPartial,
-			RemoveWrappers = true,
-			InputFirst = true,
-			RenderInputInsideLabel = true,
-			LabelTextHtmlWrapper = "span"
-		},
-		CheckInputGroupOptions = new FormComponentWithValidationOptions
-		{
-			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
-			LabelValidClasses = "green-text",
-			LabelInvalidClasses = "red-text",
-			ErrorClasses = "helper-text red-text"
-		},
-		RadioInputOptions = new FormComponentOptions
-		{
-			TemplatePath = RazorFormsExtensions.ContentPartial,
-			RemoveWrappers = true,
-			InputFirst = true,
-			RenderInputInsideLabel = true,
-			LabelTextHtmlWrapper = "span"
-		},
-		RadioInputGroupOptions = new FormComponentWithValidationOptions
-		{
-			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
-			LabelValidClasses = "green-text",
-			LabelInvalidClasses = "red-text",
-			ErrorClasses = "helper-text red-text"
-		},
-		TextAreaInputOptions = new FormComponentWithValidationOptions
-		{
-			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
-			InputBlockWrapperClasses = "input-field",
-			InputClasses = "materialize-textarea",
-			InputValidClasses = "valid",
-			InputInvalidClasses = "invalid",
-			LabelValidClasses = "green-text",
-			LabelInvalidClasses = "red-text",
-			RemoveWrappers = true,
-			InputFirst = true,
-			ErrorClasses = "helper-text red-text"
-		},
-		SelectInputOptions = new FormComponentWithValidationOptions
-		{
-			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
-			InputBlockWrapperClasses = "input-field",
-			InputValidClasses = "valid",
-			InputInvalidClasses = "invalid",
-			LabelValidClasses = "green-text",
-			LabelInvalidClasses = "red-text",
-			RemoveWrappers = true,
-			InputFirst = true,
-			ErrorClasses = "helper-text red-text"
-		}
-	};
+		// Text input
+		o.TextInputOptions.InputBlockWrapperClasses = Utilities.MergeCssStrings("input-field", o.TextInputOptions.InputBlockWrapperClasses);
+		o.TextInputOptions.InputValidClasses = Utilities.MergeCssStrings("valid", o.TextInputOptions.InputValidClasses);
+		o.TextInputOptions.InputInvalidClasses = Utilities.MergeCssStrings("invalid", o.TextInputOptions.InputInvalidClasses);
+		o.TextInputOptions.LabelValidClasses = Utilities.MergeCssStrings("green-text", o.TextInputOptions.LabelValidClasses);
+		o.TextInputOptions.LabelInvalidClasses = Utilities.MergeCssStrings("red-text", o.TextInputOptions.LabelInvalidClasses);
+		o.TextInputOptions.ErrorClasses = Utilities.MergeCssStrings("helper-text red-text", o.TextInputOptions.ErrorClasses);
+		o.TextInputOptions.RemoveWrappers = true;
+		o.TextInputOptions.InputFirst = true;
+
+		// Text area input
+		o.TextAreaInputOptions.InputBlockWrapperClasses = Utilities.MergeCssStrings("input-field", o.TextAreaInputOptions.InputBlockWrapperClasses);
+		o.TextAreaInputOptions.InputClasses = Utilities.MergeCssStrings("o-textarea", o.TextAreaInputOptions.InputClasses);
+		o.TextAreaInputOptions.InputValidClasses = Utilities.MergeCssStrings("valid", o.TextAreaInputOptions.InputValidClasses);
+		o.TextAreaInputOptions.InputInvalidClasses = Utilities.MergeCssStrings("invalid", o.TextAreaInputOptions.InputInvalidClasses);
+		o.TextAreaInputOptions.LabelValidClasses = Utilities.MergeCssStrings("green-text", o.TextAreaInputOptions.LabelValidClasses);
+		o.TextAreaInputOptions.LabelInvalidClasses = Utilities.MergeCssStrings("red-text", o.TextAreaInputOptions.LabelInvalidClasses);
+		o.TextAreaInputOptions.ErrorClasses = Utilities.MergeCssStrings("helper-text red-text", o.TextAreaInputOptions.ErrorClasses);
+		o.TextAreaInputOptions.RemoveWrappers = true;
+		o.TextAreaInputOptions.InputFirst = true;
+
+		// Select input
+		o.SelectInputOptions.InputBlockWrapperClasses = Utilities.MergeCssStrings("input-field", o.SelectInputOptions.InputBlockWrapperClasses);
+		o.SelectInputOptions.InputValidClasses = Utilities.MergeCssStrings("valid", o.SelectInputOptions.InputValidClasses);
+		o.SelectInputOptions.InputInvalidClasses = Utilities.MergeCssStrings("invalid", o.SelectInputOptions.InputInvalidClasses);
+		o.SelectInputOptions.LabelValidClasses = Utilities.MergeCssStrings("green-text", o.SelectInputOptions.LabelValidClasses);
+		o.SelectInputOptions.LabelInvalidClasses = Utilities.MergeCssStrings("red-text", o.SelectInputOptions.LabelInvalidClasses);
+		o.SelectInputOptions.ErrorClasses = Utilities.MergeCssStrings("helper-text red-text", o.SelectInputOptions.ErrorClasses);
+		o.SelectInputOptions.RemoveWrappers = true;
+		o.SelectInputOptions.InputFirst = true;
+
+		// Check input
+		o.CheckInputOptions.RemoveWrappers = true;
+		o.CheckInputOptions.InputFirst = true;
+		o.CheckInputOptions.RenderInputInsideLabel = true;
+		o.CheckInputOptions.LabelTextHtmlWrapper =
+			string.IsNullOrWhiteSpace(o.CheckInputOptions.LabelTextHtmlWrapper)
+				? "span"
+				: o.CheckInputOptions.LabelTextHtmlWrapper;
+
+		// Check input group
+		o.CheckInputGroupOptions.LabelValidClasses = Utilities.MergeCssStrings("green-text", o.CheckInputGroupOptions.LabelValidClasses);
+		o.CheckInputGroupOptions.LabelInvalidClasses = Utilities.MergeCssStrings("red-text", o.CheckInputGroupOptions.LabelInvalidClasses);
+		o.CheckInputGroupOptions.ErrorClasses = Utilities.MergeCssStrings("helper-text red-text", o.CheckInputGroupOptions.ErrorClasses);
+
+		// Radio input
+		o.RadioInputOptions.RemoveWrappers = true;
+		o.RadioInputOptions.InputFirst = true;
+		o.RadioInputOptions.RenderInputInsideLabel = true;
+		o.RadioInputOptions.LabelTextHtmlWrapper =
+			string.IsNullOrWhiteSpace(o.RadioInputOptions.LabelTextHtmlWrapper)
+				? "span"
+				: o.RadioInputOptions.LabelTextHtmlWrapper;
+
+		// Radio input group
+		o.RadioInputGroupOptions.LabelValidClasses = Utilities.MergeCssStrings("green-text", o.CheckInputGroupOptions.LabelValidClasses);
+		o.RadioInputGroupOptions.LabelInvalidClasses = Utilities.MergeCssStrings("red-text", o.CheckInputGroupOptions.LabelInvalidClasses);
+		o.RadioInputGroupOptions.ErrorClasses = Utilities.MergeCssStrings("helper-text red-text", o.CheckInputGroupOptions.ErrorClasses);
+	}
 }
