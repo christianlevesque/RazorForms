@@ -49,6 +49,9 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 	[HtmlAttributeName("asp-for")]
 	public ModelExpression For { get; set; } = default!;
 
+	[HtmlAttributeName("template-path")]
+	public string? TemplatePath { get; set; }
+
 	[HtmlAttributeNotBound]
 	[ViewContext]
 	public ViewContext ViewContext { get; set; } = default!;
@@ -77,7 +80,9 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 		await ProcessModel(model);
 
 		// Render content
-		var content = await HtmlHelper.PartialAsync(Options.TemplatePath, model);
+		var content = await HtmlHelper.PartialAsync(
+			TemplatePath ?? Options.TemplatePath,
+			model);
 		output.Content.SetHtmlContent(content);
 	}
 
