@@ -3,7 +3,7 @@ using RazorForms.Options;
 
 namespace RazorForms.Models;
 
-public class ValidityAwareMarkupModel : MarkupModel<FormComponentWithValidationOptions>
+public class ValidityAwareMarkupModel : MarkupModel<ValidityAwareFormComponentOptions>
 {
 	public IEnumerable<string> Errors { get; set; } = default!;
 

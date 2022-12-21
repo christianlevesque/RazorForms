@@ -1,6 +1,6 @@
 ﻿namespace RazorForms.Options;
 
-public class FormComponentWithValidationOptions : FormComponentOptions
+public class ValidityAwareFormComponentOptions : FormComponentOptions
 {
 	/// <summary>
 	/// CSS classes applied to the &lt;div&gt; surrounding the entire component when model validation succeeds

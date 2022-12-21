@@ -12,12 +12,12 @@ using RazorForms.Options;
 
 namespace RazorForms.TagHelpers;
 
-public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMarkupModel, FormComponentWithValidationOptions>
+public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMarkupModel, ValidityAwareFormComponentOptions>
 {
 	protected ValidityAwareTagHelperBase(
 		IHtmlGenerator htmlGenerator,
 		IHtmlHelper htmlHelper,
-		FormComponentWithValidationOptions options) 
+		ValidityAwareFormComponentOptions options) 
 		: base(
 			htmlGenerator,
 			htmlHelper,
@@ -91,7 +91,7 @@ public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMa
 
 #region CSS generation
 	protected override void AddCssClasses(
-		MarkupModel<FormComponentWithValidationOptions> model,
+		MarkupModel<ValidityAwareFormComponentOptions> model,
 		TagHelperAttributeList attributeList)
 	{
 		var classAttribute = attributeList.FirstOrDefault(a => a.Name == "class");

@@ -35,7 +35,7 @@ app.Run();
 
 static void CustomSetup(RazorFormsOptions o)
 {
-	var validationOptions = new FormComponentWithValidationOptions
+	var validationOptions = new ValidityAwareFormComponentOptions
 	{
 		AlwaysRenderErrorContainer = true,
 		ComponentWrapperClasses = "component",
