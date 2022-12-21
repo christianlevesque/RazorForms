@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -92,12 +93,51 @@ public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMa
 	protected override void AddCssClasses(
 		MarkupModel<FormComponentWithValidationOptions> model)
 	{
-		base.AddCssClasses(model);
-
-		model.ElementOptions.InputBlockWrapperClasses = Options.InputBlockWrapperClasses;
+		model.ElementOptions.ComponentWrapperClasses = CreateValidityAwareClasses(
+			Options.ComponentWrapperClasses,
+			Options.ComponentWrapperValidClasses,
+			Options.ComponentWrapperInvalidClasses);
+		model.ElementOptions.InputBlockWrapperClasses = CreateValidityAwareClasses(
+			Options.InputBlockWrapperClasses,
+			Options.InputBlockWrapperValidClasses,
+			Options.InputBlockWrapperInvalidClasses);
+		model.ElementOptions.InputWrapperClasses = CreateValidityAwareClasses(
+			Options.InputWrapperClasses,
+			Options.InputWrapperValidClasses,
+			Options.InputWrapperInvalidClasses);
+		model.ElementOptions.LabelWrapperClasses = CreateValidityAwareClasses(
+			Options.LabelWrapperClasses,
+			Options.LabelWrapperValidClasses,
+			Options.LabelWrapperInvalidClasses);
 		model.ElementOptions.ErrorWrapperClasses = Options.ErrorWrapperClasses;
 		model.ElementOptions.ErrorClasses = Options.ErrorClasses;
 		model.ElementOptions.AlwaysRenderErrorContainer = Options.AlwaysRenderErrorContainer;
+	}
+
+	/// <summary>
+	/// Creates a final string of CSS classes based on the validation state of the current form element
+	/// </summary>
+	/// <param name="baseClasses">Classes that should be added regardless of validity</param>
+	/// <param name="validClasses">Classes that should be added only if the form element is explicitly valid</param>
+	/// <param name="invalidClasses">Classes that should be added only if the form element is explicitly invalid</param>
+	/// <returns>The calculated CSS classes</returns>
+	protected virtual string CreateValidityAwareClasses(
+		string baseClasses,
+		string validClasses,
+		string invalidClasses)
+	{
+		var sb = new StringBuilder(baseClasses);
+
+		if (IsValid)
+		{
+			sb.AppendWithLeadingSpace(validClasses);
+		}
+		else if (IsInvalid)
+		{
+			sb.AppendWithLeadingSpace(invalidClasses);
+		}
+
+		return sb.ToString();
 	}
 
 	/// <summary>
@@ -143,16 +183,6 @@ public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMa
 			Options.LabelClasses,
 			Options.LabelValidClasses,
 			Options.LabelInvalidClasses);
-	}
-
-	/// <inheritdoc />
-	protected override void ApplyCssClassesToComponent(TagHelperOutput component)
-	{
-		AddValidityAwareClasses(
-			component,
-			Options.ComponentWrapperClasses,
-			Options.ComponentWrapperValidClasses,
-			Options.ComponentWrapperInvalidClasses);
 	}
 #endregion
 }
