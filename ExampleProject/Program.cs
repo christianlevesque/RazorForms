@@ -37,7 +37,6 @@ static void CustomSetup(RazorFormsOptions o)
 {
 	var validationOptions = new FormComponentWithValidationOptions
 	{
-		TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 		AlwaysRenderErrorContainer = true,
 		ComponentWrapperClasses = "component",
 		ErrorWrapperClasses = "error-wrapper",
@@ -48,7 +47,6 @@ static void CustomSetup(RazorFormsOptions o)
 
 	var standardOptions = new FormComponentOptions
 	{
-		TemplatePath = RazorFormsExtensions.ContentPartial,
 		ComponentWrapperClasses = "component",
 		InputWrapperClasses = "input-wrapper",
 		LabelWrapperClasses = "label-wrapper"
@@ -67,19 +65,19 @@ static void Bootstrap5Setup(RazorFormsOptions o)
 {
 	// Text
 	o.TextInputOptions.ComponentWrapperClasses = "mb-3";
-	o.TextInputOptions.ErrorWrapperClasses = $"{o.TextInputOptions.ErrorWrapperClasses} mt-1";
+	o.TextInputOptions.ErrorWrapperClasses = "mt-1";
 	o.TextInputOptions.ErrorClasses = "small";
 	o.TextInputOptions.AlwaysRenderErrorContainer = true;
 
 	// TextArea
 	o.TextAreaInputOptions.ComponentWrapperClasses = "mb-3";
-	o.TextAreaInputOptions.ErrorWrapperClasses = $"{o.TextInputOptions.ErrorWrapperClasses} mt-1";
+	o.TextAreaInputOptions.ErrorWrapperClasses = "mt-1";
 	o.TextAreaInputOptions.ErrorClasses = "small";
 	o.TextAreaInputOptions.AlwaysRenderErrorContainer = true;
 
 	// Select
 	o.SelectInputOptions.ComponentWrapperClasses = "mb-3";
-	o.SelectInputOptions.ErrorWrapperClasses = $"{o.SelectInputOptions.ErrorWrapperClasses} mt-1";
+	o.SelectInputOptions.ErrorWrapperClasses = "mt-1";
 	o.SelectInputOptions.ErrorClasses = "small";
 	o.SelectInputOptions.AlwaysRenderErrorContainer = true;
 
