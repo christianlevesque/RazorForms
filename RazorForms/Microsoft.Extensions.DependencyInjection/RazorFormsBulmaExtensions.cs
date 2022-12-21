@@ -1,4 +1,5 @@
 using System;
+using RazorForms;
 using RazorForms.Options;
 
 // ReSharper disable once CheckNamespace
@@ -15,7 +16,7 @@ public static class RazorFormsBulmaExtensions
 	/// <param name="self">The <see cref="IServiceCollection"/> instance</param>
 	/// <returns></returns>
 	public static IServiceCollection UseRazorFormsWithBulma(this IServiceCollection self) =>
-		self.UseRazorForms(_bulmaDefaults);
+		self.UseRazorForms(ApplyBulmaDefaults);
 
 	/// <summary>
 	/// Adds RazorForms support with configurable Bulma settings
@@ -29,88 +30,75 @@ public static class RazorFormsBulmaExtensions
 	public static IServiceCollection UseRazorFormsWithBulma(this IServiceCollection self,
 		Action<RazorFormsOptions> action)
 	{
-		action(_bulmaDefaults);
-		return self.UseRazorForms(_bulmaDefaults);
+		var bulma = new RazorFormsOptions();
+		action(bulma);
+		ApplyBulmaDefaults(bulma);
+		return self.UseRazorForms(bulma);
 	}
 
-	private static RazorFormsOptions _bulmaDefaults = new()
+	private static void ApplyBulmaDefaults(RazorFormsOptions o)
 	{
-		TextInputOptions = new FormComponentWithValidationOptions
-		{
-			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
-			ComponentWrapperClasses = "field",
-			InputBlockWrapperClasses = "control",
-			InputClasses = "input",
-			InputValidClasses = "is-success",
-			InputInvalidClasses = "is-danger",
-			LabelClasses = "label",
-			LabelValidClasses = "has-text-success",
-			LabelInvalidClasses = "has-text-danger",
-			ErrorClasses = "help is-danger",
-			RemoveWrappers = true
-		},
-		CheckInputOptions = new FormComponentOptions
-		{
-			TemplatePath = RazorFormsExtensions.ContentPartial,
-			LabelClasses = "checkbox",
-			InputClasses = "mr-2",
-			InputFirst = true,
-			RenderInputInsideLabel = true,
-			RemoveWrappers = true
-		},
-		RadioInputOptions = new FormComponentOptions
-		{
-			TemplatePath = RazorFormsExtensions.ContentPartial,
-			LabelClasses = "radio",
-			InputClasses = "mr-2",
-			InputFirst = true,
-			RenderInputInsideLabel = true,
-			RemoveWrappers = true
-		},
-		CheckInputGroupOptions = new FormComponentWithValidationOptions
-		{
-			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
-			ComponentWrapperClasses = "field",
-			LabelClasses = "label",
-			LabelValidClasses = "has-text-success",
-			LabelInvalidClasses = "has-text-danger",
-			ErrorClasses = "help is-danger"
-		},
-		RadioInputGroupOptions = new FormComponentWithValidationOptions
-		{
-			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
-			ComponentWrapperClasses = "field",
-			LabelClasses = "label",
-			LabelValidClasses = "has-text-success",
-			LabelInvalidClasses = "has-text-danger",
-			ErrorClasses = "help is-danger"
-		},
-		TextAreaInputOptions = new FormComponentWithValidationOptions
-		{
-			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
-			ComponentWrapperClasses = "field",
-			InputBlockWrapperClasses = "control",
-			InputClasses = "textarea",
-			InputValidClasses = "is-success",
-			InputInvalidClasses = "is-danger",
-			LabelClasses = "label",
-			LabelValidClasses = "has-text-success",
-			LabelInvalidClasses = "has-text-danger",
-			ErrorClasses = "help is-danger",
-			RemoveWrappers = true
-		},
-		SelectInputOptions = new FormComponentWithValidationOptions
-		{
-			TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
-			ComponentWrapperClasses = "field",
-			InputBlockWrapperClasses = "control",
-			InputWrapperClasses = "select",
-			InputWrapperValidClasses = "is-success",
-			InputWrapperInvalidClasses = "is-danger",
-			LabelClasses = "label mb-2",
-			LabelValidClasses = "has-text-success",
-			LabelInvalidClasses = "has-text-danger",
-			ErrorClasses = "help is-danger"
-		}
-	};
+		// Text input
+		o.TextInputOptions.ComponentWrapperClasses = Utilities.MergeCssStrings("field", o.TextInputOptions.ComponentWrapperClasses);
+		o.TextInputOptions.InputBlockWrapperClasses = Utilities.MergeCssStrings("control", o.TextInputOptions.InputBlockWrapperClasses);
+		o.TextInputOptions.InputClasses = Utilities.MergeCssStrings("input", o.TextInputOptions.InputClasses);
+		o.TextInputOptions.InputValidClasses = Utilities.MergeCssStrings("is-success", o.TextInputOptions.InputValidClasses);
+		o.TextInputOptions.InputInvalidClasses = Utilities.MergeCssStrings("is-danger", o.TextInputOptions.InputInvalidClasses);
+		o.TextInputOptions.LabelClasses = Utilities.MergeCssStrings("label", o.TextInputOptions.LabelClasses);
+		o.TextInputOptions.LabelValidClasses = Utilities.MergeCssStrings("has-text-success", o.TextInputOptions.LabelValidClasses);
+		o.TextInputOptions.LabelInvalidClasses = Utilities.MergeCssStrings("has-text-danger", o.TextInputOptions.LabelInvalidClasses);
+		o.TextInputOptions.ErrorClasses = Utilities.MergeCssStrings("help is-danger", o.TextInputOptions.ErrorClasses);
+		o.TextInputOptions.RemoveWrappers = true;
+
+		// Text area input
+		o.TextAreaInputOptions.ComponentWrapperClasses = Utilities.MergeCssStrings("field", o.TextAreaInputOptions.ComponentWrapperClasses);
+		o.TextAreaInputOptions.InputBlockWrapperClasses = Utilities.MergeCssStrings("control", o.TextAreaInputOptions.InputBlockWrapperClasses);
+		o.TextAreaInputOptions.InputClasses = Utilities.MergeCssStrings("textarea", o.TextAreaInputOptions.InputClasses);
+		o.TextAreaInputOptions.InputValidClasses = Utilities.MergeCssStrings("is-success", o.TextAreaInputOptions.InputValidClasses);
+		o.TextAreaInputOptions.InputInvalidClasses = Utilities.MergeCssStrings("is-danger", o.TextAreaInputOptions.InputInvalidClasses);
+		o.TextAreaInputOptions.LabelClasses = Utilities.MergeCssStrings("label", o.TextAreaInputOptions.LabelClasses);
+		o.TextAreaInputOptions.LabelValidClasses = Utilities.MergeCssStrings("has-text-success", o.TextAreaInputOptions.LabelValidClasses);
+		o.TextAreaInputOptions.LabelInvalidClasses = Utilities.MergeCssStrings("has-text-danger", o.TextAreaInputOptions.LabelInvalidClasses);
+		o.TextAreaInputOptions.ErrorClasses = Utilities.MergeCssStrings("help is-danger", o.TextAreaInputOptions.ErrorClasses);
+		o.TextAreaInputOptions.RemoveWrappers = true;
+
+		// Select input
+		o.TextInputOptions.ComponentWrapperClasses = Utilities.MergeCssStrings("field", o.TextInputOptions.ComponentWrapperClasses);
+		o.TextInputOptions.InputBlockWrapperClasses = Utilities.MergeCssStrings("control", o.TextInputOptions.InputBlockWrapperClasses);
+		o.TextInputOptions.InputClasses = Utilities.MergeCssStrings("input", o.TextInputOptions.InputClasses);
+		o.TextInputOptions.InputValidClasses = Utilities.MergeCssStrings("is-success", o.TextInputOptions.InputValidClasses);
+		o.TextInputOptions.InputInvalidClasses = Utilities.MergeCssStrings("is-danger", o.TextInputOptions.InputInvalidClasses);
+		o.TextInputOptions.LabelClasses = Utilities.MergeCssStrings("label mb-2", o.TextInputOptions.LabelClasses);
+		o.TextInputOptions.LabelValidClasses = Utilities.MergeCssStrings("has-text-success", o.TextInputOptions.LabelValidClasses);
+		o.TextInputOptions.LabelInvalidClasses = Utilities.MergeCssStrings("has-text-danger", o.TextInputOptions.LabelInvalidClasses);
+		o.TextInputOptions.ErrorClasses = Utilities.MergeCssStrings("help is-danger", o.TextInputOptions.ErrorClasses);
+
+		// Check input
+		o.CheckInputOptions.LabelClasses = Utilities.MergeCssStrings("checkbox", o.CheckInputOptions.LabelClasses);
+		o.CheckInputOptions.InputClasses = Utilities.MergeCssStrings("mr-2", o.CheckInputOptions.InputClasses);
+		o.CheckInputOptions.RemoveWrappers = true;
+		o.CheckInputOptions.InputFirst = true;
+		o.CheckInputOptions.RenderInputInsideLabel = true;
+
+		// Check input group
+		o.CheckInputGroupOptions.ComponentWrapperClasses = Utilities.MergeCssStrings("field", o.CheckInputGroupOptions.ComponentWrapperClasses);
+		o.CheckInputGroupOptions.LabelClasses = Utilities.MergeCssStrings("label", o.CheckInputGroupOptions.LabelClasses);
+		o.CheckInputGroupOptions.LabelValidClasses = Utilities.MergeCssStrings("has-text-success", o.CheckInputGroupOptions.LabelValidClasses);
+		o.CheckInputGroupOptions.LabelInvalidClasses = Utilities.MergeCssStrings("has-text-danger", o.CheckInputGroupOptions.LabelInvalidClasses);
+		o.CheckInputGroupOptions.ErrorClasses = Utilities.MergeCssStrings("help is-danger", o.CheckInputGroupOptions.ErrorClasses);
+
+		// Radio input
+		o.CheckInputOptions.LabelClasses = Utilities.MergeCssStrings("radio", o.CheckInputOptions.LabelClasses);
+		o.CheckInputOptions.InputClasses = Utilities.MergeCssStrings("mr-2", o.CheckInputOptions.InputClasses);
+		o.CheckInputOptions.RemoveWrappers = true;
+		o.CheckInputOptions.InputFirst = true;
+		o.CheckInputOptions.RenderInputInsideLabel = true;
+
+		// Radio input group
+		o.RadioInputGroupOptions.ComponentWrapperClasses = Utilities.MergeCssStrings("field", o.RadioInputGroupOptions.ComponentWrapperClasses);
+		o.RadioInputGroupOptions.LabelClasses = Utilities.MergeCssStrings("label", o.RadioInputGroupOptions.LabelClasses);
+		o.RadioInputGroupOptions.LabelValidClasses = Utilities.MergeCssStrings("has-text-success", o.RadioInputGroupOptions.LabelValidClasses);
+		o.RadioInputGroupOptions.LabelInvalidClasses = Utilities.MergeCssStrings("has-text-danger", o.RadioInputGroupOptions.LabelInvalidClasses);
+		o.RadioInputGroupOptions.ErrorClasses = Utilities.MergeCssStrings("help is-danger", o.RadioInputGroupOptions.ErrorClasses);
+	}
 }
