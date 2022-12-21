@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -110,7 +111,7 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 		}
 
 		SetupModelOptions(model.ElementOptions);
-		AddCssClasses(model);
+		AddCssClasses(model, output.Attributes);
 
 		return model;
 	}
@@ -330,9 +331,11 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 	/// Adds CSS classes to the <see cref="MarkupModel{TOptions}"/> based on the provided options
 	/// </summary>
 	/// <param name="model">The <see cref="MarkupModel{TOptions}"/> to add classes to</param>
-	protected virtual void AddCssClasses(MarkupModel<TOptions> model)
+	/// <param name="attributeList">The <see cref="TagHelperAttributeList"/> that contains potential component wrapper CSS classes</param>
+	protected virtual void AddCssClasses(MarkupModel<TOptions> model, TagHelperAttributeList attributeList)
 	{
-		model.ElementOptions.ComponentWrapperClasses = Options.ComponentWrapperClasses;
+		var classAttribute = attributeList.FirstOrDefault(a => a.Name == "class");
+		model.ElementOptions.ComponentWrapperClasses = Utilities.MergeCssStrings(classAttribute?.Value.ToString(), Options.ComponentWrapperClasses);
 		model.ElementOptions.InputWrapperClasses = Options.InputWrapperClasses;
 		model.ElementOptions.LabelWrapperClasses = Options.LabelWrapperClasses;
 	}

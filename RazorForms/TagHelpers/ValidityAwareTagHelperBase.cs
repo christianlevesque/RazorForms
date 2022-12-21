@@ -91,10 +91,14 @@ public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMa
 
 #region CSS generation
 	protected override void AddCssClasses(
-		MarkupModel<FormComponentWithValidationOptions> model)
+		MarkupModel<FormComponentWithValidationOptions> model,
+		TagHelperAttributeList attributeList)
 	{
+		var classAttribute = attributeList.FirstOrDefault(a => a.Name == "class");
+		var componentWrapperClasses = Utilities.MergeCssStrings(classAttribute?.Value.ToString(), Options.ComponentWrapperClasses);
+
 		model.ElementOptions.ComponentWrapperClasses = CreateValidityAwareClasses(
-			Options.ComponentWrapperClasses,
+			componentWrapperClasses,
 			Options.ComponentWrapperValidClasses,
 			Options.ComponentWrapperInvalidClasses);
 		model.ElementOptions.InputBlockWrapperClasses = CreateValidityAwareClasses(
