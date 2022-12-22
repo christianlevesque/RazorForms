@@ -8,7 +8,7 @@ namespace RazorForms.TagHelpers.Elements;
 /// <summary>
 /// Wraps around a series of &lt;check-input&gt; tag helpers to create a group label and error output
 /// </summary>
-public class CheckInputGroupTagHelper : ValidityAwareTagHelperBase
+public class CheckInputGroupTagHelper : GroupTagHelperBase
 {
 	public CheckInputGroupTagHelper(
 		IHtmlGenerator htmlGenerator,
@@ -19,8 +19,5 @@ public class CheckInputGroupTagHelper : ValidityAwareTagHelperBase
 			htmlHelper,
 			options.CheckInputGroupOptions)
 	{
-		LabelReceivesChildContent = false;
-		InputTag = string.Empty;
-		InputTagMode = TagMode.StartTagAndEndTag;
 	}
 }
