@@ -26,7 +26,7 @@ public static class Utilities
 	/// <summary>
 	/// Generates the &lt;label&gt; inner text and surrounds it with an HTML tag if necessary
 	/// </summary>
-	/// <param name="options">the current tag helper's <see cref="IFormComponentOptions"/></param>
+	/// <param name="options">the current tag helper's <see cref="FormComponentOptions"/></param>
 	/// <param name="text">the inner text to display in the &lt;label&gt;</param>
 	/// <returns></returns>
 	public static string GenerateLabelText(FormComponentOptions options, string text)
