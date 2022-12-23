@@ -21,11 +21,11 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 	where TOptions : FormComponentOptions, new()
 {
 	protected readonly IHtmlGenerator HtmlGenerator;
-    protected readonly IHtmlHelper HtmlHelper;
-    protected readonly TOptions Options;
+	protected readonly IHtmlHelper HtmlHelper;
+	protected readonly TOptions Options;
 
-    protected readonly Func<bool, HtmlEncoder, Task<TagHelperContent>> DefaultTagHelperContent =
-	    (a, b) => Task.FromResult((TagHelperContent) new DefaultTagHelperContent());
+	protected readonly Func<bool, HtmlEncoder, Task<TagHelperContent>> DefaultTagHelperContent =
+		(a, b) => Task.FromResult((TagHelperContent)new DefaultTagHelperContent());
 
 	/// <summary>
 	/// Whether the &lt;label&gt; should receive the child content of the tag helper or not
@@ -85,6 +85,7 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 		await ProcessModel(model);
 
 		// Render content
+		(HtmlHelper as IViewContextAware)!.Contextualize(ViewContext);
 		var content = await HtmlHelper.PartialAsync(
 			TemplatePath ?? Options.TemplatePath,
 			model);
@@ -92,6 +93,7 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 	}
 
 #region Model generation and manipulation
+
 	/// <summary>
 	/// Creates the <see cref="TModel"/> to be used by the Razor template
 	/// </summary>
@@ -100,9 +102,6 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 	/// <returns></returns>
 	protected async Task<TModel> GenerateHtmlModel(TagHelperContext context, TagHelperOutput output)
 	{
-		// The IHtmlHelper isn't ready to use as-is
-		(HtmlHelper as IViewContextAware)!.Contextualize(ViewContext);
-
 		// Set up the viewmodel to send to the Razor template
 		var model = new TModel
 		{
@@ -136,9 +135,11 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 		options.InputFirst = Options.InputFirst;
 		options.RemoveWrappers = Options.RemoveWrappers;
 	}
+
 #endregion
 
 #region Tag helper creation
+
 	/// <summary>
 	/// Creates the &lt;label&gt; tag
 	/// </summary>
@@ -169,7 +170,7 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 			if (!string.IsNullOrEmpty(For.Metadata.DisplayName))
 			{
 				providedChildContent.AppendHtml(
-                	Utilities.GenerateLabelText(Options, For.Metadata.DisplayName));
+					Utilities.GenerateLabelText(Options, For.Metadata.DisplayName));
 			}
 			else
 			{
@@ -216,6 +217,7 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 						.AppendHtml(inputContent);
 				}
 			}
+
 			labelOutput.Content.SetHtmlContent(labelChildContent);
 		}
 		else if (LabelReceivesChildContent)
@@ -274,13 +276,17 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 	/// Adds additional attributes to the label's output
 	/// </summary>
 	/// <param name="attributes">The label attributes</param>
-	protected virtual void AddCustomLabelAttributes(TagHelperAttributeList attributes) {}
+	protected virtual void AddCustomLabelAttributes(TagHelperAttributeList attributes)
+	{
+	}
 
 	/// <summary>
 	/// Adds additional attributes to the input's output
 	/// </summary>
 	/// <param name="attributes">The input attributes</param>
-	protected virtual void AddCustomInputAttributes(TagHelperAttributeList attributes) {}
+	protected virtual void AddCustomInputAttributes(TagHelperAttributeList attributes)
+	{
+	}
 
 	/// <summary>
 	/// Creates the HTML tag that captures user input (&lt;Input&gt;, &lt;select&gt;, etc.)
@@ -288,9 +294,11 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 	/// <param name="attributes">The attributes to pass to the tag</param>
 	/// <returns></returns>
 	protected virtual TagHelper? CreateInput(TagHelperAttributeList attributes) => null;
+
 #endregion
 
 #region CSS generation
+
 	/// <summary>
 	/// Applies CSS classes to the &lt;input&gt; tag
 	/// </summary>
@@ -340,9 +348,11 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 	protected virtual void AddCssClasses(MarkupModel<TOptions> model, TagHelperAttributeList attributeList)
 	{
 		var classAttribute = attributeList.FirstOrDefault(a => a.Name == "class");
-		model.ElementOptions.ComponentWrapperClasses = Utilities.MergeCssStrings(classAttribute?.Value.ToString(), Options.ComponentWrapperClasses);
+		model.ElementOptions.ComponentWrapperClasses =
+			Utilities.MergeCssStrings(classAttribute?.Value.ToString(), Options.ComponentWrapperClasses);
 		model.ElementOptions.InputWrapperClasses = Options.InputWrapperClasses;
 		model.ElementOptions.LabelWrapperClasses = Options.LabelWrapperClasses;
 	}
+
 #endregion
 }
