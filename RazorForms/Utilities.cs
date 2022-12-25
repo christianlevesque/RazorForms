@@ -82,11 +82,11 @@ public static class Utilities
 	}
 
 	/// <summary>
-	/// Applies CSS classes directly to a <see cref="TagHelperOutput"/>
+	/// Applies multiple space-separated CSS classes directly to a <see cref="TagHelperOutput"/>
 	/// </summary>
 	/// <param name="output">The <see cref="TagHelperOutput"/> receiving the classes</param>
 	/// <param name="classNames">A space-separated list of CSS classes to apply</param>
-	public static void AddClass(TagHelperOutput output, string? classNames)
+	public static void AddClassesToOutput(TagHelperOutput output, string? classNames)
 	{
 		if (string.IsNullOrWhiteSpace(classNames))
 		{

@@ -305,7 +305,7 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 	/// <param name="input">The <see cref="TagHelperOutput"/> for the &lt;input&gt; tag</param>
 	protected virtual void ApplyCssClassesToInput(TagHelperOutput input)
 	{
-		Utilities.AddClass(input, Options.InputClasses);
+		Utilities.AddClassesToOutput(input, Options.InputClasses);
 	}
 
 	/// <summary>
@@ -314,7 +314,7 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 	/// <param name="label">The <see cref="TagHelperOutput"/> for the &lt;label&gt; tag</param>
 	protected virtual void ApplyCssClassesToLabel(TagHelperOutput label)
 	{
-		Utilities.AddClass(label, Options.LabelClasses);
+		Utilities.AddClassesToOutput(label, Options.LabelClasses);
 	}
 
 	/// <summary>
