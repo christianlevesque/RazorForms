@@ -305,7 +305,7 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 	/// <param name="input">The <see cref="TagHelperOutput"/> for the &lt;input&gt; tag</param>
 	protected virtual void ApplyCssClassesToInput(TagHelperOutput input)
 	{
-		AddClass(input, Options.InputClasses);
+		Utilities.AddClass(input, Options.InputClasses);
 	}
 
 	/// <summary>
@@ -314,30 +314,7 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 	/// <param name="label">The <see cref="TagHelperOutput"/> for the &lt;label&gt; tag</param>
 	protected virtual void ApplyCssClassesToLabel(TagHelperOutput label)
 	{
-		AddClass(label, Options.LabelClasses);
-	}
-
-	/// <summary>
-	/// Applies CSS classes directly to a <see cref="TagHelperOutput"/>
-	/// </summary>
-	/// <param name="output">The <see cref="TagHelperOutput"/> receiving the classes</param>
-	/// <param name="classNames">A space-separated list of CSS classes to apply</param>
-	protected virtual void AddClass(TagHelperOutput output, string? classNames)
-	{
-		if (string.IsNullOrWhiteSpace(classNames))
-		{
-			return;
-		}
-
-		foreach (var c in classNames.Split(' '))
-		{
-			if (string.IsNullOrEmpty(c))
-			{
-				continue;
-			}
-
-			output.AddClass(c, HtmlEncoder.Default);
-		}
+		Utilities.AddClass(label, Options.LabelClasses);
 	}
 
 	/// <summary>

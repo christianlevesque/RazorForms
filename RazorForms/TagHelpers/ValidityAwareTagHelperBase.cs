@@ -167,15 +167,15 @@ public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMa
 		string validClasses,
 		string invalidClasses)
 	{
-		AddClass(output, baseClasses);
+		Utilities.AddClass(output, baseClasses);
 
 		if (IsValid)
 		{
-			AddClass(output, validClasses);
+			Utilities.AddClass(output, validClasses);
 		}
 		else if (IsInvalid)
 		{
-			AddClass(output, invalidClasses);
+			Utilities.AddClass(output, invalidClasses);
 		}
 	}
 

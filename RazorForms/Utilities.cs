@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 using System.Text;
+using System.Text.Encodings.Web;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using RazorForms.Options;
 
@@ -77,5 +79,28 @@ public static class Utilities
 		}
 
 		return $"{a} {b}";
+	}
+
+	/// <summary>
+	/// Applies CSS classes directly to a <see cref="TagHelperOutput"/>
+	/// </summary>
+	/// <param name="output">The <see cref="TagHelperOutput"/> receiving the classes</param>
+	/// <param name="classNames">A space-separated list of CSS classes to apply</param>
+	public static void AddClass(TagHelperOutput output, string? classNames)
+	{
+		if (string.IsNullOrWhiteSpace(classNames))
+		{
+			return;
+		}
+
+		foreach (var c in classNames.Split(' '))
+		{
+			if (string.IsNullOrEmpty(c))
+			{
+				continue;
+			}
+
+			output.AddClass(c, HtmlEncoder.Default);
+		}
 	}
 }
