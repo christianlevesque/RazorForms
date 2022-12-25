@@ -54,3 +54,41 @@ Then, all we need to do is set the content of the tag helper output to our rende
 ## GenerateHtmlModel()
 
 It seems like we got a lot for just a little in `ProcessAsync()`, doesn't it? Sure, a lot of the markup comes from the template, but most of the logic happens in the tag helper, so where is it?
+
+Well, as it turns out, most of this happens in `GenerateHtmlModel()` and the methods it calls. Each line of the source is a different logical step, so after we read the source, we'll go over it sequentially:
+
+```csharp
+protected async Task<TModel> GenerateHtmlModel(TagHelperContext context, TagHelperOutput output)
+{
+    // Set up the viewmodel to send to the Razor template
+    var model = new TModel
+    {
+        LabelHtml = await CreateLabel(context, output),
+        ElementOptions = new TOptions()
+    };
+
+    if (!Options.RenderInputInsideLabel)
+    {
+        model.InputHtml = await CreateInputCore(context, output);
+    }
+
+    SetupModelOptions(model.ElementOptions);
+    AddCssClasses(model, output.Attributes);
+
+    return model;
+}
+```
+
+### Create `<label>` output
+
+The `<label>` and the `<input>` tags aren't created in the Razor template. Instead, they're created here, in C# code. But why?
+
+The `<label>` and `<input>` tag helpers use the `asp-for` parameter to decide which model member they're rendering for. `asp-for` is a [ModelExpression](https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.modelexpression?view=aspnetcore-7.0), which is a little different from most other expressions. For starters, it isn't representable as a lambda: when you use a `ModelExpression` in a Razor template, it infers that the member you reference is coming off your template's model. There's no straightforward way to deconstruct a `ModelExpression` into its underlying model reference, so there's also no straightforward way to create a reusable Razor template when form inputs are involved. If you try, what happens is your `ModelExpression` will no longer represent your Razor Page model member - instead, in your reusable Razor template, your `ModelExpression` will point to the `ModelExpression` property on your ViewComponent, and none of it will work as expected.
+
+RazorForms sidesteps this problem by creating the `<label>` and `<input>` tag helpers manually in C# code. By working in C# instead of Razor, the `ModelExpression` resolves as expected, and everything just works. So for this reason, the rendered `<label>` and `<input>` are stored on the model passed to the Razor template, and the Razor template just injects those values directly into the template from the model properties.
+
+### Create new `TOptions`
+
+The `TOptions` here represents the type of the configuration options for this tag helper. For the built-in tag helpers, validity-aware tag helpers use [ValidityAwareFormComponentOptions](/docs/api/ValidityAwareFormComponentOptions) and validity-unaware tag helpers use [FormComponentOptions](/docs/api/FormComponentOptions). But if we already have the options object passed into the tag helper, why are we creating a new one here?
+
+In order to keep the Razor template logic as minimal as possible, we want as much processing as possible to happen in the C# code of the tag helper. To do that, we actually calculate the CSS classes that need to be applied to the output in the tag helper, then pass those to the `TOptions`

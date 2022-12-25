@@ -82,6 +82,7 @@ public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMa
 #endregion
 
 #region Model generation and manipulation
+	/// <inheritdoc/>
 	protected override Task ProcessModel(ValidityAwareMarkupModel model)
 	{
 		model.IsValid = IsValid;
@@ -90,6 +91,13 @@ public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMa
 
 		return Task.CompletedTask;
 	}
+
+	protected override void SetupModelOptions(ValidityAwareFormComponentOptions options)
+	{
+		base.SetupModelOptions(options);
+		options.AlwaysRenderErrorContainer = Options.AlwaysRenderErrorContainer;
+	}
+
 #endregion
 
 #region CSS generation
@@ -118,7 +126,6 @@ public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMa
 			Options.LabelWrapperInvalidClasses);
 		model.ElementOptions.ErrorWrapperClasses = Options.ErrorWrapperClasses;
 		model.ElementOptions.ErrorClasses = Options.ErrorClasses;
-		model.ElementOptions.AlwaysRenderErrorContainer = Options.AlwaysRenderErrorContainer;
 	}
 
 	/// <summary>
