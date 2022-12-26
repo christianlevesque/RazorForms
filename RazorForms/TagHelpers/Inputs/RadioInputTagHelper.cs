@@ -34,7 +34,7 @@ public class RadioInputTagHelper : CheckRadioTagHelperBase
 			return;
 		}
 
-		var setValue = ViewContext?.ViewData.Eval(For!.Name);
+		var setValue = ViewContext.ViewData.Eval(For!.Name);
 		if (setValue == null)
 		{
 			return;
