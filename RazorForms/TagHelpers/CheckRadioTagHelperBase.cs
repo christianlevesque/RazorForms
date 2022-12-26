@@ -38,7 +38,7 @@ public abstract class CheckRadioTagHelperBase : TagHelperBase<MarkupModel<FormCo
 		LabelReceivesChildContent = true;
 	}
 
-	protected override TagHelper CreateInput(TagHelperAttributeList attributes)
+	protected override TagHelper CreateInputTagHelper(TagHelperAttributeList attributes)
 	{
 		return new InputTagHelper(HtmlGenerator)
 		{

@@ -111,7 +111,7 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 
 		if (!Options.RenderInputInsideLabel)
 		{
-			model.InputHtml = await CreateInputCore(context, output);
+			model.InputHtml = await CreateInput(context, output);
 		}
 
 		SetupModelOptions(model.ElementOptions);
@@ -183,7 +183,7 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 
 		if (Options.RenderInputInsideLabel)
 		{
-			var inputContent = await CreateInputCore(context, output);
+			var inputContent = await CreateInput(context, output);
 
 			if (LabelReceivesChildContent)
 			{
@@ -240,12 +240,12 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 	/// <param name="context">The <see cref="TagHelperContext"/></param>
 	/// <param name="output">The <see cref="TagHelperOutput"/> of the root element</param>
 	/// <returns></returns>
-	protected async Task<TagHelperOutput> CreateInputCore(
+	protected async Task<TagHelperOutput> CreateInput(
 		TagHelperContext context,
 		TagHelperOutput output)
 	{
 		var attributes = Utilities.GetInputAttributes(output.Attributes);
-		var tagHelper = CreateInput(attributes);
+		var tagHelper = CreateInputTagHelper(attributes);
 
 		var inputOutput = new TagHelperOutput(
 			InputTag,
@@ -295,7 +295,7 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 	/// </summary>
 	/// <param name="attributes">The attributes to pass to the tag</param>
 	/// <returns></returns>
-	protected virtual TagHelper? CreateInput(TagHelperAttributeList attributes) => null;
+	protected virtual TagHelper? CreateInputTagHelper(TagHelperAttributeList attributes) => null;
 
 #endregion
 

@@ -33,7 +33,7 @@ public class SelectInputTagHelper : ValidityAwareTagHelperBase
 		InputTagMode = TagMode.StartTagAndEndTag;
 	}
 
-	protected override TagHelper CreateInput(TagHelperAttributeList attributes)
+	protected override TagHelper CreateInputTagHelper(TagHelperAttributeList attributes)
 	{
 		return new SelectTagHelper(HtmlGenerator)
 		{

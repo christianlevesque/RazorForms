@@ -27,7 +27,7 @@ public class TextAreaInputTagHelper : ValidityAwareTagHelperBase
 	}
 
 	/// <inheritdoc />
-	protected override TagHelper CreateInput(TagHelperAttributeList attributes)
+	protected override TagHelper CreateInputTagHelper(TagHelperAttributeList attributes)
 	{
 		return new TextAreaTagHelper(HtmlGenerator)
 		{
