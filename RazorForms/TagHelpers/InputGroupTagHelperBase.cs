@@ -19,7 +19,6 @@ public abstract class GroupTagHelperBase : ValidityAwareTagHelperBase
 			htmlHelper,
 			options)
 	{
-		LabelReceivesChildContent = false;
 		InputTag = string.Empty;
 		InputTagMode = TagMode.StartTagAndEndTag;
 	}

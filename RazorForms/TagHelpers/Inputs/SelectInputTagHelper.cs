@@ -31,7 +31,6 @@ public class SelectInputTagHelper : ValidityAwareTagHelperBase
 	{
 		InputTag = "select";
 		InputTagMode = TagMode.StartTagAndEndTag;
-		LabelReceivesChildContent = false;
 	}
 
 	protected override TagHelper CreateInput(TagHelperAttributeList attributes)
