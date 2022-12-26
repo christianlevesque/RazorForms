@@ -82,7 +82,7 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 
 		// Set up model
 		var model = await GenerateHtmlModel(context, output);
-		await ProcessModel(model);
+		ProcessModel(model);
 
 		// Render content
 		(HtmlHelper as IViewContextAware)!.Contextualize(ViewContext);
@@ -124,7 +124,9 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 	/// Runs any additional processing on the model (e.g., processing additional properties for a child class of <see cref="MarkupModel{TOptions}"/>)
 	/// </summary>
 	/// <param name="model">The model to process</param>
-	protected virtual Task ProcessModel(TModel model) => Task.CompletedTask;
+	protected virtual void ProcessModel(TModel model)
+	{
+	}
 
 	/// <summary>
 	/// Transposes options from the class <see cref="TOptions"/> implementation to the one on the <see cref="MarkupModel{TOptions}"/>

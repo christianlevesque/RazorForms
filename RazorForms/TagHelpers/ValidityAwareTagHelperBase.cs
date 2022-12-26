@@ -83,13 +83,11 @@ public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMa
 
 #region Model generation and manipulation
 	/// <inheritdoc/>
-	protected override Task ProcessModel(ValidityAwareMarkupModel model)
+	protected override void ProcessModel(ValidityAwareMarkupModel model)
 	{
 		model.IsValid = IsValid;
 		model.IsInvalid = IsInvalid;
 		model.Errors = Errors;
-
-		return Task.CompletedTask;
 	}
 
 	protected override void SetupModelOptions(ValidityAwareFormComponentOptions options)
