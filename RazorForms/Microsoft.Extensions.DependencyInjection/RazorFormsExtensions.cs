@@ -14,7 +14,7 @@ public static class RazorFormsExtensions
 	/// Adds RazorForms support using the supplied <see cref="RazorFormsOptions"/> instance
 	/// </summary>
 	/// <param name="self">The <see cref="IServiceCollection"/> instance</param>
-	/// <param name="options">The options to use when creating markup</param>
+	/// <param name="o">The options to use when creating markup</param>
 	/// <returns></returns>
 	public static IServiceCollection UseRazorForms(this IServiceCollection self, RazorFormsOptions o)
 	{
