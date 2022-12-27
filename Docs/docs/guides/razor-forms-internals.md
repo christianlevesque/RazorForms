@@ -19,7 +19,7 @@ This class is inherited indirectly by every single tag helper in RazorForms, so 
 - `TagMode InputTagMode = TagMode.SelfClosing` The `TagMode` to use for the input tag helper output
 - `ViewContext ViewContext` The Razor `ViewContext`
 - `ModelExpression For` (usable in markup as `asp-for`) The `ModelExpression` that returns the model member this tag helper represents
-- `string? TemplatePath` (usable in markup as `template-path`) A path string indicating which `.cshtml` template to use for this tag helper. If not specified, defaults to the value of `FormComponentOptions.TemplatePath`
+- `string? TemplatePath` (usable in markup as `template-path`) A path string indicating which `.cshtml` template to use for this tag helper. If not specified, defaults to the value of [FormComponentOptions.TemplatePath](/docs/api/FormComponentOptions#templatepath)
 
 ### `ProcessAsync()`
 
@@ -85,7 +85,7 @@ We don't apply CSS classes directly to the output. Rather, we pass CSS classes t
 
 Here, we can do any additional processing on the model that needs to happen. However, the base implementation doesn't do anything.
 
-Custom tag helpers that extend TagHelperBase can do additional processing here if they use a subclass of `MarkupModel` that adds new properties. For example, `ValidityAwareTagHelperBase` overrides this method to add validity-related information to the model.
+Custom tag helpers that extend TagHelperBase can do additional processing here if they use a subclass of [MarkupModel](/docs/api/MarkupModel) that adds new properties. For example, `ValidityAwareTagHelperBase` overrides this method to add validity-related information to the model.
 
 ### `CreateLabel()`
 
@@ -181,7 +181,7 @@ This method is used to add CSS classes to the `<label>` tag. The `<label>` is re
 
 There is an `AddClassesToOutput()` utility method that simplifies the process of adding multiple CSS classes at once (because `TagHelperOutputExtensions.AddClass()` explicitly disallows adding multiple CSS classes in a space-separated list, but RazorForms explicitly expects space-separated CSS class lists).
 
-By default, only the `FormComponentOptions.LabelClasses` value is added to the output, but this method is `virtual` so more can be added by inheritors. For example, the `ValidityAwareTagHelperBase` overrides this method. In its implementation, the `ValidityAwareFormComponentOptions.LabelValidClasses` and `ValidityAwareFormComponentOptions.LabelInvalidClasses` are also added, depending on the validation state of the model.
+By default, only the [FormComponentOptions.LabelClasses](/docs/api/FormComponentOptions#labelclasses) value is added to the output, but this method is `virtual` so more can be added by inheritors. For example, the `ValidityAwareTagHelperBase` overrides this method. In its implementation, the [ValidityAwareFormComponentOptions.LabelValidClasses](/docs/api/ValidityAwareFormComponentOptions#labelvalidclasses) and [ValidityAwareFormComponentOptions.LabelInvalidClasses](/docs/api/ValidityAwareFormComponentOptions#labelinvalidclasses) are also added, depending on the validation state of the model.
 
 ### `CreateInputTagHelper()`
 
@@ -285,7 +285,7 @@ This override adds the `IsValid`, `IsInvalid`, and `Errors` properties to the ma
 
 #### `override SetupModelOptions()`
 
-This override calls `base.SetupModelOptions()` to transfer the default model options to the `TOptions` instance for the markup model. It also copies the `ValidityAwareFormComponentOptions.AlwaysRenderErrorContainer` option.
+This override calls `base.SetupModelOptions()` to transfer the default model options to the `TOptions` instance for the markup model. It also copies the [ValidityAwareFormComponentOptions.AlwaysRenderErrorContainer](/docs/api/ValidityAwareFormComponentOptions#alwaysrendererrorcontainer) option.
 
 #### `override AddCssClasses()`
 

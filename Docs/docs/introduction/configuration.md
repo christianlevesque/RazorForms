@@ -2,17 +2,17 @@
 
 RazorForms tag helpers are highly configurable. The configuration options available depend on whether the tag helper outputs validation-aware information or not.
 
-**Tag helpers WITHOUT validation information** are `<check-input>` and `<radio-input>`. These use the `RazorForms.Options.FormComponentOptions` configuration class.
+**Tag helpers WITHOUT validation information** are `<check-input>` and `<radio-input>`. These use the [RazorForms.Options.FormComponentOptions](/docs/api/FormComponentOptions) configuration class.
 
-**Tag helpers WITH validation information** are `<text-input>`, `<text-area-input>`, `<select-input>`, `<check-input-group>`, and `<radio-input-group>`. These use the `RazorForms.Options.ValidityAwareFormComponentOptions` configuration class, which extends `RazorForms.Options.FormComponentOptions`.
+**Tag helpers WITH validation information** are `<text-input>`, `<text-area-input>`, `<select-input>`, `<check-input-group>`, and `<radio-input-group>`. These use the [RazorForms.Options.ValidityAwareFormComponentOptions](/docs/api/ValidityAwareFormComponentOptions) configuration class, which extends `RazorForms.Options.FormComponentOptions`.
 
 ## Configuring RazorForms
 
-RazorForms configuration is all stored on a single instance of `RazorForms.Options.RazorFormsOptions`. This class has an options property for each tag helper supported by RazorForms.
+RazorForms configuration is all stored on a single instance of [RazorForms.Options.RazorFormsOptions](/docs/api/RazorFormsOptions). This class has an options property for each tag helper supported by RazorForms.
 
-For tag helpers without validation support (`<check-input>` and `<radio-input>`), these options properties are of type `RazorForms.Options.FormComponentOptions`.
+For tag helpers without validation support (`<check-input>` and `<radio-input>`), these options properties are of type [RazorForms.Options.FormComponentOptions](/docs/api/FormComponentOptions).
 
-For tag helpers with validation support (`<text-input>`, `<text-area-input>`, `<select-input>`, `<check-input-group>`, and `<radio-input-group>`), these options properties are of type `RazorForms.Options.ValidityAwareFormComponentOptions`.
+For tag helpers with validation support (`<text-input>`, `<text-area-input>`, `<select-input>`, `<check-input-group>`, and `<radio-input-group>`), these options properties are of type [RazorForms.Options.ValidityAwareFormComponentOptions](/docs/api/ValidityAwareFormComponentOptions).
 
 To configure RazorForms completely from scratch, you can use the following configuration object:
 
@@ -41,15 +41,15 @@ var config = new RazorFormsOptions
 
 Applying your Razor Forms configuration is simple. You have three options available:
 
-1. Provide a new `RazorForms.Options.RazorFormsOptions` instance when registering RazorForms in your services.
-2. Provide an `Action` that configures a default instance of `RazorForms.Options.RazorFormsOptions`.
+1. Provide a new [RazorForms.Options.RazorFormsOptions](/docs/api/RazorFormsOptions) instance when registering RazorForms in your services.
+2. Provide an `Action` that configures a default instance of [RazorForms.Options.RazorFormsOptions](/docs/api/RazorFormsOptions).
 3. Use one of the library-specific extension methods to use RazorForms preconfigured for one of several CSS libraries, such as Bootstrap 5.
 
 **NOTE**: You never need to manually set the `TemplatePath` property on each option because `UseRazorForms(RazorFormsOptions)` sets these properties if they are empty, and every overload of `UseRazorForms()`, including library-specific extension methods, eventually calls back to `UseRazorForms(RazorFormsOptions)`. You only need to manually set the `TemplatePath` property if you wish to use a different template than the default.
 
 ### Configuring RazorForms with a new `RazorFormsOptions` instance
 
-To provide your own `RazorFormsOptions` instance, pass it to your `UseRazorForms()` call:
+To provide your own [RazorFormsOptions](/docs/api/RazorFormsOptions) instance, pass it to your `UseRazorForms()` call:
 
 ```csharp
 using Microsoft.AspNetCore.Builder;
@@ -70,7 +70,7 @@ builder.Services.UseRazorForms(razorFormsOptions); // Add your customized option
 
 ### Configuring RazorForms with an `Action`
 
-To change values on the default `RazorFormsOptions` instance, pass an `Action<RazorFormsOptions>` to your `UseRazorForms()` call:
+To change values on the default [RazorFormsOptions](/docs/api/RazorFormsOptions) instance, pass an `Action<RazorFormsOptions>` to your `UseRazorForms()` call:
 
 ```csharp
 using Microsoft.AspNetCore.Builder;

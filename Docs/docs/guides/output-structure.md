@@ -19,29 +19,29 @@ Parts of the markup can be modified or disabled via configuration. For more info
 
 ### Component wrapper
 
-The entire component is wrapped with a `<div>`. This cannot be disabled in configuration. The component wrapper classes can be set with **FormComponentOptions.ComponentWrapperClasses**.
+The entire component is wrapped with a `<div>`. This cannot be disabled in configuration. The component wrapper classes can be set with [FormComponentOptions.ComponentWrapperClasses](/docs/api/FormComponentOptions#componentwrapperclasses).
 
 ### Label wrapper
 
-The `<label>` is wrapped with its own `<div>`. This can be disabled in configuration. The label wrapper classes can be set with **FormComponentOptions.LabelWrapperClasses**.
+The `<label>` is wrapped with its own `<div>`. This can be disabled in configuration. The label wrapper classes can be set with [FormComponentOptions.LabelWrapperClasses](/docs/api/FormComponentOptions#labelwrapperclasses).
 
 ### Label
 
-The `<label>` classes can be set with **FormComponentOptions.LabelClasses**.
+The `<label>` classes can be set with [FormComponentOptions.LabelClasses](/docs/api/FormComponentOptions#labelclasses).
 
 ### Input wrapper
 
-The `<input>` is wrapped with its own `<div>`. This can be disabled in configuration. The input wrapper classes can be set with **FormComponentOptions.InputWrapperClasses**.
+The `<input>` is wrapped with its own `<div>`. This can be disabled in configuration. The input wrapper classes can be set with [FormComponentOptions.InputWrapperClasses](/docs/api/FormComponentOptions#inputwrapperclasses).
 
 ### Input
 
-The `<input>` classes can be set with **FormComponentOptions.InputClasses**.
+The `<input>` classes can be set with [FormComponentOptions.InputClasses](/docs/api/FormComponentOptions#inputclasses).
 
 ### Additional configuration options
 
-- **FormComponentOptions.RemoveWrappers** If `true`, the `<label>` and `<input>` are rendered directly inside the component wrapper, instead of inside their own `<div>` wrappers
-- **FormComponentOptions.InputFirst** If `true`, the `<input>` and its wrapper `<div>` are rendered first inside the component wrapper
-- **FormComponentOptions.RenderInputInsideLabel** If `true`, the `<input>` and its wrapper `<div>` are rendered inside the `<label>` instead of adjacent to it
+- [FormComponentOptions.RemoveWrappers](/docs/api/FormComponentOptions#removewrappers) If `true`, the `<label>` and `<input>` are rendered directly inside the component wrapper, instead of inside their own `<div>` wrappers
+- [FormComponentOptions.InputFirst](/docs/api/FormComponentOptions#inputfirst) If `true`, the `<input>` and its wrapper `<div>` are rendered first inside the component wrapper
+- [FormComponentOptions.RenderInputInsideLabel](/docs/api/FormComponentOptions#renderinputinsidelabel) If `true`, the `<input>` and its wrapper `<div>` are rendered inside the `<label>` instead of adjacent to it
 
 ## Validity-aware tag helper output
 
@@ -68,65 +68,65 @@ The `<input>` classes can be set with **FormComponentOptions.InputClasses**.
 
 The entire component is wrapped with a `<div>`. This cannot be disabled in configuration. The component wrapper supports the following configuration options:
 
-- **ValidityAwareFormComponentOptions.ComponentWrapperClasses** CSS classes that always apply regardless of validation state
-- **ValidityAwareFormComponentOptions.ComponentWrapperValidClasses** CSS classes that apply when the form element is explicitly valid
-- **ValidityAwareFormComponentOptions.ComponentWrapperInvalidClasses** CSS classes that apply when the form element is explicitly invalid
+- [FormComponentOptions.ComponentWrapperClasses](/docs/api/FormComponentOptions#componentwrapperclasses) CSS classes that always apply regardless of validation state
+- [ValidityAwareFormComponentOptions.ComponentWrapperValidClasses](/docs/api/ValidityAwareFormComponentOptions#componentwrappervalidclasses) CSS classes that apply when the form element is explicitly valid
+- [ValidityAwareFormComponentOptions.ComponentWrapperInvalidClasses](/docs/api/ValidityAwareFormComponentOptions#componentwrapperinvalidclasses) CSS classes that apply when the form element is explicitly invalid
 
 ### Input block wrapper
 
 The `<input>` and `<label>` are wrapped with a `<div>`. This cannot be disabled in configuration. The input block wrapper supports the following configuration options:
 
-- **ValidityAwareFormComponentOptions.InputBlockWrapperClasses** CSS classes that always apply regardless of validation state
-- **ValidityAwareFormComponentOptions.InputBlockWrapperValidClasses** CSS classes that apply when the form element is explicitly valid
-- **ValidityAwareFormComponentOptions.InputBlockWrapperInvalidClasses** CSS classes that apply when the form element is explicitly invalid
+- [FormComponentOptions.InputBlockWrapperClasses](/docs/api/FormComponentOptions#inputblockwrapperclasses) CSS classes that always apply regardless of validation state
+- [ValidityAwareFormComponentOptions.InputBlockWrapperValidClasses](/docs/api/ValidityAwareFormComponentOptions#inputblockwrappervalidclasses) CSS classes that apply when the form element is explicitly valid
+- [ValidityAwareFormComponentOptions.InputBlockWrapperInvalidClasses](/docs/api/ValidityAwareFormComponentOptions#inputblockwrapperinvalidclasses) CSS classes that apply when the form element is explicitly invalid
 
 ### Label wrapper
 
 The `<label>` is wrapped with its own `<div>`. This can be disabled in configuration. The label wrapper supports the following configuration options:
 
-- **ValidityAwareFormComponentOptions.LabelWrapperClasses** CSS classes that always apply regardless of validation state
-- **ValidityAwareFormComponentOptions.LabelWrapperValidClasses** CSS classes that apply when the form element is explicitly valid
-- **ValidityAwareFormComponentOptions.LabelWrapperInvalidClasses** CSS classes that apply when the form element is explicitly invalid
+- [FormComponentOptions.LabelWrapperClasses](/docs/api/FormComponentOptions#labelwrapperclasses) CSS classes that always apply regardless of validation state
+- [ValidityAwareFormComponentOptions.LabelWrapperValidClasses](/docs/api/ValidityAwareFormComponentOptions#labelwrappervalidclasses) CSS classes that apply when the form element is explicitly valid
+- [ValidityAwareFormComponentOptions.LabelWrapperInvalidClasses](/docs/api/ValidityAwareFormComponentOptions#labelwrapperinvalidclasses) CSS classes that apply when the form element is explicitly invalid
 
 ### Label
 
 The `<label>` supports the following configuration options:
 
-- **ValidityAwareFormComponentOptions.LabelClasses** CSS classes that always apply regardless of validation state
-- **ValidityAwareFormComponentOptions.LabelValidClasses** CSS classes that apply when the form element is explicitly valid
-- **ValidityAwareFormComponentOptions.LabelInvalidClasses** CSS classes that apply when the form element is explicitly invalid
+- [FormComponentOptions.LabelClasses](/docs/api/FormComponentOptions#labelclasses) CSS classes that always apply regardless of validation state
+- [ValidityAwareFormComponentOptions.LabelValidClasses](/docs/api/ValidityAwareFormComponentOptions#labelvalidclasses) CSS classes that apply when the form element is explicitly valid
+- [ValidityAwareFormComponentOptions.LabelInvalidClasses](/docs/api/ValidityAwareFormComponentOptions#labelinvalidclasses) CSS classes that apply when the form element is explicitly invalid
 
 ### Input wrapper
 
 The `<input>` is wrapped with its own `<div>`. This can be disabled in configuration. The input wrapper supports the following configuration options:
 
-- **ValidityAwareFormComponentOptions.InputWrapperClasses** CSS classes that always apply regardless of validation state
-- **ValidityAwareFormComponentOptions.InputWrapperValidClasses** CSS classes that apply when the form element is explicitly valid
-- **ValidityAwareFormComponentOptions.InputWrapperInvalidClasses** CSS classes that apply when the form element is explicitly invalid
+- [FormComponentOptions.InputWrapperClasses](/docs/api/FormComponentOptions#inputwrapperclasses) CSS classes that always apply regardless of validation state
+- [ValidityAwareFormComponentOptions.InputWrapperValidClasses](/docs/api/ValidityAwareFormComponentOptions#inputwrappervalidclasses) CSS classes that apply when the form element is explicitly valid
+- [ValidityAwareFormComponentOptions.InputWrapperInvalidClasses](/docs/api/ValidityAwareFormComponentOptions#inputwrapperinvalidclasses) CSS classes that apply when the form element is explicitly invalid
 
 ### Input
 
 The `<input>` supports the following configuration options:
 
-- **ValidityAwareFormComponentOptions.InputClasses** CSS classes that always apply regardless of validation state
-- **ValidityAwareFormComponentOptions.InputValidClasses** CSS classes that apply when the form element is explicitly valid
-- **ValidityAwareFormComponentOptions.InputInvalidClasses** CSS classes that apply when the form element is explicitly invalid
+- [FormComponentOptions.InputClasses](/docs/api/FormComponentOptions#inputclasses) CSS classes that always apply regardless of validation state
+- [ValidityAwareFormComponentOptions.InputValidClasses](/docs/api/ValidityAwareFormComponentOptions#inputvalidclasses) CSS classes that apply when the form element is explicitly valid
+- [ValidityAwareFormComponentOptions.InputInvalidClasses](/docs/api/ValidityAwareFormComponentOptions#inputinvalidclasses) CSS classes that apply when the form element is explicitly invalid
 
 ### Error wrapper
 
 The `<ul>` wraps around error messages. This cannot be disabled in configuration. Because the error wrapper is intended only to convey error information, it doesn't support validity-based classes. The error wrapper supports the following configuration options:
 
-- **ValidityAwareFormComponentOptions.ErrorWrapperClasses** CSS classes that always apply regardless of validation state
+- [ValidityAwareFormComponentOptions.ErrorWrapperClasses](/docs/api/ValidityAwareFormComponentOptions#errorwrapperclasses) CSS classes that always apply regardless of validation state
 
 ### Error 
 
 The `<li>` contains error messages. This cannot be disabled in configuration. Because the error is intended only to convey error information, it doesn't support validity-based classes. The error supports the following configuration options:
 
-- **ValidityAwareFormComponentOptions.ErrorClasses** CSS classes that always apply regardless of validation state
+- [ValidityAwareFormComponentOptions.ErrorClasses](/docs/api/ValidityAwareFormComponentOptions#errorclasses) CSS classes that always apply regardless of validation state
 
 ### Additional configuration options
 
-- **ValididtyAwareFormComponentOptions.RemoveWrappers** If `true`, the `<label>` and `<input>` are rendered directly inside the input block wrapper, instead of inside their own `<div>` wrappers
-- **ValidityAwareFormComponentOptions.InputFirst** If `true`, the `<input>` and its wrapper `<div>` are rendered first inside the input block wrapper
-- **ValidityAwareFormComponentOptions.RenderInputInsideLabel** If `true`, the `<input>` and its wrapper `<div>` are rendered inside the `<label>` instead of adjacent to it
-- **ValidityAwareFormComponentOptions.AlwaysRenderErrorContainer** If `true`, the `<ul>` that contains errors is always rendered, even if empty
+- [FormComponentOptions.RemoveWrappers](/docs/api/FormComponentOptions#removewrappers) If `true`, the `<label>` and `<input>` are rendered directly inside the input block wrapper, instead of inside their own `<div>` wrappers
+- [FormComponentOptions.InputFirst](/docs/api/FormComponentOptions#inputfirst) If `true`, the `<input>` and its wrapper `<div>` are rendered first inside the input block wrapper
+- [FormComponentOptions.RenderInputInsideLabel](/docs/api/FormComponentOptions#renderinputinsidelabel) If `true`, the `<input>` and its wrapper `<div>` are rendered inside the `<label>` instead of adjacent to it
+- [ValidityAwareFormComponentOptions.AlwaysRenderErrorContainer](/docs/api/ValidityAwareFormComponentOptions#alwaysrendererrorcontainer) If `true`, the `<ul>` that contains errors is always rendered, even if empty

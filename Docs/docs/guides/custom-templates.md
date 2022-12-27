@@ -10,9 +10,9 @@ There are three templates used directly by RazorForms:
 
 This template is used to render `<label>` and `<input>` tag helpers with an optional `<div>` wrapper. The source code of this template can be found [on GitHub](https://github.com/christianlevesque/RazorForms/blob/main/RazorForms/RazorFormsTemplates/Partials/WrappedContent.cshtml).
 
-This template expects a model of `RazorForms.Models.WrappedContentModel`.
+This template expects a model of [RazorForms.Models.WrappedContentModel](/docs/api/WrappedContentModel).
 
-This template is extremely simple because all it does is render either a `<label>` or an `<input>` (it receives content as `IHtmlContent`, so it doesn't care which), and optionally surrounds it with a `<div>`. The `<label>` and `<input>` are created programmatically by `RazorForms.TagHelpers.TagHelperBase` and stored on the `WrappedContentModel` by the other template files.
+This template is extremely simple because all it does is render either a `<label>` or an `<input>` (it receives content as `IHtmlContent`, so it doesn't care which), and optionally surrounds it with a `<div>`. The `<label>` and `<input>` are created programmatically by [RazorForms.TagHelpers.TagHelperBase](/docs/guides/razor-forms-internals) and stored on the [WrappedContentModel](/docs/api/WrappedContentModel) by the other template files.
 
 **NOTE**: This template is not called directly by a tag helper. Rather, this template is called by the other two templates, its result is stored in a local variable, and then the final output is rendered by the other two templates. You can use this template as a partial in your own template files, but you can't change the path used to render wrapped content in configuration without creating your own overrides for the other two templates.
 
@@ -20,13 +20,13 @@ This template is extremely simple because all it does is render either a `<label
 
 This template is used to render the output of tag helpers **without** validation information (`<check-input>` and `<radio-input>`). By default, it creates a `<div>` wrapper around the output and renders the `<input>` and `<label>` inside. The source code of this template can be found [on GitHub](https://github.com/christianlevesque/RazorForms/blob/main/RazorForms/RazorFormsTemplates/Partials/Content.cshtml).
 
-This template expects a model of `RazorForms.Models.MarkupModel<RazorForms.Options.FormComponentOptions>`.
+This template expects a model of [RazorForms.Models.MarkupModel<RazorForms.Options.FormComponentOptions>(/docs/api/MarkupModel).
 
 ### `~/RazorFormsTemplates/Partials/ValidityAwareContent.cshtml`
 
 This template is used to render the output of tag helpers **with** validation information (`<text-input>`, `<text-area-input>`, `<select-input>`, `<check-input-group>`, and `<radio-input-group>`). By default, it creates a `<div>` wrapper around the entire output, creates a second `<div>` wrapper around the `<label>` and `<input>` tags, then optionally renders error messages to the user. The source can be found [on GitHub](https://github.com/christianlevesque/RazorForms/blob/main/RazorForms/RazorFormsTemplates/Partials/ValidityAwareContent.cshtml).
 
-This template expects a model of `RazorForms.Models.ValidityAwareMarkupModel`, which extends `MarkupModel<ValidityAwareFormComponentOptions>`.
+This template expects a model of [RazorForms.Models.ValidityAwareMarkupModel](/docs/api/ValidityAwareMarkupModel), which extends [MarkupModel<ValidityAwareFormComponentOptions>](/docs/api/MarkupModel).
 
 ## GUIDE Setting up custom templates
 
@@ -117,12 +117,12 @@ builder.Services.UseRazorForms(o =>
 });
 ```
 
-**NOTE**: `TemplatePath` is part of the `FormComponentOptions` class, which is the base class for every tag helper configuration object. This example works for any RazorForms tag helper, not just `<text-input>`.
+**NOTE**: `TemplatePath` is part of the [FormComponentOptions](/docs/api/FormComponentOptions) class, which is the base class for every tag helper configuration object. This example works for any RazorForms tag helper, not just `<text-input>`.
 
 ### Use a custom template for every tag helper that is either validity-aware or validity-unaware
 
 If you want to fundamentally change the way all tag helpers render, you can! All you need to do in that case is change the name of your template file to match the RazorForms template you want to override.
 
-- If you want to change the rendering of all validity-aware tag helpers (`<text-input>`, `<text-area-input>`, `<select-input>`, `<check-input-group>`, and `<radio-input-group>`), create a new template in your project root at `~/RazorFormsTemplates/Partials/ValidityAwareContent.cshtml`. Make sure that its model is of type `RazorForms.Models.ValidityAwareMarkupModel`.
-- If you want to change the rendering of all validity-unaware tag helpers (`<check-input>`, `<radio-input>`), create a new template in your project root at `~/RazorFormsTemplates/Partials/Content.cshtml`. Make sure that its model is of type `RazorForms.Models.MarkupModel<RazorForms.Options.FormComponentOptions>`.
-- If you want to change the rendering of all wrappers around `<label>` and `<input>` tags, create a new template in your project root at `~/RazorFormsTemplates/Partials/WrappedContent.cshtml`. Make sure that its model is of type `RazorForms.Models.WrappedContentModel`.
+- If you want to change the rendering of all validity-aware tag helpers (`<text-input>`, `<text-area-input>`, `<select-input>`, `<check-input-group>`, and `<radio-input-group>`), create a new template in your project root at `~/RazorFormsTemplates/Partials/ValidityAwareContent.cshtml`. Make sure that its model is of type [RazorForms.Models.ValidityAwareMarkupModel](/docs/api/ValidityAwareMarkupModel).
+- If you want to change the rendering of all validity-unaware tag helpers (`<check-input>`, `<radio-input>`), create a new template in your project root at `~/RazorFormsTemplates/Partials/Content.cshtml`. Make sure that its model is of type [RazorForms.Models.MarkupModel<RazorForms.Options.FormComponentOptions>](/docs/api/MarkupModel).
+- If you want to change the rendering of all wrappers around `<label>` and `<input>` tags, create a new template in your project root at `~/RazorFormsTemplates/Partials/WrappedContent.cshtml`. Make sure that its model is of type [RazorForms.Models.WrappedContentModel](/docs/api/WrappedContentModel).
