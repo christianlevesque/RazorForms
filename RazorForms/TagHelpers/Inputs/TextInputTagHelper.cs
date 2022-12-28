@@ -10,7 +10,7 @@ namespace RazorForms.TagHelpers.Inputs;
 /// <summary>
 /// Creates a text- or numeric-based &lt;input&gt;
 /// </summary>
-public class TextInputTagHelper : ValidityAwareTagHelperBase
+public class TextInputTagHelper : ValidityAwareTagHelperBase<ValidityAwareFormComponentOptions>
 {
 	protected const string FormatAttributeName = "asp-format";
 

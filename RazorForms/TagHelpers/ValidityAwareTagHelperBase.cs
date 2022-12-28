@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -15,12 +14,13 @@ namespace RazorForms.TagHelpers;
 /// <summary>
 /// Adds common functionality for use among all validity-aware RazorForms tag helpers
 /// </summary>
-public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMarkupModel, ValidityAwareFormComponentOptions>
+public abstract class ValidityAwareTagHelperBase<TOptions> : TagHelperBase<ValidityAwareMarkupModel, TOptions>
+	where TOptions : ValidityAwareFormComponentOptions, new()
 {
 	protected ValidityAwareTagHelperBase(
 		IHtmlGenerator htmlGenerator,
 		IHtmlHelper htmlHelper,
-		ValidityAwareFormComponentOptions options) 
+		TOptions options) 
 		: base(
 			htmlGenerator,
 			htmlHelper,
@@ -90,7 +90,7 @@ public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMa
 		model.Errors = Errors;
 	}
 
-	protected override void SetupModelOptions(ValidityAwareFormComponentOptions options)
+	protected override void SetupModelOptions(TOptions options)
 	{
 		base.SetupModelOptions(options);
 		options.AlwaysRenderErrorContainer = Options.AlwaysRenderErrorContainer;
@@ -100,30 +100,30 @@ public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMa
 
 #region CSS generation
 	protected override void AddCssClasses(
-		MarkupModel<ValidityAwareFormComponentOptions> model,
+		TOptions options,
 		TagHelperAttributeList attributeList)
 	{
 		var classAttribute = attributeList.FirstOrDefault(a => a.Name == "class");
 		var componentWrapperClasses = Utilities.MergeCssStrings(classAttribute?.Value.ToString(), Options.ComponentWrapperClasses);
 
-		model.ElementOptions.ComponentWrapperClasses = CreateValidityAwareClasses(
+		options.ComponentWrapperClasses = CreateValidityAwareClasses(
 			componentWrapperClasses,
 			Options.ComponentWrapperValidClasses,
 			Options.ComponentWrapperInvalidClasses);
-		model.ElementOptions.InputBlockWrapperClasses = CreateValidityAwareClasses(
+		options.InputBlockWrapperClasses = CreateValidityAwareClasses(
 			Options.InputBlockWrapperClasses,
 			Options.InputBlockWrapperValidClasses,
 			Options.InputBlockWrapperInvalidClasses);
-		model.ElementOptions.InputWrapperClasses = CreateValidityAwareClasses(
+		options.InputWrapperClasses = CreateValidityAwareClasses(
 			Options.InputWrapperClasses,
 			Options.InputWrapperValidClasses,
 			Options.InputWrapperInvalidClasses);
-		model.ElementOptions.LabelWrapperClasses = CreateValidityAwareClasses(
+		options.LabelWrapperClasses = CreateValidityAwareClasses(
 			Options.LabelWrapperClasses,
 			Options.LabelWrapperValidClasses,
 			Options.LabelWrapperInvalidClasses);
-		model.ElementOptions.ErrorWrapperClasses = Options.ErrorWrapperClasses;
-		model.ElementOptions.ErrorClasses = Options.ErrorClasses;
+		options.ErrorWrapperClasses = Options.ErrorWrapperClasses;
+		options.ErrorClasses = Options.ErrorClasses;
 	}
 
 	/// <summary>

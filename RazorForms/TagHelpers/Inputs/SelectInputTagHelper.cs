@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using Microsoft.Extensions.Logging;
 using RazorForms.Options;
 
 namespace RazorForms.TagHelpers.Inputs;
@@ -12,7 +10,7 @@ namespace RazorForms.TagHelpers.Inputs;
 /// <summary>
 /// Creates a &lt;select&gt; input
 /// </summary>
-public class SelectInputTagHelper : ValidityAwareTagHelperBase
+public class SelectInputTagHelper : ValidityAwareTagHelperBase<ValidityAwareFormComponentOptions>
 {
 	protected const string ItemsAttributeName = "asp-items";
 

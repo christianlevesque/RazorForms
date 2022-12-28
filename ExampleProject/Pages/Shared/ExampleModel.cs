@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
@@ -63,9 +62,6 @@ public class ExampleModel : PageModel
 
 	[BindProperty]
 	public List<int> Numbers { get; set; } = new ();
-
-	[BindProperty]
-	public DateTime TestDate { get; set; } = DateTime.Now;
 
 	[BindProperty]
 	public bool WantsMarketingEmails { get; set; }

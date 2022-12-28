@@ -1,26 +1,28 @@
 @using RazorForms.Models
-@model MarkupModel<RazorForms.Options.FormComponentOptions>
+@using RazorForms.Options
+@model MarkupModel
 
 @{
 	const string partialPath = "~/RazorFormsTemplates/Partials/WrappedContent.cshtml";
+	var options = (FormComponentOptions)Model.ElementOptions;
 
 	var inputContent = await Html.PartialAsync(
 		partialPath,
 		new WrappedContentModel(
 			Model.InputHtml,
-			Model.ElementOptions.InputWrapperClasses,
-			Model.ElementOptions.RemoveWrappers));
+			options.InputWrapperClasses,
+			options.RemoveWrappers));
 
 	var labelContent = await Html.PartialAsync(
 		partialPath,
 		new WrappedContentModel(
 			Model.LabelHtml,
-			Model.ElementOptions.LabelWrapperClasses,
-			Model.ElementOptions.RemoveWrappers));
+			options.LabelWrapperClasses,
+			options.RemoveWrappers));
 }
 
-<div class="@Model.ElementOptions.ComponentWrapperClasses">
-	@if (Model.ElementOptions.InputFirst)
+<div class="@options.ComponentWrapperClasses">
+	@if (options.InputFirst)
     {
     	@inputContent
     	@labelContent

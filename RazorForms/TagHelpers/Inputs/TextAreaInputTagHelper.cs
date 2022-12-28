@@ -10,7 +10,7 @@ namespace RazorForms.TagHelpers.Inputs;
 /// <summary>
 /// Creates a &lt;textarea&gt; input
 /// </summary>
-public class TextAreaInputTagHelper : ValidityAwareTagHelperBase
+public class TextAreaInputTagHelper : ValidityAwareTagHelperBase<ValidityAwareFormComponentOptions>
 {
 	public TextAreaInputTagHelper(
 		IHtmlGenerator htmlGenerator,

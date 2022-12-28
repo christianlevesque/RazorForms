@@ -17,7 +17,7 @@ public static class RazorFormsExtensions
 	/// </summary>
 	/// <param name="self">The <see cref="IServiceCollection"/> instance</param>
 	/// <param name="o">The options to use when creating markup</param>
-	/// <param name="types">An array of <see cref="Type"/> that the options should be registered as</param>
+	/// <param name="types">An array of <see cref="Type"/>s that the options should be registered as. <c>T</c> and <c>RazorFormsOptions</c> are added by default, so only include types other than these.</param>
 	/// <returns></returns>
 	public static IServiceCollection UseRazorForms<T>(this IServiceCollection self, T o, params Type[] types)
 		where T : RazorFormsOptions, new()

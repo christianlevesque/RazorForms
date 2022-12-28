@@ -115,12 +115,13 @@ builder.Services.UseRazorForms<MaterializeOptions>(o =>
 
 ## 3. Create tag helper class
 
-All that's left to do now is create the class that actually represents the tag helper. Go ahead and create a new class called `DatePickerInputTagHelper` and put it anywhere in your project - Razor Pages will add it no matter where it is, as long as you added tag helpers from your project assembly at the start of this tutorial. Make `DatePickerInputTagHelper` a subclass of [ValidityAwareTagHelperBase](/docs/guides/razor-forms-internals#razorforms.taghelpers.validityawaretaghelperbase) since our tag helper is validity-aware:
+All that's left to do now is create the class that actually represents the tag helper. Go ahead and create a new class called `DatePickerInputTagHelper` and put it anywhere in your project - Razor Pages will add it no matter where it is, as long as you added tag helpers from your project assembly at the start of this tutorial. Make `DatePickerInputTagHelper` a subclass of [ValidityAwareTagHelperBase<ValidityAwareFormComponentOptions>](/docs/guides/razor-forms-internals#razorforms.taghelpers.validityawaretaghelperbase) since our tag helper is validity-aware:
 
 ```csharp
+using RazorForms.Options; // import ValidityAwareFormComponentOptions
 using RazorForms.TagHelpers; // import ValidityAwareTagHelperBase
 
-public class DatePickerInputTagHelper : ValidityAwareTagHelperBase
+public class DatePickerInputTagHelper : ValidityAwareTagHelperBase<ValidityAwareFormComponentOptions>
 {
 }
 ```
@@ -130,9 +131,10 @@ public class DatePickerInputTagHelper : ValidityAwareTagHelperBase
 We need to create a constructor. The base constructor requires three classes from DI: an `IHtmlGenerator`, and `IHtmlHelper`, and the options for this tag helper type. To get the options for this tag helper, we need to request our `MaterializeOptions` from DI and then pass its `DatePickerInputOptions` property into the base constructor:
 
 ```csharp
+using RazorForms.Options; // import ValidityAwareFormComponentOptions
 using RazorForms.TagHelpers; // import ValidityAwareTagHelperBase
 
-public class DatePickerInputTagHelper : ValidityAwareTagHelperBase
+public class DatePickerInputTagHelper : ValidityAwareTagHelperBase<ValidityAwareFormComponentOptions>
 {
     public DatePickerInputTagHelper(
         IHtmlGenerator htmlGenerator,
@@ -260,3 +262,86 @@ protected override TagHelper CreateInputTagHelper()
 Save the file, rebuild and rerun your project, and reload the page in your browser. Now, your date is formatted properly. Even better, if you change the date, it will have the *same format* as on page load.
 
 Congratulations! You've created your first fully functional RazorForms tag helper.
+
+## 4. (optional) Make tag helper more enduser-friendly
+
+The tag helper now works perfectly as intended. However, the tag helper makes an assumption about the date formatting that can't be easily changed. If you're using this tag helper in your own app, that's not a huge deal, but if you want to distribute your tag helper as part of a NuGet package for your awesome new CSS framework, then you want your users to be able to change the date format to match their locale. To do that, we're going to change the type of the `MaterializeOptions.DatePickerInputOptions` property.
+
+#### Create new options type
+
+We still basically want the options to be [ValidityAwareFormComponentOptions](/docs/api/ValidityAwareFormComponentOptions), but we need to add a new property to hold our format. So create a new class named `FormattableOptions` that subclasses [ValidityAwareFormComponentOptions](/docs/api/ValidityAwareFormComponentOptions), and add a `string? Format` property:
+
+```csharp
+public class FormattableOptions : ValidityAwareFormComponentOptions
+{
+	/// <summary>
+	/// A default value to use for the <c>asp-format</c> attribute if none is specified
+	/// </summary>
+	public string? Format { get; set; }
+}
+```
+
+Next, update the type of `MaterializeOptions.DatePickerInputOptions` to be `FormattableOptions`:
+
+```csharp
+public class MaterializeOptions : RazorFormsOptions
+{
+	/// <summary>
+	/// Represents the configuration options for the &lt;date-picker-input&gt; tag helper
+	/// </summary>
+	public FormattableOptions DatePickerInputOptions { get; set; } = new();
+}
+```
+
+Now we can update the generic type parameter to [ValidityAwareTagHelperBase](/docs/guides/razor-forms-internals) when defining `DatePickerInputTagHelper`:
+
+```csharp
+public class DatePickerInputTagHelper : ValidityAwareTagHelperBase<FormattableOptions>
+{
+    // ...
+}
+```
+
+And finally, we can add the format to our `CreateInputTagHelper()` override:
+
+```csharp
+protected override TagHelper CreateInputTagHelper()
+{
+    return new InputTagHelper(HtmlGenerator)
+    {
+        ViewContext = ViewContext,
+        For = For,
+        Format = Options.Format
+    };
+}
+```
+
+#### Add a per-instance format override
+
+It's all well and good to let the developer create a global option for the format specifier. But what if the developer wants to override the format for a single instance? Fortunately, this is very simple. Start by adding a new `string? Format` property with the following attribute:
+
+```csharp
+public class DatePickerInputTagHelper : ValidityAwareTagHelperBase<FormattableOptions>
+{
+    [HtmlAttributeName("asp-format")]
+    public string? Format { get; set; }
+
+    // ...
+}
+```
+
+This lets your developers specify a format by passing the `asp-format` attribute, just like with the `InputTagHelper`. Now, all we need to do is tell the tag helper to use `Format` if it's specified, and if not, fall back to the global option value:
+
+```csharp
+protected override TagHelper CreateInputTagHelper()
+{
+    return new InputTagHelper(HtmlGenerator)
+    {
+        ViewContext = ViewContext,
+        For = For,
+        Format = Format ?? Options.Format
+    };
+}
+```
+
+That's all there is to it! Now you have a functional tag helper with custom configuration and an overridable tag helper attribute.

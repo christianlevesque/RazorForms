@@ -2,11 +2,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using RazorForms.Materialize.Options;
 using RazorForms.TagHelpers;
 
 namespace RazorForms.Materialize.TagHelpers;
 
-public class DatePickerInputTagHelper : ValidityAwareTagHelperBase
+public class DatePickerInputTagHelper : ValidityAwareTagHelperBase<FormattableOptions>
 {
 	[HtmlAttributeName("asp-format")]
 	public string? Format { get; set; }
@@ -29,7 +30,7 @@ public class DatePickerInputTagHelper : ValidityAwareTagHelperBase
 		{
 			ViewContext = ViewContext,
 			For = For,
-			Format = Format ?? "{0:MMM dd, yyyy}" // Same format used by Materialize
+			Format = Format ?? Options.Format
 		};
 	}
 

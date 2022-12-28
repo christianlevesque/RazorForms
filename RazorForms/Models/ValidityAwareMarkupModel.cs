@@ -6,7 +6,7 @@ namespace RazorForms.Models;
 /// <summary>
 /// The model used when rendering validity-aware content 
 /// </summary>
-public class ValidityAwareMarkupModel : MarkupModel<ValidityAwareFormComponentOptions>
+public class ValidityAwareMarkupModel : MarkupModel
 {
 	/// <summary>
 	/// Contains error messages to be rendered to the user

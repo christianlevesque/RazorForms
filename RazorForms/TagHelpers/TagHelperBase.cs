@@ -17,7 +17,7 @@ namespace RazorForms.TagHelpers;
 /// <typeparam name="TModel">The type of the razor component model</typeparam>
 /// <typeparam name="TOptions">The type of the options object</typeparam>
 public abstract class TagHelperBase<TModel, TOptions> : TagHelper
-	where TModel : MarkupModel<TOptions>, new()
+	where TModel : MarkupModel, new()
 	where TOptions : FormComponentOptions, new()
 {
 	protected readonly IHtmlGenerator HtmlGenerator;
@@ -114,8 +114,8 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 			model.InputHtml = await CreateInput(context, output);
 		}
 
-		SetupModelOptions(model.ElementOptions);
-		AddCssClasses(model, output.Attributes);
+		SetupModelOptions((TOptions)model.ElementOptions);
+		AddCssClasses((TOptions)model.ElementOptions, output.Attributes);
 
 		return model;
 	}
@@ -319,17 +319,17 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 	}
 
 	/// <summary>
-	/// Adds CSS classes to the <see cref="MarkupModel{TOptions}"/> based on the provided options
+	/// Adds CSS classes to the <see cref="TOptions"/> based on the provided options
 	/// </summary>
-	/// <param name="model">The <see cref="MarkupModel{TOptions}"/> to add classes to</param>
+	/// <param name="options">The <see cref="TOptions"/> to add classes to</param>
 	/// <param name="attributeList">The <see cref="TagHelperAttributeList"/> that contains potential component wrapper CSS classes</param>
-	protected virtual void AddCssClasses(MarkupModel<TOptions> model, TagHelperAttributeList attributeList)
+	protected virtual void AddCssClasses(TOptions options, TagHelperAttributeList attributeList)
 	{
 		var classAttribute = attributeList.FirstOrDefault(a => a.Name == "class");
-		model.ElementOptions.ComponentWrapperClasses =
+		options.ComponentWrapperClasses =
 			Utilities.MergeCssStrings(classAttribute?.Value.ToString(), Options.ComponentWrapperClasses);
-		model.ElementOptions.InputWrapperClasses = Options.InputWrapperClasses;
-		model.ElementOptions.LabelWrapperClasses = Options.LabelWrapperClasses;
+		options.InputWrapperClasses = Options.InputWrapperClasses;
+		options.LabelWrapperClasses = Options.LabelWrapperClasses;
 	}
 
 #endregion

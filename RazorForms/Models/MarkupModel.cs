@@ -6,9 +6,7 @@ namespace RazorForms.Models;
 /// <summary>
 /// The model used when rendering validity-unaware content 
 /// </summary>
-/// <typeparam name="TOptions">The type of the options object</typeparam>
-public class MarkupModel<TOptions>
-	where TOptions : FormComponentOptions
+public class MarkupModel
 {
 	/// <summary>
 	/// Represents the HTML content of the &lt;input&gt; element
@@ -26,5 +24,5 @@ public class MarkupModel<TOptions>
 	/// <summary>
 	/// Configuration options for this form element type
 	/// </summary>
-	public TOptions ElementOptions { get; set; } = default!;
+	public object ElementOptions { get; set; } = default!;
 }

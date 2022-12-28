@@ -8,7 +8,7 @@ namespace RazorForms.TagHelpers;
 /// <summary>
 /// Adds common functionality for use among all validity-aware tag helpers that wrap around validity-unaware tag helpers
 /// </summary>
-public abstract class GroupTagHelperBase : ValidityAwareTagHelperBase
+public abstract class GroupTagHelperBase : ValidityAwareTagHelperBase<ValidityAwareFormComponentOptions>
 {
 	public GroupTagHelperBase(
 		IHtmlGenerator htmlGenerator,

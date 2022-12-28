@@ -11,7 +11,7 @@ namespace RazorForms.TagHelpers;
 /// <summary>
 /// Adds common functionality for use between &lt;check-input&gt; and &lt;radio-input&gt;
 /// </summary>
-public abstract class CheckRadioTagHelperBase : TagHelperBase<MarkupModel<FormComponentOptions>, FormComponentOptions>
+public abstract class CheckRadioTagHelperBase : TagHelperBase<MarkupModel, FormComponentOptions>
 {
 	protected const string HtmlIdAttributeName = "id";
 	protected const string HtmlCheckedAttributeName = "checked";

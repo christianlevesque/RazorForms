@@ -1,14 +1,14 @@
 using System;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using RazorForms;
-using RazorForms.Materialize;
-using RazorForms.Options;
+using RazorForms.Materialize.Options;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection;
 
 public static class RazorFormsMaterializeExtensions
 {
+	public const string FormattableContentPartial = "~/RazorFormsTemplates/Materialize/FormattableContent.cshtml";
+
 	/// <summary>
 	/// Adds RazorForms support, configured to use basic Materialize settings
 	/// </summary>
@@ -18,7 +18,7 @@ public static class RazorFormsMaterializeExtensions
 	/// <param name="self">The <see cref="IServiceCollection"/> instance</param>
 	/// <returns></returns>
 	public static IServiceCollection UseRazorFormsWithMaterialize<T>(this IServiceCollection self)
-		where T : MaterializeOptions, new() => self.UseRazorForms<T>(ApplyMaterializeDefaults);
+		where T : MaterializeOptions, new() => self.UseRazorForms<T>(ApplyMaterializeDefaults, typeof(MaterializeOptions));
 
 	/// <summary>
 	/// Adds RazorForms support with configurable Materialize settings
@@ -36,8 +36,7 @@ public static class RazorFormsMaterializeExtensions
 		action(materialize);
 		ApplyMaterializeDefaults(materialize);
 
-		self.TryAdd(new ServiceDescriptor(typeof(MaterializeOptions), materialize));
-		return self.UseRazorForms(materialize);
+		return self.UseRazorForms(materialize, typeof(MaterializeOptions));
 	}
 
 	private static void ApplyMaterializeDefaults<T>(T o)
@@ -107,6 +106,11 @@ public static class RazorFormsMaterializeExtensions
 		if (string.IsNullOrEmpty(o.DatePickerInputOptions.TemplatePath))
 		{
 			o.DatePickerInputOptions.TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial;
+		}
+
+		if (string.IsNullOrEmpty(o.DatePickerInputOptions.Format))
+		{
+			o.DatePickerInputOptions.Format = "{0:MMM dd, yyyy}";
 		}
 
 		o.DatePickerInputOptions.InputBlockWrapperClasses = Utilities.MergeCssStrings("input-field", o.DatePickerInputOptions.InputBlockWrapperClasses);
