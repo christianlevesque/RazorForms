@@ -15,8 +15,8 @@ public static class RazorFormsBulmaExtensions
 	/// </remarks>
 	/// <param name="self">The <see cref="IServiceCollection"/> instance</param>
 	/// <returns></returns>
-	public static IServiceCollection UseRazorFormsWithBulma(this IServiceCollection self) =>
-		self.UseRazorForms<RazorFormsOptions>(ApplyBulmaDefaults);
+	public static IServiceCollection UseRazorFormsWithBulma(this IServiceCollection self)
+		=> self.UseRazorForms<RazorFormsOptions>(ApplyBulmaDefaults);
 
 	/// <summary>
 	/// Adds RazorForms support with configurable Bulma settings
@@ -27,16 +27,17 @@ public static class RazorFormsBulmaExtensions
 	/// <param name="self">The <see cref="IServiceCollection"/> instance</param>
 	/// <param name="action">An <see cref="Action"/> that can be used to mutate the default Bulma options</param>
 	/// <returns></returns>
-	public static IServiceCollection UseRazorFormsWithBulma(this IServiceCollection self,
-		Action<RazorFormsOptions> action)
+	public static IServiceCollection UseRazorFormsWithBulma<T>(this IServiceCollection self, Action<T> action)
+		where T : RazorFormsOptions, new()
 	{
-		var bulma = new RazorFormsOptions();
+		var bulma = new T();
 		action(bulma);
 		ApplyBulmaDefaults(bulma);
 		return self.UseRazorForms(bulma);
 	}
 
-	private static void ApplyBulmaDefaults(RazorFormsOptions o)
+	private static void ApplyBulmaDefaults<T>(T o)
+		where T : RazorFormsOptions
 	{
 		// Text input
 		o.TextInputOptions.ComponentWrapperClasses = Utilities.MergeCssStrings("field", o.TextInputOptions.ComponentWrapperClasses);

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorForms.Materialize", "R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorForms.Bootstrap5", "RazorForms.Bootstrap5\RazorForms.Bootstrap5.csproj", "{457C5150-5061-4FA8-B016-E3F637159267}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorForms.Bulma", "RazorForms.Bulma\RazorForms.Bulma.csproj", "{4F84FA5D-FA9A-48E6-A0D2-54E4D373BF85}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,5 +33,9 @@ Global
 		{457C5150-5061-4FA8-B016-E3F637159267}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{457C5150-5061-4FA8-B016-E3F637159267}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{457C5150-5061-4FA8-B016-E3F637159267}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F84FA5D-FA9A-48E6-A0D2-54E4D373BF85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F84FA5D-FA9A-48E6-A0D2-54E4D373BF85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F84FA5D-FA9A-48E6-A0D2-54E4D373BF85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F84FA5D-FA9A-48E6-A0D2-54E4D373BF85}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
