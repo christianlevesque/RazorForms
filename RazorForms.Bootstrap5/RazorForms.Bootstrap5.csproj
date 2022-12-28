@@ -1,17 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+<Project Sdk="Microsoft.NET.Sdk">
+
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
 		<Nullable>enable</Nullable>
-		<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
 
-		<PackageId>RazorForms</PackageId>
-		<Title>RazorForms</Title>
+		<PackageId>RazorForms.Bootstrap5</PackageId>
+		<Title>RazorForms.Bootstrap5</Title>
 		<PackageVersion>1.0.0</PackageVersion>
 		<PackageReleaseNotes>
-			Minor bug fixes
+			Initial release
 		</PackageReleaseNotes>
 		<Authors>Christian LeVesque</Authors>
-		<Description>A small, configurable library of form tag helpers for Razor Pages. The goal of RazorForms is to create a package that can support most popular front-end CSS frameworks, or be configured to support your own custom CSS.</Description>
+		<Description>An abstraction on top of RazorForms that adds support for the Bootstrap5 library</Description>
 		<Copyright>Copyright Christian LeVesque 2022</Copyright>
 		<PackageProjectUrl>https://www.razorforms.com</PackageProjectUrl>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
@@ -22,10 +22,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="../README.md" Pack="true" PackagePath="/" />
+		<ProjectReference Include="..\RazorForms\RazorForms.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<FrameworkReference Include="Microsoft.AspNetCore.App" />
-	</ItemGroup>
 </Project>

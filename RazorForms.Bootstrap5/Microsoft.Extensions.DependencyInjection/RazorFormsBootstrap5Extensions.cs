@@ -15,7 +15,8 @@ public static class RazorFormsBootstrap5Extensions
 	/// </remarks>
 	/// <param name="self">The <see cref="IServiceCollection"/> instance</param>
 	/// <returns></returns>
-	public static IServiceCollection UseRazorFormsWithBootstrap5(this IServiceCollection self) => self.UseRazorForms<RazorFormsOptions>(ApplyBootstrapDefaults);
+	public static IServiceCollection UseRazorFormsWithBootstrap5<T>(this IServiceCollection self)
+		where T : RazorFormsOptions, new() => self.UseRazorForms<T>(ApplyBootstrapDefaults);
 
 	/// <summary>
 	/// Adds RazorForms support with configurable Bootstrap 5 settings
@@ -26,9 +27,10 @@ public static class RazorFormsBootstrap5Extensions
 	/// <param name="self">The <see cref="IServiceCollection"/> instance</param>
 	/// <param name="action">An <see cref="Action"/> that can be used to mutate the default Bootstrapv5 options</param>
 	/// <returns></returns>
-	public static IServiceCollection UseRazorFormsWithBootstrap5(this IServiceCollection self, Action<RazorFormsOptions> action)
+	public static IServiceCollection UseRazorFormsWithBootstrap5<T>(this IServiceCollection self, Action<T> action)
+		where T : RazorFormsOptions, new()
 	{
-		var bootstrap = new RazorFormsOptions();
+		var bootstrap = new T();
 		action(bootstrap);
 		ApplyBootstrapDefaults(bootstrap);
 
@@ -41,10 +43,11 @@ public static class RazorFormsBootstrap5Extensions
 	/// <param name="self">The <see cref="IServiceCollection"/> instance</param>
 	/// <param name="action">An <see cref="Action"/> that can be used to mutate the default Bootstrapv5 options</param>
 	/// <returns></returns>
-	public static IServiceCollection UseRazorFormsWithBootstrap5FloatingLabels(this IServiceCollection self,
-		Action<RazorFormsOptions> action)
+	public static IServiceCollection UseRazorFormsWithBootstrap5FloatingLabels<T>(this IServiceCollection self,
+		Action<T> action)
+		where T : RazorFormsOptions, new()
 	{
-		var bootstrap = new RazorFormsOptions();
+		var bootstrap = new T();
 		action(bootstrap);
 		ApplyBootstrapDefaults(bootstrap);
 
@@ -66,7 +69,8 @@ public static class RazorFormsBootstrap5Extensions
 		return self.UseRazorForms(bootstrap);
 	}
 
-	private static void ApplyBootstrapDefaults(RazorFormsOptions o)
+	public static void ApplyBootstrapDefaults<T>(T o)
+		where T : RazorFormsOptions
 	{
 		// Text input
 		o.TextInputOptions.LabelClasses = Utilities.MergeCssStrings("form-label", o.TextInputOptions.LabelClasses);
