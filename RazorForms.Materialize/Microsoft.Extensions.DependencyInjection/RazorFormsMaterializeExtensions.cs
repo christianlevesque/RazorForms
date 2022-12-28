@@ -39,7 +39,7 @@ public static class RazorFormsMaterializeExtensions
 		return self.UseRazorForms(materialize, typeof(MaterializeOptions));
 	}
 
-	private static void ApplyMaterializeDefaults<T>(T o)
+	public static void ApplyMaterializeDefaults<T>(T o)
 		where T : MaterializeOptions
 	{
 		// Text input
