@@ -245,7 +245,7 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 		TagHelperOutput output)
 	{
 		var attributes = Utilities.GetInputAttributes(output.Attributes);
-		var tagHelper = CreateInputTagHelper(attributes);
+		var tagHelper = CreateInputTagHelper();
 
 		var inputOutput = new TagHelperOutput(
 			InputTag,
@@ -293,9 +293,8 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 	/// <summary>
 	/// Creates the HTML tag that captures user input (&lt;Input&gt;, &lt;select&gt;, etc.)
 	/// </summary>
-	/// <param name="attributes">The attributes to pass to the tag</param>
 	/// <returns></returns>
-	protected virtual TagHelper? CreateInputTagHelper(TagHelperAttributeList attributes) => null;
+	protected virtual TagHelper? CreateInputTagHelper() => null;
 
 #endregion
 

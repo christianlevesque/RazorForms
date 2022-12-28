@@ -30,7 +30,7 @@ public class TextInputTagHelper : ValidityAwareTagHelperBase
 	}
 
 	/// <inheritdoc />
-	protected override TagHelper CreateInputTagHelper(TagHelperAttributeList attributes)
+	protected override TagHelper CreateInputTagHelper()
 	{
 		return new InputTagHelper(HtmlGenerator)
 		{
