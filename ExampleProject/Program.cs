@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RazorForms.Materialize;
 using RazorForms.Options;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,9 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-builder.Services.UseRazorForms(CustomSetup);
+// builder.Services.UseRazorForms<CustomOptions>(CustomSetup);
 
-// builder.Services.UseRazorFormsWithMaterialize(MaterializeSetup);
+builder.Services.UseRazorFormsWithMaterialize<MaterializeOptions>(MaterializeSetup);
 
 // builder.Services.UseRazorFormsWithBulma(BulmaSetup);
 
@@ -33,7 +34,7 @@ app.UseRouting();
 app.MapRazorPages();
 app.Run();
 
-static void CustomSetup(RazorFormsOptions o)
+static void CustomSetup(CustomOptions o)
 {
 	var validationOptions = new ValidityAwareFormComponentOptions
 	{
@@ -93,7 +94,10 @@ static void BulmaSetup(RazorFormsOptions o)
 	
 }
 
-static void MaterializeSetup(RazorFormsOptions o)
+static void MaterializeSetup(MaterializeOptions o)
 {
 	
 }
+
+internal class CustomOptions : RazorFormsOptions
+{}

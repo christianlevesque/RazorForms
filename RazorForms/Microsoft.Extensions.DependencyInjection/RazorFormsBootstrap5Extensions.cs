@@ -15,7 +15,7 @@ public static class RazorFormsBootstrap5Extensions
 	/// </remarks>
 	/// <param name="self">The <see cref="IServiceCollection"/> instance</param>
 	/// <returns></returns>
-	public static IServiceCollection UseRazorFormsWithBootstrap5(this IServiceCollection self) => self.UseRazorForms(ApplyBootstrapDefaults);
+	public static IServiceCollection UseRazorFormsWithBootstrap5(this IServiceCollection self) => self.UseRazorForms<RazorFormsOptions>(ApplyBootstrapDefaults);
 
 	/// <summary>
 	/// Adds RazorForms support with configurable Bootstrap 5 settings

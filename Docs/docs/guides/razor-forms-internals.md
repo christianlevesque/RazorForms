@@ -6,16 +6,18 @@ To give you a better idea of how Razor Forms actually does what it does, let's t
 
 This class is inherited indirectly by every single tag helper in RazorForms, so it's the perfect place to start. You can view the source code [on GitHub](https://github.com/christianlevesque/RazorForms/blob/main/RazorForms/TagHelpers/TagHelperBase.cs).
 
-### Properties
+### Fields
 
 - `IHtmlGenerator HtmlGenerator` An `IHtmlGenerator` used to create new tag helpers in code
 - `IHtmlHelper HtmlHelper` An `IHtmlHelper` used to render the template file
 - `TOptions Options` The configuration options for this specific type of tag helper
 - `Func<bool, HtmlEncoder, Task<TagHelperContent>> DefaultTagHelperContent` A function that returns an empty `TagHelperContent`, used to create `TagHelperOutput` instances with empty output
+
+### Properties
 - `bool LabelReceivesChildContent` Whether the `<label>` should receive the child content of the tag helper or not
 - `string ContainerTag = string.Empty` The HTML element to wrap the entire tag helper output with
 - `TagMode ContainerTagMode = TagMode.StartTagAndEndTag` The `TagMode` to use for the tag helper output
-- `string InputTag = "input"` The HTML element to wrap the input tag helper output with
+- `string InputTag = "input"` The HTML element to use for the input tag helper output
 - `TagMode InputTagMode = TagMode.SelfClosing` The `TagMode` to use for the input tag helper output
 - `ViewContext ViewContext` The Razor `ViewContext`
 - `ModelExpression For` (usable in markup as `asp-for`) The `ModelExpression` that returns the model member this tag helper represents

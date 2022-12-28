@@ -16,7 +16,7 @@ public static class RazorFormsBulmaExtensions
 	/// <param name="self">The <see cref="IServiceCollection"/> instance</param>
 	/// <returns></returns>
 	public static IServiceCollection UseRazorFormsWithBulma(this IServiceCollection self) =>
-		self.UseRazorForms(ApplyBulmaDefaults);
+		self.UseRazorForms<RazorFormsOptions>(ApplyBulmaDefaults);
 
 	/// <summary>
 	/// Adds RazorForms support with configurable Bulma settings

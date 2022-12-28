@@ -1,5 +1,7 @@
 using System;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using RazorForms;
+using RazorForms.Materialize;
 using RazorForms.Options;
 
 // ReSharper disable once CheckNamespace
@@ -15,7 +17,8 @@ public static class RazorFormsMaterializeExtensions
 	/// </remarks>
 	/// <param name="self">The <see cref="IServiceCollection"/> instance</param>
 	/// <returns></returns>
-	public static IServiceCollection UseRazorFormsWithMaterialize(this IServiceCollection self) => self.UseRazorForms(ApplyMaterializeDefaults);
+	public static IServiceCollection UseRazorFormsWithMaterialize<T>(this IServiceCollection self)
+		where T : MaterializeOptions, new() => self.UseRazorForms<T>(ApplyMaterializeDefaults);
 
 	/// <summary>
 	/// Adds RazorForms support with configurable Materialize settings
@@ -26,16 +29,19 @@ public static class RazorFormsMaterializeExtensions
 	/// <param name="self">The <see cref="IServiceCollection"/> instance</param>
 	/// <param name="action">An <see cref="Action"/> that can be used to mutate the default Materialize options</param>
 	/// <returns></returns>
-	public static IServiceCollection UseRazorFormsWithMaterialize(this IServiceCollection self, Action<RazorFormsOptions> action)
+	public static IServiceCollection UseRazorFormsWithMaterialize<T>(this IServiceCollection self, Action<T> action)
+		where T : MaterializeOptions, new()
 	{
-		var materialize = new RazorFormsOptions();
+		var materialize = new T();
 		action(materialize);
 		ApplyMaterializeDefaults(materialize);
 
+		self.TryAdd(new ServiceDescriptor(typeof(MaterializeOptions), materialize));
 		return self.UseRazorForms(materialize);
 	}
 
-	private static void ApplyMaterializeDefaults(RazorFormsOptions o)
+	private static void ApplyMaterializeDefaults<T>(T o)
+		where T : MaterializeOptions
 	{
 		// Text input
 		o.TextInputOptions.InputBlockWrapperClasses = Utilities.MergeCssStrings("input-field", o.TextInputOptions.InputBlockWrapperClasses);
@@ -49,7 +55,7 @@ public static class RazorFormsMaterializeExtensions
 
 		// Text area input
 		o.TextAreaInputOptions.InputBlockWrapperClasses = Utilities.MergeCssStrings("input-field", o.TextAreaInputOptions.InputBlockWrapperClasses);
-		o.TextAreaInputOptions.InputClasses = Utilities.MergeCssStrings("o-textarea", o.TextAreaInputOptions.InputClasses);
+		o.TextAreaInputOptions.InputClasses = Utilities.MergeCssStrings("materialize-textarea", o.TextAreaInputOptions.InputClasses);
 		o.TextAreaInputOptions.InputValidClasses = Utilities.MergeCssStrings("valid", o.TextAreaInputOptions.InputValidClasses);
 		o.TextAreaInputOptions.InputInvalidClasses = Utilities.MergeCssStrings("invalid", o.TextAreaInputOptions.InputInvalidClasses);
 		o.TextAreaInputOptions.LabelValidClasses = Utilities.MergeCssStrings("green-text", o.TextAreaInputOptions.LabelValidClasses);
@@ -95,5 +101,22 @@ public static class RazorFormsMaterializeExtensions
 		o.RadioInputGroupOptions.LabelValidClasses = Utilities.MergeCssStrings("green-text", o.CheckInputGroupOptions.LabelValidClasses);
 		o.RadioInputGroupOptions.LabelInvalidClasses = Utilities.MergeCssStrings("red-text", o.CheckInputGroupOptions.LabelInvalidClasses);
 		o.RadioInputGroupOptions.ErrorClasses = Utilities.MergeCssStrings("helper-text red-text", o.CheckInputGroupOptions.ErrorClasses);
+
+		// Custom Materialize inputs
+		// DatePicker
+		if (string.IsNullOrEmpty(o.DatePickerInputOptions.TemplatePath))
+		{
+			o.DatePickerInputOptions.TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial;
+		}
+
+		o.DatePickerInputOptions.InputBlockWrapperClasses = Utilities.MergeCssStrings("input-field", o.DatePickerInputOptions.InputBlockWrapperClasses);
+		o.DatePickerInputOptions.InputClasses = Utilities.MergeCssStrings("datepicker", o.DatePickerInputOptions.InputClasses);
+		o.DatePickerInputOptions.InputValidClasses = Utilities.MergeCssStrings("valid", o.DatePickerInputOptions.InputValidClasses);
+		o.DatePickerInputOptions.InputInvalidClasses = Utilities.MergeCssStrings("invalid", o.DatePickerInputOptions.InputInvalidClasses);
+		o.DatePickerInputOptions.LabelValidClasses = Utilities.MergeCssStrings("green-text", o.DatePickerInputOptions.LabelValidClasses);
+		o.DatePickerInputOptions.LabelInvalidClasses = Utilities.MergeCssStrings("red-text", o.DatePickerInputOptions.LabelInvalidClasses);
+		o.DatePickerInputOptions.ErrorClasses = Utilities.MergeCssStrings("helper-text red-text", o.DatePickerInputOptions.ErrorClasses);
+		o.DatePickerInputOptions.RemoveWrappers = true;
+		o.DatePickerInputOptions.InputFirst = true;
 	}
 }
