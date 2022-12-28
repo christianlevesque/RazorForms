@@ -17,8 +17,8 @@ public static class RazorFormsMaterializeExtensions
 	/// </remarks>
 	/// <param name="self">The <see cref="IServiceCollection"/> instance</param>
 	/// <returns></returns>
-	public static IServiceCollection UseRazorFormsWithMaterialize<T>(this IServiceCollection self)
-		where T : MaterializeOptions, new() => self.UseRazorForms<T>(ApplyMaterializeDefaults, typeof(MaterializeOptions));
+	public static IServiceCollection UseRazorFormsWithMaterialize(this IServiceCollection self)
+		=> self.UseRazorForms<MaterializeOptions>(ApplyMaterializeDefaults, typeof(MaterializeOptions));
 
 	/// <summary>
 	/// Adds RazorForms support with configurable Materialize settings
