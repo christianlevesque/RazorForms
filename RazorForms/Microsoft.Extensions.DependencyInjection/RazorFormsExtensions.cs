@@ -26,7 +26,7 @@ public static class RazorFormsExtensions
 		var typesList = new List<Type>(types)
 		{
 			typeof(RazorFormsOptions),
-			o.GetType()
+			typeof(T)
 		};
 
 		// Set up template paths
