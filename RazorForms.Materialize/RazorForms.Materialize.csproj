@@ -18,7 +18,7 @@
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/christianlevesque/RazorForms</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<PackageTags>razor page form ui component</PackageTags>
+		<PackageTags>razor page form ui component materialize material</PackageTags>
 		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 	</PropertyGroup>
 
