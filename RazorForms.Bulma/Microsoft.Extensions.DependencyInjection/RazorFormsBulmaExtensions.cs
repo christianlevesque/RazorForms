@@ -64,15 +64,14 @@ public static class RazorFormsBulmaExtensions
 		o.TextAreaInputOptions.RemoveWrappers = true;
 
 		// Select input
-		o.TextInputOptions.ComponentWrapperClasses = Utilities.MergeCssStrings("field", o.TextInputOptions.ComponentWrapperClasses);
-		o.TextInputOptions.InputBlockWrapperClasses = Utilities.MergeCssStrings("control", o.TextInputOptions.InputBlockWrapperClasses);
-		o.TextInputOptions.InputClasses = Utilities.MergeCssStrings("input", o.TextInputOptions.InputClasses);
-		o.TextInputOptions.InputValidClasses = Utilities.MergeCssStrings("is-success", o.TextInputOptions.InputValidClasses);
-		o.TextInputOptions.InputInvalidClasses = Utilities.MergeCssStrings("is-danger", o.TextInputOptions.InputInvalidClasses);
-		o.TextInputOptions.LabelClasses = Utilities.MergeCssStrings("label mb-2", o.TextInputOptions.LabelClasses);
-		o.TextInputOptions.LabelValidClasses = Utilities.MergeCssStrings("has-text-success", o.TextInputOptions.LabelValidClasses);
-		o.TextInputOptions.LabelInvalidClasses = Utilities.MergeCssStrings("has-text-danger", o.TextInputOptions.LabelInvalidClasses);
-		o.TextInputOptions.ErrorClasses = Utilities.MergeCssStrings("help is-danger", o.TextInputOptions.ErrorClasses);
+		o.SelectInputOptions.ComponentWrapperClasses = Utilities.MergeCssStrings("field", o.SelectInputOptions.ComponentWrapperClasses);
+		o.SelectInputOptions.InputWrapperClasses = Utilities.MergeCssStrings("select", o.SelectInputOptions.InputWrapperClasses);
+		o.SelectInputOptions.InputValidClasses = Utilities.MergeCssStrings("is-success", o.SelectInputOptions.InputValidClasses);
+		o.SelectInputOptions.InputInvalidClasses = Utilities.MergeCssStrings("is-danger", o.SelectInputOptions.InputInvalidClasses);
+		o.SelectInputOptions.LabelClasses = Utilities.MergeCssStrings("label mb-2", o.SelectInputOptions.LabelClasses);
+		o.SelectInputOptions.LabelValidClasses = Utilities.MergeCssStrings("has-text-success", o.SelectInputOptions.LabelValidClasses);
+		o.SelectInputOptions.LabelInvalidClasses = Utilities.MergeCssStrings("has-text-danger", o.SelectInputOptions.LabelInvalidClasses);
+		o.SelectInputOptions.ErrorClasses = Utilities.MergeCssStrings("help is-danger", o.SelectInputOptions.ErrorClasses);
 
 		// Check input
 		o.CheckInputOptions.LabelClasses = Utilities.MergeCssStrings("checkbox", o.CheckInputOptions.LabelClasses);
@@ -89,11 +88,11 @@ public static class RazorFormsBulmaExtensions
 		o.CheckInputGroupOptions.ErrorClasses = Utilities.MergeCssStrings("help is-danger", o.CheckInputGroupOptions.ErrorClasses);
 
 		// Radio input
-		o.CheckInputOptions.LabelClasses = Utilities.MergeCssStrings("radio", o.CheckInputOptions.LabelClasses);
-		o.CheckInputOptions.InputClasses = Utilities.MergeCssStrings("mr-2", o.CheckInputOptions.InputClasses);
-		o.CheckInputOptions.RemoveWrappers = true;
-		o.CheckInputOptions.InputFirst = true;
-		o.CheckInputOptions.RenderInputInsideLabel = true;
+		o.RadioInputOptions.LabelClasses = Utilities.MergeCssStrings("radio", o.RadioInputOptions.LabelClasses);
+		o.RadioInputOptions.InputClasses = Utilities.MergeCssStrings("mr-2", o.RadioInputOptions.InputClasses);
+		o.RadioInputOptions.RemoveWrappers = true;
+		o.RadioInputOptions.InputFirst = true;
+		o.RadioInputOptions.RenderInputInsideLabel = true;
 
 		// Radio input group
 		o.RadioInputGroupOptions.ComponentWrapperClasses = Utilities.MergeCssStrings("field", o.RadioInputGroupOptions.ComponentWrapperClasses);
