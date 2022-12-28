@@ -122,5 +122,26 @@ public static class RazorFormsMaterializeExtensions
 		o.DatePickerInputOptions.ErrorClasses = Utilities.MergeCssStrings("helper-text red-text", o.DatePickerInputOptions.ErrorClasses);
 		o.DatePickerInputOptions.RemoveWrappers = true;
 		o.DatePickerInputOptions.InputFirst = true;
+
+		// TimePicker
+		if (string.IsNullOrEmpty(o.TimePickerInputOptions.TemplatePath))
+		{
+			o.TimePickerInputOptions.TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial;
+		}
+
+		if (string.IsNullOrEmpty(o.TimePickerInputOptions.Format))
+		{
+			o.TimePickerInputOptions.Format = "{0:t}";
+		}
+
+		o.TimePickerInputOptions.InputBlockWrapperClasses = Utilities.MergeCssStrings("input-field", o.TimePickerInputOptions.InputBlockWrapperClasses);
+		o.TimePickerInputOptions.InputClasses = Utilities.MergeCssStrings("timepicker", o.TimePickerInputOptions.InputClasses);
+		o.TimePickerInputOptions.InputValidClasses = Utilities.MergeCssStrings("valid", o.TimePickerInputOptions.InputValidClasses);
+		o.TimePickerInputOptions.InputInvalidClasses = Utilities.MergeCssStrings("invalid", o.TimePickerInputOptions.InputInvalidClasses);
+		o.TimePickerInputOptions.LabelValidClasses = Utilities.MergeCssStrings("green-text", o.TimePickerInputOptions.LabelValidClasses);
+		o.TimePickerInputOptions.LabelInvalidClasses = Utilities.MergeCssStrings("red-text", o.TimePickerInputOptions.LabelInvalidClasses);
+		o.TimePickerInputOptions.ErrorClasses = Utilities.MergeCssStrings("helper-text red-text", o.TimePickerInputOptions.ErrorClasses);
+		o.TimePickerInputOptions.RemoveWrappers = true;
+		o.TimePickerInputOptions.InputFirst = true;
 	}
 }
