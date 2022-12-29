@@ -28,8 +28,11 @@ public static class RazorFormsMaterializeExtensions
 	/// </remarks>
 	/// <param name="self">The <see cref="IServiceCollection"/> instance</param>
 	/// <param name="action">An <see cref="Action"/> that can be used to mutate the default Materialize options</param>
+	/// <typeparam name="T">The type of the options class</typeparam>
 	/// <returns></returns>
-	public static IServiceCollection UseRazorFormsWithMaterialize<T>(this IServiceCollection self, Action<T> action)
+	public static IServiceCollection UseRazorFormsWithMaterialize<T>(
+		this IServiceCollection self,
+		Action<T> action)
 		where T : MaterializeOptions, new()
 	{
 		var materialize = new T();

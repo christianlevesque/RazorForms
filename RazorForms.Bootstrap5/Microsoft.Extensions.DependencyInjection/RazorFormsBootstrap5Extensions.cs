@@ -26,6 +26,7 @@ public static class RazorFormsBootstrap5Extensions
 	/// </remarks>
 	/// <param name="self">The <see cref="IServiceCollection"/> instance</param>
 	/// <param name="action">An <see cref="Action"/> that can be used to mutate the default Bootstrap5 options</param>
+	/// <typeparam name="T">The type of the options class</typeparam>
 	/// <returns></returns>
 	public static IServiceCollection UseRazorFormsWithBootstrap5<T>(
 		this IServiceCollection self,
@@ -77,6 +78,7 @@ public static class RazorFormsBootstrap5Extensions
 	/// </remarks>
 	/// <param name="self">The <see cref="IServiceCollection"/> instance</param>
 	/// <param name="action">An <see cref="Action"/> that can be used to mutate the default Bootstrap5 options</param>
+	/// <typeparam name="T">The type of the options class</typeparam>
 	/// <returns></returns>
 	public static IServiceCollection UseRazorFormsWithBootstrap5FloatingLabels<T>(
 		this IServiceCollection self,
