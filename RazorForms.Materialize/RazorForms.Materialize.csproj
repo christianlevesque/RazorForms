@@ -7,7 +7,7 @@
 
 		<PackageId>RazorForms.Materialize</PackageId>
 		<Title>RazorForms.Materialize</Title>
-		<PackageVersion>1.0.0</PackageVersion>
+		<PackageVersion>1.0.1</PackageVersion>
 		<PackageReleaseNotes>
 			Initial release
 		</PackageReleaseNotes>
@@ -31,7 +31,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Include="../README.md" Pack="true" PackagePath="/" />
+		<None Include="./README.md" Pack="true" PackagePath="/" />
 	</ItemGroup>
 
 </Project>
