@@ -24,7 +24,7 @@ public static class RazorFormsMaterializeExtensions
 	/// Adds RazorForms support with configurable Materialize settings
 	/// </summary>
 	/// <remarks>
-	/// Use this overload when you want to include customizable Materialize support.
+	/// Use this overload when you want to include customizable Materialize support with a custom subclass of <see cref="MaterializeOptions"/>.
 	/// </remarks>
 	/// <param name="self">The <see cref="IServiceCollection"/> instance</param>
 	/// <param name="action">An <see cref="Action"/> that can be used to mutate the default Materialize options</param>
@@ -38,6 +38,20 @@ public static class RazorFormsMaterializeExtensions
 
 		return self.UseRazorForms(materialize, typeof(MaterializeOptions));
 	}
+
+	/// <summary>
+	/// Adds RazorForms support with configurable Materialize settings
+	/// </summary>
+	/// <remarks>
+	/// Use this overload when you want to include customizable Materialize support with the built-in <see cref="MaterializeOptions"/>.
+	/// </remarks>
+	/// <param name="self">The <see cref="IServiceCollection"/> instance</param>
+	/// <param name="action">An <see cref="Action"/> that can be used to mutate the default Materialize options</param>
+	/// <returns></returns>
+	public static IServiceCollection UseRazorFormsWithMaterialize(
+		this IServiceCollection self,
+		Action<MaterializeOptions> action)
+		=> UseRazorFormsWithMaterialize<MaterializeOptions>(self, action);
 
 	public static void ApplyMaterializeDefaults<T>(T o)
 		where T : MaterializeOptions
