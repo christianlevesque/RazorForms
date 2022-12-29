@@ -128,7 +128,7 @@ By default, the time is formatted as `t` (e.g., 12:45 PM). This matches the defa
 @model ExampleModel
 
 <form method="post">
-    <date-picker-input asp-for="TestDate" asp-format="{0:T}"/>
+    <time-picker-input asp-for="TestDate" asp-format="{0:T}"/>
     @* ... *@
 </form>
 ```
