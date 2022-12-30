@@ -2,7 +2,7 @@
 
 All RazorForms tag helpers use two main template files to create their output. Validity-aware tag helpers use `~/RazorFormsTemplates/Partials/ValidityAwareContent.cshtml`, while validity-unaware tag helpers use `~/RazorFormsTemplates/Partials/Content.cshtml`.
 
-Parts of the markup can be modified or disabled via configuration. For more information on configuring RazorForms, see [configuration](/docs/introduction/configuration) If you want to make changes to the markup that *aren't* supported by configuration, you can [create custom templates](/docs/guides/custom-templates).
+Parts of the markup can be modified or disabled via configuration. For more information on configuring RazorForms, see [configuration](/docs/introduction/configuration). If you want to make changes to the markup that *aren't* supported by configuration, you can [create custom templates](/docs/guides/custom-templates).
 
 ## Validity-unaware tag helper output
 

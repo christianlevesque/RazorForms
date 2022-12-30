@@ -20,13 +20,13 @@ This template is extremely simple because all it does is render either a `<label
 
 This template is used to render the output of tag helpers **without** validation information (`<check-input>` and `<radio-input>`). By default, it creates a `<div>` wrapper around the output and renders the `<input>` and `<label>` inside. The source code of this template can be found [on GitHub](https://github.com/christianlevesque/RazorForms/blob/main/RazorForms/RazorFormsTemplates/Partials/Content.cshtml).
 
-This template expects a model of [RazorForms.Models.MarkupModel<RazorForms.Options.FormComponentOptions>(/docs/api/MarkupModel).
+This template expects a model of [RazorForms.Models.MarkupModel](/docs/api/MarkupModel).
 
 ### `~/RazorFormsTemplates/Partials/ValidityAwareContent.cshtml`
 
 This template is used to render the output of tag helpers **with** validation information (`<text-input>`, `<text-area-input>`, `<select-input>`, `<check-input-group>`, and `<radio-input-group>`). By default, it creates a `<div>` wrapper around the entire output, creates a second `<div>` wrapper around the `<label>` and `<input>` tags, then optionally renders error messages to the user. The source can be found [on GitHub](https://github.com/christianlevesque/RazorForms/blob/main/RazorForms/RazorFormsTemplates/Partials/ValidityAwareContent.cshtml).
 
-This template expects a model of [RazorForms.Models.ValidityAwareMarkupModel](/docs/api/ValidityAwareMarkupModel), which extends [MarkupModel<ValidityAwareFormComponentOptions>](/docs/api/MarkupModel).
+This template expects a model of [RazorForms.Models.ValidityAwareMarkupModel](/docs/api/ValidityAwareMarkupModel), which extends [MarkupModel](/docs/api/MarkupModel).
 
 ## GUIDE Setting up custom templates
 
@@ -124,5 +124,5 @@ builder.Services.UseRazorForms(o =>
 If you want to fundamentally change the way all tag helpers render, you can! All you need to do in that case is change the name of your template file to match the RazorForms template you want to override.
 
 - If you want to change the rendering of all validity-aware tag helpers (`<text-input>`, `<text-area-input>`, `<select-input>`, `<check-input-group>`, and `<radio-input-group>`), create a new template in your project root at `~/RazorFormsTemplates/Partials/ValidityAwareContent.cshtml`. Make sure that its model is of type [RazorForms.Models.ValidityAwareMarkupModel](/docs/api/ValidityAwareMarkupModel).
-- If you want to change the rendering of all validity-unaware tag helpers (`<check-input>`, `<radio-input>`), create a new template in your project root at `~/RazorFormsTemplates/Partials/Content.cshtml`. Make sure that its model is of type [RazorForms.Models.MarkupModel<RazorForms.Options.FormComponentOptions>](/docs/api/MarkupModel).
+- If you want to change the rendering of all validity-unaware tag helpers (`<check-input>`, `<radio-input>`), create a new template in your project root at `~/RazorFormsTemplates/Partials/Content.cshtml`. Make sure that its model is of type [RazorForms.Models.MarkupModel](/docs/api/MarkupModel).
 - If you want to change the rendering of all wrappers around `<label>` and `<input>` tags, create a new template in your project root at `~/RazorFormsTemplates/Partials/WrappedContent.cshtml`. Make sure that its model is of type [RazorForms.Models.WrappedContentModel](/docs/api/WrappedContentModel).

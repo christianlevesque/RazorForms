@@ -1,5 +1,5 @@
 ﻿# ValidityAwareMarkupModel
-Extends: [RazorForms.Models.MarkupModel<ValidityAwareFormComponentOptions>](/docs/api/MarkupModel)
+Extends: [RazorForms.Models.MarkupModel](/docs/api/MarkupModel)
 
 The `ValidityAwareMarkupModel` class is the model used for rendering validity-aware tag helper content to a template file.
 
