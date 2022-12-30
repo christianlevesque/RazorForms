@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -11,12 +11,16 @@ using RazorForms.Options;
 
 namespace RazorForms.TagHelpers;
 
-public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMarkupModel, FormComponentWithValidationOptions>
+/// <summary>
+/// Adds common functionality for use among all validity-aware RazorForms tag helpers
+/// </summary>
+public abstract class ValidityAwareTagHelperBase<TOptions> : TagHelperBase<ValidityAwareMarkupModel, TOptions>
+	where TOptions : ValidityAwareFormComponentOptions, new()
 {
 	protected ValidityAwareTagHelperBase(
 		IHtmlGenerator htmlGenerator,
 		IHtmlHelper htmlHelper,
-		FormComponentWithValidationOptions options) 
+		TOptions options) 
 		: base(
 			htmlGenerator,
 			htmlHelper,
@@ -38,7 +42,7 @@ public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMa
 				return _isValid.Value;
 			}
 
-			_isValid = ViewContext.ModelState.GetFieldValidationState(For.Name) == ModelValidationState.Invalid;
+			_isValid = ViewContext.ModelState.GetFieldValidationState(For.Name) == ModelValidationState.Valid;
 
 			return _isValid.Value;
 		}
@@ -78,26 +82,74 @@ public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMa
 #endregion
 
 #region Model generation and manipulation
-	protected override Task ProcessModel(ValidityAwareMarkupModel model)
+	/// <inheritdoc/>
+	protected override void ProcessModel(ValidityAwareMarkupModel model)
 	{
 		model.IsValid = IsValid;
 		model.IsInvalid = IsInvalid;
 		model.Errors = Errors;
-
-		return Task.CompletedTask;
 	}
+
+	protected override void SetupModelOptions(TOptions options)
+	{
+		base.SetupModelOptions(options);
+		options.AlwaysRenderErrorContainer = Options.AlwaysRenderErrorContainer;
+	}
+
 #endregion
 
 #region CSS generation
 	protected override void AddCssClasses(
-		MarkupModel<FormComponentWithValidationOptions> model)
+		TOptions options,
+		TagHelperAttributeList attributeList)
 	{
-		base.AddCssClasses(model);
+		var classAttribute = attributeList.FirstOrDefault(a => a.Name == "class");
+		var componentWrapperClasses = Utilities.MergeCssStrings(classAttribute?.Value.ToString(), Options.ComponentWrapperClasses);
 
-		model.ElementOptions.InputBlockWrapperClasses = Options.InputBlockWrapperClasses;
-		model.ElementOptions.ErrorWrapperClasses = Options.ErrorWrapperClasses;
-		model.ElementOptions.ErrorClasses = Options.ErrorClasses;
-		model.ElementOptions.AlwaysRenderErrorContainer = Options.AlwaysRenderErrorContainer;
+		options.ComponentWrapperClasses = CreateValidityAwareClasses(
+			componentWrapperClasses,
+			Options.ComponentWrapperValidClasses,
+			Options.ComponentWrapperInvalidClasses);
+		options.InputBlockWrapperClasses = CreateValidityAwareClasses(
+			Options.InputBlockWrapperClasses,
+			Options.InputBlockWrapperValidClasses,
+			Options.InputBlockWrapperInvalidClasses);
+		options.InputWrapperClasses = CreateValidityAwareClasses(
+			Options.InputWrapperClasses,
+			Options.InputWrapperValidClasses,
+			Options.InputWrapperInvalidClasses);
+		options.LabelWrapperClasses = CreateValidityAwareClasses(
+			Options.LabelWrapperClasses,
+			Options.LabelWrapperValidClasses,
+			Options.LabelWrapperInvalidClasses);
+		options.ErrorWrapperClasses = Options.ErrorWrapperClasses;
+		options.ErrorClasses = Options.ErrorClasses;
+	}
+
+	/// <summary>
+	/// Creates a final string of CSS classes based on the validation state of the current form element
+	/// </summary>
+	/// <param name="baseClasses">Classes that should be added regardless of validity</param>
+	/// <param name="validClasses">Classes that should be added only if the form element is explicitly valid</param>
+	/// <param name="invalidClasses">Classes that should be added only if the form element is explicitly invalid</param>
+	/// <returns>The calculated CSS classes</returns>
+	protected virtual string CreateValidityAwareClasses(
+		string baseClasses,
+		string validClasses,
+		string invalidClasses)
+	{
+		var sb = new StringBuilder(baseClasses);
+
+		if (IsValid)
+		{
+			sb.AppendWithLeadingSpace(validClasses);
+		}
+		else if (IsInvalid)
+		{
+			sb.AppendWithLeadingSpace(invalidClasses);
+		}
+
+		return sb.ToString();
 	}
 
 	/// <summary>
@@ -113,15 +165,15 @@ public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMa
 		string validClasses,
 		string invalidClasses)
 	{
-		AddClass(output, baseClasses);
+		Utilities.AddClassesToOutput(output, baseClasses);
 
 		if (IsValid)
 		{
-			AddClass(output, validClasses);
+			Utilities.AddClassesToOutput(output, validClasses);
 		}
 		else if (IsInvalid)
 		{
-			AddClass(output, invalidClasses);
+			Utilities.AddClassesToOutput(output, invalidClasses);
 		}
 	}
 
@@ -143,16 +195,6 @@ public abstract class ValidityAwareTagHelperBase : TagHelperBase<ValidityAwareMa
 			Options.LabelClasses,
 			Options.LabelValidClasses,
 			Options.LabelInvalidClasses);
-	}
-
-	/// <inheritdoc />
-	protected override void ApplyCssClassesToComponent(TagHelperOutput component)
-	{
-		AddValidityAwareClasses(
-			component,
-			Options.ComponentWrapperClasses,
-			Options.ComponentWrapperValidClasses,
-			Options.ComponentWrapperInvalidClasses);
 	}
 #endregion
 }

@@ -1,43 +1,47 @@
 @using RazorForms.Models
+@using RazorForms.Options
 @model RazorForms.Models.ValidityAwareMarkupModel
 
 @{
 	const string partialPath = "~/RazorFormsTemplates/Partials/WrappedContent.cshtml";
+	var options = (ValidityAwareFormComponentOptions)Model.ElementOptions;
 
 	var inputContent = await Html.PartialAsync(
 		partialPath,
-		new PartialMarkupModel(
+		new WrappedContentModel(
 			Model.InputHtml,
-			Model.ElementOptions.InputWrapperClasses,
-			Model.ElementOptions.RemoveWrappers));
+			options.InputWrapperClasses,
+			options.RemoveWrappers));
 
 	var labelContent = await Html.PartialAsync(
 		partialPath,
-		new PartialMarkupModel(
+		new WrappedContentModel(
 			Model.LabelHtml,
-			Model.ElementOptions.LabelWrapperClasses,
-			Model.ElementOptions.RemoveWrappers));
+			options.LabelWrapperClasses,
+			options.RemoveWrappers));
 }
 
-<div class="@Model.ElementOptions.InputBlockWrapperClasses">
-	@if (Model.ElementOptions.InputFirst)
-	{
-		@inputContent
-		@labelContent
-	}
-	else
-	{
-		@labelContent
-		@inputContent
-	}
+<div class="@options.ComponentWrapperClasses">
+	<div class="@options.InputBlockWrapperClasses">
+    	@if (options.InputFirst)
+    	{
+    		@inputContent
+    		@labelContent
+    	}
+    	else
+    	{
+    		@labelContent
+    		@inputContent
+    	}
+    </div>
+
+    @if (options.AlwaysRenderErrorContainer || Model.IsInvalid)
+    {
+    	<ul class="@options.ErrorWrapperClasses">
+    		@foreach (var e in Model.Errors)
+    		{
+    			<li class="@options.ErrorClasses">@e</li>
+    		}
+    	</ul>
+    }
 </div>
-
-@if (Model.ElementOptions.AlwaysRenderErrorContainer || Model.IsInvalid)
-{
-	<ul class="@Model.ElementOptions.ErrorWrapperClasses">
-		@foreach (var e in Model.Errors)
-		{
-			<li class="@Model.ElementOptions.ErrorClasses">@e</li>
-		}
-	</ul>
-}

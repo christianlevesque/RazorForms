@@ -3,14 +3,16 @@ using RazorForms.Options;
 
 namespace RazorForms.Models;
 
-public class MarkupModel<TOptions>
-	where TOptions : FormComponentOptions
+/// <summary>
+/// The model used when rendering validity-unaware content 
+/// </summary>
+public class MarkupModel
 {
 	/// <summary>
 	/// Represents the HTML content of the &lt;input&gt; element
 	/// </summary>
 	/// <remarks>
-	/// The input HTML will be null if the <see cref="IFormComponentOptions.RenderInputInsideLabel"/> option is <c>true</c>.
+	/// The input HTML will be null if the <see cref="FormComponentOptions.RenderInputInsideLabel"/> option is <c>true</c>.
 	/// </remarks>
 	public TagHelperOutput? InputHtml { get; set; }
 
@@ -22,5 +24,5 @@ public class MarkupModel<TOptions>
 	/// <summary>
 	/// Configuration options for this form element type
 	/// </summary>
-	public TOptions ElementOptions { get; set; } = default!;
+	public object ElementOptions { get; set; } = default!;
 }

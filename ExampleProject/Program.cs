@@ -1,22 +1,22 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RazorForms.Materialize.Options;
 using RazorForms.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages()
-	.AddRazorRuntimeCompilation();
+builder.Services.AddRazorPages();
 
-builder.Services.UseRazorForms(CustomSetup);
+builder.Services.UseRazorForms<CustomOptions>(CustomSetup);
 
-// builder.Services.UseRazorFormsWithMaterialize(MaterializeSetup);
+// builder.Services.UseRazorFormsWithMaterialize<MaterializeOptions>(MaterializeSetup);
 
-// builder.Services.UseRazorFormsWithBulma(BulmaSetup);
+// builder.Services.UseRazorFormsWithBulma<RazorFormsOptions>(BulmaSetup);
 
-// builder.Services.UseRazorFormsWithBootstrap5(Bootstrap5Setup);
-// builder.Services.UseRazorFormsWithBootstrap5FloatingLabels(Bootstrap5Setup);
+// builder.Services.UseRazorFormsWithBootstrap5<RazorFormsOptions>(Bootstrap5Setup);
+// builder.Services.UseRazorFormsWithBootstrap5FloatingLabels<RazorFormsOptions>(Bootstrap5Setup);
 
 var app = builder.Build();
 
@@ -34,11 +34,10 @@ app.UseRouting();
 app.MapRazorPages();
 app.Run();
 
-static void CustomSetup(RazorFormsOptions o)
+static void CustomSetup(CustomOptions o)
 {
-	var validationOptions = new FormComponentWithValidationOptions
+	var validationOptions = new ValidityAwareFormComponentOptions
 	{
-		TemplatePath = RazorFormsExtensions.ValidityAwareContentPartial,
 		AlwaysRenderErrorContainer = true,
 		ComponentWrapperClasses = "component",
 		ErrorWrapperClasses = "error-wrapper",
@@ -49,7 +48,6 @@ static void CustomSetup(RazorFormsOptions o)
 
 	var standardOptions = new FormComponentOptions
 	{
-		TemplatePath = RazorFormsExtensions.ContentPartial,
 		ComponentWrapperClasses = "component",
 		InputWrapperClasses = "input-wrapper",
 		LabelWrapperClasses = "label-wrapper"
@@ -68,19 +66,19 @@ static void Bootstrap5Setup(RazorFormsOptions o)
 {
 	// Text
 	o.TextInputOptions.ComponentWrapperClasses = "mb-3";
-	o.TextInputOptions.ErrorWrapperClasses = $"{o.TextInputOptions.ErrorWrapperClasses} mt-1";
+	o.TextInputOptions.ErrorWrapperClasses = "mt-1";
 	o.TextInputOptions.ErrorClasses = "small";
 	o.TextInputOptions.AlwaysRenderErrorContainer = true;
 
 	// TextArea
 	o.TextAreaInputOptions.ComponentWrapperClasses = "mb-3";
-	o.TextAreaInputOptions.ErrorWrapperClasses = $"{o.TextInputOptions.ErrorWrapperClasses} mt-1";
+	o.TextAreaInputOptions.ErrorWrapperClasses = "mt-1";
 	o.TextAreaInputOptions.ErrorClasses = "small";
 	o.TextAreaInputOptions.AlwaysRenderErrorContainer = true;
 
 	// Select
 	o.SelectInputOptions.ComponentWrapperClasses = "mb-3";
-	o.SelectInputOptions.ErrorWrapperClasses = $"{o.SelectInputOptions.ErrorWrapperClasses} mt-1";
+	o.SelectInputOptions.ErrorWrapperClasses = "mt-1";
 	o.SelectInputOptions.ErrorClasses = "small";
 	o.SelectInputOptions.AlwaysRenderErrorContainer = true;
 
@@ -96,7 +94,10 @@ static void BulmaSetup(RazorFormsOptions o)
 	
 }
 
-static void MaterializeSetup(RazorFormsOptions o)
+static void MaterializeSetup(MaterializeOptions o)
 {
 	
 }
+
+internal class CustomOptions : RazorFormsOptions
+{}

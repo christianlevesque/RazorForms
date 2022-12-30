@@ -7,7 +7,10 @@ using RazorForms.TagHelpers;
 
 namespace RazorForms.TagHelpers.Inputs;
 
-public class TextAreaInputTagHelper : ValidityAwareTagHelperBase
+/// <summary>
+/// Creates a &lt;textarea&gt; input
+/// </summary>
+public class TextAreaInputTagHelper : ValidityAwareTagHelperBase<ValidityAwareFormComponentOptions>
 {
 	public TextAreaInputTagHelper(
 		IHtmlGenerator htmlGenerator,
@@ -24,7 +27,7 @@ public class TextAreaInputTagHelper : ValidityAwareTagHelperBase
 	}
 
 	/// <inheritdoc />
-	protected override TagHelper CreateInput(TagHelperAttributeList attributes)
+	protected override TagHelper CreateInputTagHelper()
 	{
 		return new TextAreaTagHelper(HtmlGenerator)
 		{

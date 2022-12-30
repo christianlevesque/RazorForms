@@ -6,11 +6,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="../RazorForms/RazorForms.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.12" />
+	  <PackageReference Include="RazorForms" Version="1.0.0" />
+	  <PackageReference Include="RazorForms.Bootstrap5" Version="1.0.0" />
+	  <PackageReference Include="RazorForms.Bulma" Version="1.0.0" />
+	  <PackageReference Include="RazorForms.Materialize" Version="1.0.1" />
 	</ItemGroup>
 
 </Project>

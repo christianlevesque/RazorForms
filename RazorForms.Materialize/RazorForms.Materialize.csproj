@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+
+		<PackageId>RazorForms.Materialize</PackageId>
+		<Title>RazorForms.Materialize</Title>
+		<PackageVersion>1.0.1</PackageVersion>
+		<PackageReleaseNotes>
+			Initial release
+		</PackageReleaseNotes>
+		<Authors>Christian LeVesque</Authors>
+		<Description>An abstraction on top of RazorForms that adds support for the MaterializeCSS library</Description>
+		<Copyright>Copyright Christian LeVesque 2022</Copyright>
+		<PackageProjectUrl>https://www.razorforms.com</PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/christianlevesque/RazorForms</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>razor page form ui component materialize material</PackageTags>
+		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="RazorForms" Version="1.0.0" PrivateAssets="All" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="./README.md" Pack="true" PackagePath="/" />
+	</ItemGroup>
+
+</Project>

@@ -11,6 +11,9 @@ using RazorForms.Options;
 
 namespace RazorForms.TagHelpers.Inputs;
 
+/// <summary>
+/// Creates a checkbox &lt;input&gt;
+/// </summary>
 public class CheckInputTagHelper : CheckRadioTagHelperBase
 {
 	public CheckInputTagHelper(

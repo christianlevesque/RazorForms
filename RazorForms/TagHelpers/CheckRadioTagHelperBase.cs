@@ -8,7 +8,10 @@ using RazorForms.Options;
 
 namespace RazorForms.TagHelpers;
 
-public abstract class CheckRadioTagHelperBase : TagHelperBase<MarkupModel<FormComponentOptions>, FormComponentOptions>
+/// <summary>
+/// Adds common functionality for use between &lt;check-input&gt; and &lt;radio-input&gt;
+/// </summary>
+public abstract class CheckRadioTagHelperBase : TagHelperBase<MarkupModel, FormComponentOptions>
 {
 	protected const string HtmlIdAttributeName = "id";
 	protected const string HtmlCheckedAttributeName = "checked";
@@ -35,7 +38,7 @@ public abstract class CheckRadioTagHelperBase : TagHelperBase<MarkupModel<FormCo
 		LabelReceivesChildContent = true;
 	}
 
-	protected override TagHelper CreateInput(TagHelperAttributeList attributes)
+	protected override TagHelper CreateInputTagHelper()
 	{
 		return new InputTagHelper(HtmlGenerator)
 		{

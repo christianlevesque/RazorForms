@@ -1,7 +1,7 @@
-﻿using System;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.Linq;
 using System.Text;
+using System.Text.Encodings.Web;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using RazorForms.Options;
 
@@ -9,20 +9,6 @@ namespace RazorForms;
 
 public static class Utilities
 {
-	/// <summary>
-	/// Gets the <see cref="DescriptionAttribute"/> value associated with an enum member. If it does not exist, it returns the enum member stringified.
-	/// </summary>
-	/// <param name="e"></param>
-	/// <returns></returns>
-	public static string GetDescription(this Enum e)
-	{
-		var attr = e.GetType()
-		            .GetField(e.ToString())?
-		            .GetCustomAttributes(typeof (DescriptionAttribute), false)
-		            .FirstOrDefault() as DescriptionAttribute;
-		return attr?.Description ?? e.ToString();
-	}
-
 	/// <summary>
 	/// Appends a value to the given <see cref="StringBuilder"/> instance, including a leading space if the instance is not currently empty
 	/// </summary>
@@ -42,7 +28,7 @@ public static class Utilities
 	/// <summary>
 	/// Generates the &lt;label&gt; inner text and surrounds it with an HTML tag if necessary
 	/// </summary>
-	/// <param name="options">the current tag helper's <see cref="IFormComponentOptions"/></param>
+	/// <param name="options">the current tag helper's <see cref="FormComponentOptions"/></param>
 	/// <param name="text">the inner text to display in the &lt;label&gt;</param>
 	/// <returns></returns>
 	public static string GenerateLabelText(FormComponentOptions options, string text)
@@ -69,5 +55,52 @@ public static class Utilities
 		}
 
 		return new TagHelperAttributeList(inputAttributes);
+	}
+
+	/// <summary>
+	/// Merges two CSS strings while accounting that either or both may be null
+	/// </summary>
+	/// <param name="a">The first string to merge</param>
+	/// <param name="b">The second string to merge</param>
+	/// <returns></returns>
+	public static string MergeCssStrings(string? a, string? b)
+	{
+		var aIsEmpty = string.IsNullOrWhiteSpace(a);
+		var bIsEmpty = string.IsNullOrWhiteSpace(b);
+
+		if (aIsEmpty)
+		{
+			return bIsEmpty ? string.Empty : b!;
+		}
+
+		if (bIsEmpty)
+		{
+			return aIsEmpty ? string.Empty : a!;
+		}
+
+		return $"{a} {b}";
+	}
+
+	/// <summary>
+	/// Applies multiple space-separated CSS classes directly to a <see cref="TagHelperOutput"/>
+	/// </summary>
+	/// <param name="output">The <see cref="TagHelperOutput"/> receiving the classes</param>
+	/// <param name="classNames">A space-separated list of CSS classes to apply</param>
+	public static void AddClassesToOutput(TagHelperOutput output, string? classNames)
+	{
+		if (string.IsNullOrWhiteSpace(classNames))
+		{
+			return;
+		}
+
+		foreach (var c in classNames.Split(' '))
+		{
+			if (string.IsNullOrEmpty(c))
+			{
+				continue;
+			}
+
+			output.AddClass(c, HtmlEncoder.Default);
+		}
 	}
 }

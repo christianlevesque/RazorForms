@@ -5,7 +5,10 @@ using RazorForms.Options;
 
 namespace RazorForms.TagHelpers.Elements;
 
-public class RadioInputGroupTagHelper : ValidityAwareTagHelperBase
+/// <summary>
+/// Wraps around a series of &lt;radio-input&gt; tag helpers to create a group label and error output
+/// </summary>
+public class RadioInputGroupTagHelper : GroupTagHelperBase
 {
 	public RadioInputGroupTagHelper(
 		IHtmlGenerator htmlGenerator,
@@ -14,10 +17,7 @@ public class RadioInputGroupTagHelper : ValidityAwareTagHelperBase
 		: base(
 			htmlGenerator,
 			htmlHelper,
-			options.CheckInputGroupOptions)
+			options.RadioInputGroupOptions)
 	{
-		LabelReceivesChildContent = false;
-		InputTag = string.Empty;
-		InputTagMode = TagMode.StartTagAndEndTag;
 	}
 }

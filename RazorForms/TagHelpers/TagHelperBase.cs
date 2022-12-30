@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,16 +11,21 @@ using RazorForms.Options;
 
 namespace RazorForms.TagHelpers;
 
+/// <summary>
+/// Adds common functionality for use among all RazorForms tag helpers
+/// </summary>
+/// <typeparam name="TModel">The type of the razor component model</typeparam>
+/// <typeparam name="TOptions">The type of the options object</typeparam>
 public abstract class TagHelperBase<TModel, TOptions> : TagHelper
-	where TModel : MarkupModel<TOptions>, new()
+	where TModel : MarkupModel, new()
 	where TOptions : FormComponentOptions, new()
 {
 	protected readonly IHtmlGenerator HtmlGenerator;
-    protected readonly IHtmlHelper HtmlHelper;
-    protected readonly TOptions Options;
+	protected readonly IHtmlHelper HtmlHelper;
+	protected readonly TOptions Options;
 
-    protected readonly Func<bool, HtmlEncoder, Task<TagHelperContent>> DefaultTagHelperContent =
-	    (a, b) => Task.FromResult((TagHelperContent) new DefaultTagHelperContent());
+	protected readonly Func<bool, HtmlEncoder, Task<TagHelperContent>> DefaultTagHelperContent =
+		(a, b) => Task.FromResult((TagHelperContent)new DefaultTagHelperContent());
 
 	/// <summary>
 	/// Whether the &lt;label&gt; should receive the child content of the tag helper or not
@@ -29,7 +35,7 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 	/// <summary>
 	/// The HTML element to wrap the entire tag helper output with
 	/// </summary>
-	protected string ContainerTag { get; set; } = "div";
+	protected string ContainerTag { get; set; } = "";
 
 	/// <summary>
 	/// The <see cref="TagMode"/> to use for the tag helper output
@@ -48,6 +54,9 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 
 	[HtmlAttributeName("asp-for")]
 	public ModelExpression For { get; set; } = default!;
+
+	[HtmlAttributeName("template-path")]
+	public string? TemplatePath { get; set; }
 
 	[HtmlAttributeNotBound]
 	[ViewContext]
@@ -70,18 +79,21 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 		// Set up the output wrapper
 		output.TagName = ContainerTag;
 		output.TagMode = ContainerTagMode;
-		ApplyCssClassesToComponent(output);
 
 		// Set up model
 		var model = await GenerateHtmlModel(context, output);
-		await ProcessModel(model);
+		ProcessModel(model);
 
 		// Render content
-		var content = await HtmlHelper.PartialAsync($"~/{Options.TemplatePath}.cshtml", model);
+		(HtmlHelper as IViewContextAware)!.Contextualize(ViewContext);
+		var content = await HtmlHelper.PartialAsync(
+			TemplatePath ?? Options.TemplatePath,
+			model);
 		output.Content.SetHtmlContent(content);
 	}
 
 #region Model generation and manipulation
+
 	/// <summary>
 	/// Creates the <see cref="TModel"/> to be used by the Razor template
 	/// </summary>
@@ -90,9 +102,6 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 	/// <returns></returns>
 	protected async Task<TModel> GenerateHtmlModel(TagHelperContext context, TagHelperOutput output)
 	{
-		// The IHtmlHelper isn't ready to use as-is
-		(HtmlHelper as IViewContextAware)!.Contextualize(ViewContext);
-
 		// Set up the viewmodel to send to the Razor template
 		var model = new TModel
 		{
@@ -102,11 +111,11 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 
 		if (!Options.RenderInputInsideLabel)
 		{
-			model.InputHtml = await CreateInputCore(context, output);
+			model.InputHtml = await CreateInput(context, output);
 		}
 
-		SetupModelOptions(model.ElementOptions);
-		AddCssClasses(model);
+		SetupModelOptions((TOptions)model.ElementOptions);
+		AddCssClasses((TOptions)model.ElementOptions, output.Attributes);
 
 		return model;
 	}
@@ -115,7 +124,9 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 	/// Runs any additional processing on the model (e.g., processing additional properties for a child class of <see cref="MarkupModel{TOptions}"/>)
 	/// </summary>
 	/// <param name="model">The model to process</param>
-	protected virtual Task ProcessModel(TModel model) => Task.CompletedTask;
+	protected virtual void ProcessModel(TModel model)
+	{
+	}
 
 	/// <summary>
 	/// Transposes options from the class <see cref="TOptions"/> implementation to the one on the <see cref="MarkupModel{TOptions}"/>
@@ -126,9 +137,11 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 		options.InputFirst = Options.InputFirst;
 		options.RemoveWrappers = Options.RemoveWrappers;
 	}
+
 #endregion
 
 #region Tag helper creation
+
 	/// <summary>
 	/// Creates the &lt;label&gt; tag
 	/// </summary>
@@ -159,7 +172,7 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 			if (!string.IsNullOrEmpty(For.Metadata.DisplayName))
 			{
 				providedChildContent.AppendHtml(
-                	Utilities.GenerateLabelText(Options, For.Metadata.DisplayName));
+					Utilities.GenerateLabelText(Options, For.Metadata.DisplayName));
 			}
 			else
 			{
@@ -170,7 +183,7 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 
 		if (Options.RenderInputInsideLabel)
 		{
-			var inputContent = await CreateInputCore(context, output);
+			var inputContent = await CreateInput(context, output);
 
 			if (LabelReceivesChildContent)
 			{
@@ -206,6 +219,7 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 						.AppendHtml(inputContent);
 				}
 			}
+
 			labelOutput.Content.SetHtmlContent(labelChildContent);
 		}
 		else if (LabelReceivesChildContent)
@@ -226,12 +240,12 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 	/// <param name="context">The <see cref="TagHelperContext"/></param>
 	/// <param name="output">The <see cref="TagHelperOutput"/> of the root element</param>
 	/// <returns></returns>
-	protected async Task<TagHelperOutput> CreateInputCore(
+	protected async Task<TagHelperOutput> CreateInput(
 		TagHelperContext context,
 		TagHelperOutput output)
 	{
 		var attributes = Utilities.GetInputAttributes(output.Attributes);
-		var tagHelper = CreateInput(attributes);
+		var tagHelper = CreateInputTagHelper();
 
 		var inputOutput = new TagHelperOutput(
 			InputTag,
@@ -264,30 +278,35 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 	/// Adds additional attributes to the label's output
 	/// </summary>
 	/// <param name="attributes">The label attributes</param>
-	protected virtual void AddCustomLabelAttributes(TagHelperAttributeList attributes) {}
+	protected virtual void AddCustomLabelAttributes(TagHelperAttributeList attributes)
+	{
+	}
 
 	/// <summary>
 	/// Adds additional attributes to the input's output
 	/// </summary>
 	/// <param name="attributes">The input attributes</param>
-	protected virtual void AddCustomInputAttributes(TagHelperAttributeList attributes) {}
+	protected virtual void AddCustomInputAttributes(TagHelperAttributeList attributes)
+	{
+	}
 
 	/// <summary>
 	/// Creates the HTML tag that captures user input (&lt;Input&gt;, &lt;select&gt;, etc.)
 	/// </summary>
-	/// <param name="attributes">The attributes to pass to the tag</param>
 	/// <returns></returns>
-	protected virtual TagHelper? CreateInput(TagHelperAttributeList attributes) => null;
+	protected virtual TagHelper? CreateInputTagHelper() => null;
+
 #endregion
 
 #region CSS generation
+
 	/// <summary>
 	/// Applies CSS classes to the &lt;input&gt; tag
 	/// </summary>
 	/// <param name="input">The <see cref="TagHelperOutput"/> for the &lt;input&gt; tag</param>
 	protected virtual void ApplyCssClassesToInput(TagHelperOutput input)
 	{
-		AddClass(input, Options.InputClasses);
+		Utilities.AddClassesToOutput(input, Options.InputClasses);
 	}
 
 	/// <summary>
@@ -296,49 +315,22 @@ public abstract class TagHelperBase<TModel, TOptions> : TagHelper
 	/// <param name="label">The <see cref="TagHelperOutput"/> for the &lt;label&gt; tag</param>
 	protected virtual void ApplyCssClassesToLabel(TagHelperOutput label)
 	{
-		AddClass(label, Options.LabelClasses);
+		Utilities.AddClassesToOutput(label, Options.LabelClasses);
 	}
 
 	/// <summary>
-	/// Applies CSS classes to the component wrapper element
+	/// Adds CSS classes to the <see cref="TOptions"/> based on the provided options
 	/// </summary>
-	/// <param name="component">The <see cref="TagHelperOutput"/> for the wrapper element</param>
-	protected virtual void ApplyCssClassesToComponent(TagHelperOutput component)
+	/// <param name="options">The <see cref="TOptions"/> to add classes to</param>
+	/// <param name="attributeList">The <see cref="TagHelperAttributeList"/> that contains potential component wrapper CSS classes</param>
+	protected virtual void AddCssClasses(TOptions options, TagHelperAttributeList attributeList)
 	{
-		AddClass(component, Options.ComponentWrapperClasses);
+		var classAttribute = attributeList.FirstOrDefault(a => a.Name == "class");
+		options.ComponentWrapperClasses =
+			Utilities.MergeCssStrings(classAttribute?.Value.ToString(), Options.ComponentWrapperClasses);
+		options.InputWrapperClasses = Options.InputWrapperClasses;
+		options.LabelWrapperClasses = Options.LabelWrapperClasses;
 	}
 
-	/// <summary>
-	/// Applies CSS classes directly to a <see cref="TagHelperOutput"/>
-	/// </summary>
-	/// <param name="output">The <see cref="TagHelperOutput"/> receiving the classes</param>
-	/// <param name="classNames">A space-separated list of CSS classes to apply</param>
-	protected virtual void AddClass(TagHelperOutput output, string? classNames)
-	{
-		if (string.IsNullOrWhiteSpace(classNames))
-		{
-			return;
-		}
-
-		foreach (var c in classNames.Split(' '))
-		{
-			if (string.IsNullOrEmpty(c))
-			{
-				continue;
-			}
-
-			output.AddClass(c, HtmlEncoder.Default);
-		}
-	}
-
-	/// <summary>
-	/// Adds CSS classes to the <see cref="MarkupModel{TOptions}"/> based on the provided options
-	/// </summary>
-	/// <param name="model">The <see cref="MarkupModel{TOptions}"/> to add classes to</param>
-	protected virtual void AddCssClasses(MarkupModel<TOptions> model)
-	{
-		model.ElementOptions.InputWrapperClasses = Options.InputWrapperClasses;
-		model.ElementOptions.LabelWrapperClasses = Options.LabelWrapperClasses;
-	}
 #endregion
 }

@@ -1,8 +1,5 @@
 {
-	"name": "christianlevesque.io",
-	"version": "1.0.0",
-	"description": "My personal website and blog",
-	"main": "index.js",
+	"private": true,
 	"scripts": {
 		"clean": "rimraf build",
 		"build": "npm-run-all clean build:scripts build:site",
@@ -11,13 +8,6 @@
 		"serve:11ty": "npx @11ty/eleventy --serve --output=build --formats=md,hbs",
 		"serve": "npm-run-all clean build:scripts serve:11ty"
 	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com//christianlevesque/christianlevesque.io"
-	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
 	"devDependencies": {
 		"@11ty/eleventy": "^1.0.1",
 		"@11ty/eleventy-plugin-syntaxhighlight": "^4.0.0",
@@ -32,6 +22,7 @@
 		"file-loader": "^6.2.0",
 		"html-webpack-plugin": "^5.5.0",
 		"markdown-it": "^12.3.2",
+		"markdown-it-anchor": "^8.6.6",
 		"mini-css-extract-plugin": "^2.6.1",
 		"npm-run-all": "^4.1.5",
 		"postcss": "^8.4.14",
