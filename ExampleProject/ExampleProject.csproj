@@ -6,10 +6,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="../RazorForms/RazorForms.csproj" />
-		<ProjectReference Include="..\RazorForms.Bootstrap5\RazorForms.Bootstrap5.csproj" />
-		<ProjectReference Include="..\RazorForms.Bulma\RazorForms.Bulma.csproj" />
-		<ProjectReference Include="..\RazorForms.Materialize\RazorForms.Materialize.csproj" />
+	  <PackageReference Include="RazorForms" Version="1.0.0" />
+	  <PackageReference Include="RazorForms.Bootstrap5" Version="1.0.0" />
+	  <PackageReference Include="RazorForms.Bulma" Version="1.0.0" />
+	  <PackageReference Include="RazorForms.Materialize" Version="1.0.1" />
 	</ItemGroup>
 
 </Project>
